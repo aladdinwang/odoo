@@ -33,7 +33,6 @@ class ProductCategory(models.Model):
     product_count = fields.Integer(
         '# Products', compute='_compute_product_count',
         help="The number of products under this category (Does not consider the children categories)")
-    code = fields.Char('Code')
 
     @api.depends('name', 'parent_id.complete_name')
     def _compute_complete_name(self):

@@ -462,7 +462,6 @@
                         </div>
                         <group name="first" col="2">
                             <field name="parent_id" class="oe_inline"/>
-                            <field name="code" class="oe_inline"/>
                         </group>
                     </sheet>
                 </form>

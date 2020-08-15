@@ -1,0 +1,1 @@
+docker run --name postgresql -v /Users/enjunwang/workspace/odoo/pgdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:9.6.18
