@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record id="view_partner_form_qm" model="ir.ui.view">
+        <field name="name">res.partner.property.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position='replace'/>
+            <xpath expr="//page[@name='accounting']/group" position="before">
+                <group>
+                    <group string="Account Info">
+                        <field name="account_name"/>
+                        <field name="vat"/>
+                        <field name="account_address"/>
+                        <field name="account_phone"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

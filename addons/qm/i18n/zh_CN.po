@@ -31,3 +31,36 @@ msgstr "编号"
 #: model:ir.model.fields,field_description:product.field_product_template__default_code
 msgid "Internal Reference"
 msgstr "编号"
+
+
+#. module: account
+#: model:ir.actions.act_window,name:account.action_account_bank_journal_form
+#: model:ir.model,name:account.model_res_partner_bank
+#: model:ir.ui.menu,name:account.menu_action_account_invoice_bank_journal_form
+#: model_terms:ir.ui.view,arch_db:account.view_partner_property_form
+msgid "Bank Accounts"
+msgstr "银行账户"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_res_partner__account_name
+#: model:ir.model.fields,field_description:qm.field_res_users__account_name
+msgid "Account Name"
+msgstr "抬头"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_res_partner__account_phone
+#: model:ir.model.fields,field_description:qm.field_res_users__account_phone
+msgid "Account Phone"
+msgstr "电话"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_res_partner__account_address
+#: model:ir.model.fields,field_description:qm.field_res_users__account_address
+msgid "Account Street"
+msgstr "地址"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_partner_form_qm
+msgid "Account Info"
+msgstr "开票信息"
