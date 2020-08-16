@@ -3,16 +3,33 @@
     <record id="view_partner_form_qm" model="ir.ui.view">
         <field name="name">res.partner.property.form.inherit</field>
         <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="type" position="before">
+                <field name="supplier_rank" invisible="1"/>
+                <field name="customer_rank" invisible="1"/>
+                <field name="customer_type" attrs="{'invisible': [('customer_rank','=', 0)]}"/>
+                <field name="supplier_type" attrs="{'invisible': [('supplier_rank','=', 0)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_property_form_qm" model="ir.ui.view">
+        <field name="name">res.partner.property.form.inherit</field>
+        <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form"/>
         <field name="arch" type="xml">
             <field name="vat" position='replace'/>
             <xpath expr="//page[@name='accounting']/group" position="before">
                 <group>
-                    <group string="Account Info">
+                    <group string="Account Info" attrs="{'invisible': [('customer_rank','=', 0)]}">
                         <field name="account_name"/>
                         <field name="vat"/>
                         <field name="account_address"/>
                         <field name="account_phone"/>
+                    </group>
+                    <group string="Payment Info" attrs="{'invisible': ['|', ('supplier_rank','=', 0), ('customer_rank','>', 0)]}">
+                        <field name="account_name"/>
                     </group>
                 </group>
             </xpath>

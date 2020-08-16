@@ -61,6 +61,64 @@ msgid "Account Street"
 msgstr "地址"
 
 #. module: qm
-#: model_terms:ir.ui.view,arch_db:qm.view_partner_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_partner_property_form_qm
 msgid "Account Info"
 msgstr "开票信息"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__res_partner__supplier_type__agent
+msgid "Agent"
+msgstr "代理商"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_res_partner__customer_type
+#: model:ir.model.fields,field_description:qm.field_res_users__customer_type
+msgid "Customer Type"
+msgstr "客户类型"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__res_partner__customer_type__dealer
+#: model:ir.model.fields.selection,name:qm.selection__res_partner__supplier_type__dealer
+msgid "Dealer"
+msgstr "经销商"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__res_partner__customer_type__endpoint
+msgid "Endpoint"
+msgstr "终端"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_partner_property_form_qm
+msgid "Payment Info"
+msgstr "付款信息"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__res_partner__customer_type__person
+msgid "Person"
+msgstr "个体户"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__res_partner__customer_type__platform
+msgid "Platform"
+msgstr "平台"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__res_partner__supplier_type__producer
+msgid "Producer"
+msgstr "生产商"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_res_partner__supplier_type
+#: model:ir.model.fields,field_description:qm.field_res_users__supplier_type
+msgid "Supplier Type"
+msgstr "供应商类型"
+
+#. module: account
+#: model:ir.ui.menu,name:account.account_invoicing_menu
+#: model:ir.ui.menu,name:account.menu_finance
+#: model_terms:ir.ui.view,arch_db:account.digest_digest_view_form
+#: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:account.view_partner_property_form
+msgid "Invoicing"
+msgstr "开票和付款"
+
