@@ -165,3 +165,9 @@ msgstr "搜索税收分类编号"
 #: model_terms:ir.ui.view,arch_db:qm.view_tax_classification_tree
 msgid "Tax Classification"
 msgstr "税收分类编号"
+
+
+#. module: qm
+#: model:ir.ui.menu,name:qm.menu_product_category_action_sale
+msgid "Product Categories"
+msgstr "品类"

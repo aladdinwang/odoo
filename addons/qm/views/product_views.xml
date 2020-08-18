@@ -25,4 +25,9 @@
             </field>
         </field>
     </record>
+
+
+    <menuitem id="menu_product_category_action_sale"
+        action="product.product_category_action_form"
+        parent="sale.prod_config_main" sequence="0"/>
 </odoo>
