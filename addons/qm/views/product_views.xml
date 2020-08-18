@@ -26,8 +26,19 @@
         </field>
     </record>
 
+    <record id="view_product_category_list_qm" model="ir.ui.view">
+        <field name="name">product.category.list.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view"/>
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="complete_code" string="Complete Code"/>
+            </field>
+        </field>
+    </record>
+
 
     <menuitem id="menu_product_category_action_sale"
         action="product.product_category_action_form"
-        parent="sale.prod_config_main" sequence="0"/>
+        parent="sale.prod_config_main" sequence="0 "/>
 </odoo>
