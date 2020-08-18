@@ -122,3 +122,46 @@ msgstr "供应商类型"
 msgid "Invoicing"
 msgstr "开票和付款"
 
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_tax_classification__code
+msgid "Code"
+msgstr "编号"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_tax_classification__code18
+msgid "Code18"
+msgstr "18位编号"
+
+#. module: qm
+#: model_terms:ir.actions.act_window,help:qm.action_tax_classification_form
+msgid "Create a new tax classification"
+msgstr "创建一个新的税收分类编号"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_tax_classification__name
+msgid "Name"
+msgstr "票面简称"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_order__outer_name
+msgid "Outer Order Reference"
+msgstr "外部订单号码"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_tax_classification_search
+msgid "Search Tax Classification"
+msgstr "搜索税收分类编号"
+
+#. module: qm
+#: model:ir.actions.act_window,name:qm.action_tax_classification_form
+#: model:ir.model,name:qm.model_tax_classification
+#: model:ir.model.fields,field_description:qm.field_product_category__tax_classification_id
+#: model:ir.ui.menu,name:qm.menu_action_tax_classification_form
+#: model_terms:ir.ui.view,arch_db:qm.view_tax_classification_form
+#: model_terms:ir.ui.view,arch_db:qm.view_tax_classification_tree
+msgid "Tax Classification"
+msgstr "税收分类编号"

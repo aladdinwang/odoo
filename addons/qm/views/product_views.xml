@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
                 <field name="code" class="oe_inline"/>
+                <field name="tax_classification_id" class="oe_inline"/>
             </field>
         </field>
     </record>

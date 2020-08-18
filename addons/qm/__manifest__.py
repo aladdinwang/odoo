@@ -10,6 +10,7 @@
         "data/account_chart_template_data.xml",
         "views/product_views.xml",
         "views/res_partner_views.xml",
+        "views/tax_views.xml",
     ],
     "demo": [],
     "installable": True,
