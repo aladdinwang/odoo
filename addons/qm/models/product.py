@@ -10,7 +10,7 @@ class ProductCategory(models.Model):
     )
     tax_classification_id = fields.Many2one("tax.classification", "Tax Classification")
 
-    @api.depends("code", "parent_id.code", "parent_id.complete_name")
+    @api.depends("code", "parent_id.complete_code")
     def _compute_complete_code(self):
         for category in self:
             if category.parent_id:

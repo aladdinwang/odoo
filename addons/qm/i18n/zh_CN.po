@@ -22,16 +22,15 @@ msgstr "品类"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_product_category__code
+#: model_terms:ir.ui.view,arch_db:qm.view_product_category_list_qm
 msgid "Reference"
 msgstr "编号"
-
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__default_code
 #: model:ir.model.fields,field_description:product.field_product_template__default_code
 msgid "Internal Reference"
 msgstr "编号"
-
 
 #. module: account
 #: model:ir.actions.act_window,name:account.action_account_bank_journal_form
@@ -171,3 +170,10 @@ msgstr "税收分类编号"
 #: model:ir.ui.menu,name:qm.menu_product_category_action_sale
 msgid "Product Categories"
 msgstr "品类"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_product_category__complete_code
+#: model_terms:ir.ui.view,arch_db:qm.view_product_category_list_qm
+msgid "Complete Code"
+msgstr "完整编号"

@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
                 <field name="code" class="oe_inline"/>
+                <field name="complete_code" class="oe_inline"/>
                 <field name="tax_classification_id" class="oe_inline"/>
             </field>
         </field>
@@ -32,6 +33,7 @@
         <field name="inherit_id" ref="product.product_category_list_view"/>
         <field name="arch" type="xml">
             <field name="display_name" position="after">
+                <field name="code" string="Reference"/>
                 <field name="complete_code" string="Complete Code"/>
             </field>
         </field>
