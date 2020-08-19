@@ -14,7 +14,7 @@
         <field name="amount">13</field>
         <field name="amount_type">percent</field>
         <field name="type_tax_use">sale</field>
-        <field name="price_include" eval="0"/>
+        <field name="price_include" eval="1"/>
         <field name="tax_group_id" ref="l10n_cn_tax_group_vat_13"/>
         <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
             (0,0, {
@@ -47,7 +47,7 @@
         <field name="amount">6</field>
         <field name="amount_type">percent</field>
         <field name="type_tax_use">sale</field>
-        <field name="price_include" eval="0"/>
+        <field name="price_include" eval="1"/>
         <field name="tax_group_id" ref="l10n_cn.l10n_cn_tax_group_vat_6"/>
         <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
             (0,0, {
@@ -81,7 +81,7 @@
         <field name="amount">13</field>
         <field name="amount_type">percent</field>
         <field name="type_tax_use">purchase</field>
-        <field name="price_include" eval="0"/>
+        <field name="price_include" eval="1"/>
         <field name="tax_group_id" ref="l10n_cn_tax_group_vat_13"/>
         <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
             (0,0, {
@@ -114,7 +114,7 @@
         <field name="amount">6</field>
         <field name="amount_type">percent</field>
         <field name="type_tax_use">purchase</field>
-        <field name="price_include" eval="0"/>
+        <field name="price_include" eval="1"/>
         <field name="tax_group_id" ref="l10n_cn.l10n_cn_tax_group_vat_6"/>
         <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
             (0,0, {
