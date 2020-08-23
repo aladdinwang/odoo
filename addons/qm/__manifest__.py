@@ -12,6 +12,7 @@
         "views/product_views.xml",
         "views/res_partner_views.xml",
         "views/tax_views.xml",
+        "views/purchase_views.xml",
     ],
     "demo": [],
     "installable": True,

@@ -121,6 +121,25 @@ msgstr "供应商类型"
 msgid "Invoicing"
 msgstr "开票和付款"
 
+#. module: account
+#: model:ir.actions.act_window,name:account.action_move_out_invoice_type
+#: model:ir.actions.report,name:account.account_invoices
+#: model:ir.model.fields,field_description:account.field_account_invoice_send__invoice_ids
+#: model:ir.model.fields,field_description:account.field_account_payment__invoice_ids
+#: model:ir.model.fields,field_description:account.field_account_payment_register__invoice_ids
+#: model:ir.model.fields,field_description:account.field_res_partner__invoice_ids
+#: model:ir.model.fields,field_description:account.field_res_users__invoice_ids
+#: model:ir.ui.menu,name:account.menu_action_account_invoice_report_all
+#: model:ir.ui.menu,name:account.menu_action_move_out_invoice_type
+#: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+#: model_terms:ir.ui.view,arch_db:account.portal_my_invoices
+#: model_terms:ir.ui.view,arch_db:account.view_account_invoice_report_search
+#: model_terms:ir.ui.view,arch_db:account.view_account_payment_graph
+#: model_terms:ir.ui.view,arch_db:account.view_invoice_tree
+msgid "Invoices"
+msgstr "收款"
+
+
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_tax_classification__code
