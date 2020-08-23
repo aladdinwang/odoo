@@ -196,3 +196,8 @@ msgstr "品类"
 #: model_terms:ir.ui.view,arch_db:qm.view_product_category_list_qm
 msgid "Complete Code"
 msgstr "完整编号"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_order__sale_order_ids
+msgid "Sale Orders"
+msgstr "销售订单"
