@@ -41,4 +41,32 @@ class ProductProduct(models.Model):
                         ],
                     )
                 )
-                print(product.default_code)
+
+
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+
+    @api.onchange("company_id")
+    def _onchange_company_id(self):
+        return {
+            "domain": {
+                "property_account_income_id": self.company_id
+                and [
+                    ("company_id", "=", self.company_id.id),
+                    ("internal_group", "=", "income"),
+                ]
+                or [],
+                "property_account_expense_id": self.company_id
+                and [
+                    ("company_id", "=", self.company_id.id),
+                    ("internal_group", "=", "expense"),
+                ]
+                or [],
+                "property_account_creditor_price_difference": self.company_id
+                and [
+                    ("company_id", "=", self.company_id.id),
+                    ("internal_group", "=", "equity"),
+                ]
+                or [],
+            }
+        }
