@@ -201,3 +201,20 @@ msgstr "完整编号"
 #: model:ir.model.fields,field_description:qm.field_purchase_order__sale_order_ids
 msgid "Sale Orders"
 msgstr "销售订单"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
+msgid "Total"
+msgstr "总计"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_move__payment_amount
+#: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
+msgid "Payment Amount"
+msgstr "支付金额"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_move__payment_difference
+#: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
+msgid "Payment Difference"
+msgstr "差异金额"
