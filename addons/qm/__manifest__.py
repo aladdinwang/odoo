@@ -5,6 +5,9 @@
     "depends": ["base", "mail", "uom", "account", "purchase", "l10n_cn_standard"],
     "description": "专为荃玟定制",
     "data": [
+        "data/tax.classification.csv",
+        "data/product.category.csv",
+        "data/ir.sequence.csv",
         "data/l10n_cn_chart_data.xml",
         "data/account.account.template.csv",
         "data/ir_sequence_data.xml",

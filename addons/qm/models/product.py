@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.osv import expression
 
 
 class ProductCategory(models.Model):
@@ -20,6 +21,60 @@ class ProductCategory(models.Model):
             else:
                 category.complete_code = category.code
 
+    @api.model
+    def _name_search(
+        self, name="", args=None, operator="ilike", limit=100, name_get_uid=None
+    ):
+        if not args:
+            args = []
+
+        if name:
+            positive_operators = ["=", "ilike", "=ilike", "like", "=like"]
+            cate_ids = []
+
+            if operator in positive_operators:
+                cate_ids = self._search(
+                    [("complete_code", "=", name)] + args,
+                    limit=limit,
+                    access_rights_uid=name_get_uid,
+                )
+                if not cate_ids:
+                    cate_ids = self._search(
+                        [("name", "=", name)] + args,
+                        limit=limit,
+                        access_rights_uid=name_get_uid,
+                    )
+            if not cate_ids and operator not in expression.NEGATIVE_TERM_OPERATORS:
+                cate_ids = self._search(
+                    args + [("complete_code", operator, name)], limit=limit
+                )
+                if not limit or len(cate_ids) < limit:
+                    limit2 = (limit - len(cate_ids)) if limit else False
+                    cate2_ids = self._search(
+                        args + [("name", operator, name), ("id", "not in", cate_ids)],
+                        limit=limit2,
+                        access_rights_uid=name_get_uid,
+                    )
+                    cate_ids.extend(cate2_ids)
+            elif not cate_ids and operator in expression.NEGATIVE_TERM_OPERATORS:
+                domain = expression.OR(
+                    [
+                        [
+                            "&",
+                            ("complete_code", operator, name),
+                            ("name", operator, name),
+                        ],
+                        ["&", ("complete_code", "=", False), ("name", operator, name)],
+                    ]
+                )
+                domain = expression.AND([args, domain])
+                cate_ids = self._search(
+                    domain, limit=limit, access_rights_uid=name_get_uid
+                )
+        else:
+            cate_ids = self._search(args, limit=limit, access_rights_uid=name_get_uid)
+        return models.lazy_name_get(self.browse(cate_ids).with_user(name_get_uid))
+
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
@@ -37,7 +92,9 @@ class ProductProduct(models.Model):
                         None,
                         [
                             product.product_tmpl_id.categ_id.complete_code,
-                            self.env["ir.sequence"].next_by_code("product.product"),
+                            self.env["ir.sequence"].next_by_code(
+                                f"product.{product.product_tmpl_id.categ_id.complete_code}"
+                            ),
                         ],
                     )
                 )
