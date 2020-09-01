@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record id="view_order_tree_qm" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="invoice_status" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="invoice_status" position="after">
+                <field name="invoice_state" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_order_form_qm" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//button[@name='action_draft']" position="after">
+                 <button name="action_to_invoice" type="object" string="To Invoice" confirm="Are you sure"
+                         attrs="{'invisible': [('invoice_state', '!=', 'pending'), ('state', 'in', ['sale', 'done'])]}"/>
+             </xpath>
+
+            <field name="partner_id" position="after">
+                <field name="outer_name"/>
+            </field>
+            <field name="payment_term_id" position="after">
+                <field name="invoice_state"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter_qm" model="ir.ui.view">
+        <field name="name">sale.order.list.select.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='to_invoice']" position="replace">
+                <filter name="pending" string="Pending" domain="[('invoice_state','=','pending')]" />
+            </xpath>
+            <xpath expr="//filter[@name='upselling']" position="replace">
+                <filter name="to_invoice2" string="To Invoice" domain="[('invoice_state','=','to_invoice')]" />
+                <filter name="invoiced" string="Invoiced" domain="[('invoice_state','=','invoiced')]" />
+            </xpath>
+        </field>
+    </record>
+
+    <delete model="ir.actions.server" id="sale.model_sale_order_action_quotation_sent"/>
+    <record id="model_sale_order_action_to_invoice" model="ir.actions.server">
+        <field name="name">To Invoice</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_to_invoice()</field>
+    </record>
+
+</odoo>

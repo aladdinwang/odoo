@@ -17,6 +17,21 @@ class AccountMove(models.Model):
     payment_difference = fields.Monetary(
         compute="_compute_payment_amount", readonly=True
     )
+    state = fields.Selection(
+        selection=[
+            ("draft", "Draft"),
+            ("posted", "Posted"),
+            ("to_invoice", "To Invoice"),
+            ("invoiced", "Invoiced"),
+            ("cancel", "Cancelled"),
+        ],
+        string="Status",
+        required=True,
+        readonly=True,
+        copy=False,
+        tracking=True,
+        default="draft",
+    )
 
     @api.depends("amount_total_signed", "payment_ids")
     def _compute_payment_amount(self):
