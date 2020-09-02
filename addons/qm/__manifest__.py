@@ -27,6 +27,7 @@
         "views/purchase_views.xml",
         "views/account_move_views.xml",
         "views/sale_views.xml",
+        "views/account_invoice_views.xml",
     ],
     "demo": [],
     "installable": True,

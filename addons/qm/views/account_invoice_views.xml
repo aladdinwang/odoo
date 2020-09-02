@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_invoice_tree_qm" model="ir.ui.view">
+        <field name="name">qm.account.invoice.tree</field>
+        <field name="model">account.invoice</field>
+        <field name="arch" type="xml">
+            <tree string="Invoices" decoration-muted="state=='cancel'" multi_edit="1">
+                <field name="name"/>
+                <field name="code" optional="show"/>
+                <field name="invoice_date" optional="show"/>
+                <field name="express_code" optional="show"/>
+                <field name="sent_date" optional="show"/>
+                <field name="amount_untaxed" optional="hide"/>
+                <field name="amount_tax" optional="hide"/>
+                <field name="amount_total" optional="show"/>
+                <field name="state" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_account_invoice_form_qm" model="ir.ui.view">
+        <field name="name">qm.account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Invoices">
+                <header>
+                    <button name="action_done" states="cancel" type="object" class="btn-primary" string="Finish" groups="account.group_account_invoice"/>
+                    <button name="action_cancel" states="done" type="object" string="Cancel" groups="account.group_account_invoice"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="invoice_date"/>
+                            <field name="amount_untaxed"/>
+                            <field name="amount_tax"/>
+                            <field name="amount_total"/>
+                        </group>
+                        <group>
+                            <field name="express_code"/>
+                            <field name="sent_date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter_qm" model="ir.ui.view">
+        <field name="name">qm.account.invoice.select</field>
+        <field name="model">account.invoice</field>
+        <field name="arch" type="xml">
+            <search string="Search Invoice">
+                <field name="name" string="Invoice Name"/>
+                <field name="code" string="Invoice Code"/>
+                <field name="express_code" string="Express Reference"/>
+                <separator/>
+                <filter name="done" string="Done" domain="[('state','=','done')]" />
+                <filter name="cancel" string="Cancelled" domain="[('state','=','cancel')]" />
+                <separator/>
+                <filter string="Invoice Date" name="invoice_date" date="invoice_date"/>
+                <filter string="Sent Date" name="sent_date" date="sent_date"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_account_invoice_qm" model="ir.actions.act_window">
+        <field name="name">Invoices</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_account_invoice_tree_qm"/>
+        <field name="search_view_id" ref="view_account_invoice_filter_qm"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a customer invoice
+          </p><p>
+            Create invoices
+          </p>
+        </field>
+    </record>
+
+
+    <menuitem
+    id="menu_action_account_invoice_qm"
+    action="action_account_invoice_qm"
+    parent="account.menu_finance_receivables"
+    sequence="1"/>
+</odoo>
