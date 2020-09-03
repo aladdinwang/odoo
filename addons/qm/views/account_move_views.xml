@@ -46,9 +46,33 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
             <field name="state" position="attributes">
-                <attribute name="statusbar_visible">draft,posted,to_invoice,invoiced</attribute>
+                <attribute name="statusbar_visible">draft,posted,to_invoice,invoiced,sent,received,returned</attribute>
             </field>
+
+            <field name="ref" position="replace">
+                <field name="state2"/>
+            </field>
+            <xpath expr="//page[@id='invoice_tab']" position="after">
+                <page id="account_invoices_tab" string="Invoices"
+                      attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"
+                      groups="account.group_account_invoice">
+                    <field name="invoice_ids" mode="tree">
+                        <tree editable="bottom" string="Invoices">
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="invoice_date"/>
+                            <field name="amount_untaxed" optional="show" sum="Untaxed"/>
+                            <field name="amount_tax" optional="show" sum="Tax"/>
+                            <field name="amount_total" optional="show" sum="Total"/>
+                            <field name="express_code" optional="show"/>
+                            <field name="sent_date" optional="show"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
         </field>
     </record>
+
+
 
 </odoo>

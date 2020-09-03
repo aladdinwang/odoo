@@ -18,19 +18,38 @@ class AccountMove(models.Model):
         compute="_compute_payment_amount", readonly=True
     )
     state = fields.Selection(
-        selection=[
-            ("draft", "Draft"),
-            ("posted", "Posted"),
+        selection_add=[
             ("to_invoice", "To Invoice"),
             ("invoiced", "Invoiced"),
-            ("cancel", "Cancelled"),
+            ("sent", "Sent"),
+            ("received", "Received"),
+            ("returned", "Returned"),
+        ]
+    )
+
+    state2 = fields.Selection(
+        selection=[
+            ("to_invoice", "To Invoice"),
+            ("invoiced", "Invoiced"),
+            ("sent", "Sent"),
+            ("received", "Received"),
+            ("returned", "Returned"),
         ],
-        string="Status",
+        string="Status2",
+        inverse="_set_state",
         required=True,
-        readonly=True,
         copy=False,
         tracking=True,
-        default="draft",
+        default="to_invoice",
+    )
+
+    invoice_ids = fields.Many2many(
+        "account.invoice",
+        "account_invoice_rel",
+        "move_id",
+        "invoice_id",
+        string="Invoices",
+        copy=False,
     )
 
     @api.depends("amount_total_signed", "payment_ids")
@@ -44,3 +63,7 @@ class AccountMove(models.Model):
             move.payment_difference = move.amount_total_signed - payment_total
         not_paid_moves.payment_amount = 0
         not_paid_moves.payment_difference = 0
+
+    def _set_state(self):
+        for move in self:
+            move.write({"state": move.state2})

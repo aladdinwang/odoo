@@ -40,9 +40,9 @@
                         <group>
                             <field name="code"/>
                             <field name="invoice_date"/>
-                            <field name="amount_untaxed"/>
-                            <field name="amount_tax"/>
-                            <field name="amount_total"/>
+                            <field name="amount_untaxed" widget="monetary"/>
+                            <field name="amount_tax" widget="monetary"/>
+                            <field name="amount_total" widget="monetary"/>
                         </group>
                         <group>
                             <field name="express_code"/>

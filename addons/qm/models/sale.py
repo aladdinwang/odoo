@@ -36,7 +36,7 @@ class SaleOrder(models.Model):
             ):
                 order.invoice_state = "to_invoice"
             elif invoice_state_all and all(
-                state == "invoiced" for state in invoice_state_all
+                state in ("invoiced", "sent", "received") for state in invoice_state_all
             ):
                 order.invoice_state = "invoiced"
             else:
