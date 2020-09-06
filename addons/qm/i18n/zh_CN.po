@@ -434,3 +434,8 @@ msgstr "创建日期"
 #, python-format
 msgid "Amount is more than actual"
 msgstr "付款金额不得超过订单总金额"
+
+#. module: qm
+#: model:ir.actions.server,name:qm.model_account_move_action_down_xlsx
+msgid "Download Xlsx"
+msgstr "发票导出"

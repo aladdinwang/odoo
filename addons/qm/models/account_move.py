@@ -66,7 +66,8 @@ class AccountMove(models.Model):
 
     def _set_state(self):
         for move in self:
-            move.write({"state": move.state2})
+            if move.state in ("to_invoice", "invoiced", "sent", "received", "returned"):
+                move.write({"state": move.state2})
 
     def action_download_xlsx(self):
         return {

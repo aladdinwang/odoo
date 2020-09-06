@@ -76,7 +76,7 @@ class ExcelExport(http.Controller):
         def _get_sku_variant(product):
             ret = []
             for v in product.product_template_attribute_value_ids:
-                ret.append(f"{v.attribute_id.name}:{v.product_attribute_value_id.name}")
+                ret.append(f"{v.product_attribute_value_id.name}")
             return ", ".join(ret)
 
         row_index_it = count()
