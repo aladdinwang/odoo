@@ -11,6 +11,6 @@ class AccountPayment(models.Model):
                 if pay.payment_type == "outbound" and pay.payment_difference > 0:
                     raise UserError(_("Amount is more than actual"))
 
-                if pay.payment_type == "outbound" and pay.payment_difference < 0:
+                elif pay.payment_type == "inbound" and pay.payment_difference < 0:
                     raise UserError(_("Amount is more than actual"))
         return super(AccountPayment, self).post()

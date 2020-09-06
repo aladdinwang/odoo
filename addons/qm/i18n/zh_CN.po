@@ -420,3 +420,17 @@ msgstr "已签收"
 #: model:ir.model.fields.selection,name:qm.selection__account_move__state__sent
 msgid "Sent"
 msgstr "已寄出"
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
+msgid "Create Date"
+msgstr "创建日期"
+
+
+#. module: qm
+#: code:addons/qm/models/account_payment.py:0
+#: code:addons/qm/models/account_payment.py:0
+#, python-format
+msgid "Amount is more than actual"
+msgstr "付款金额不得超过订单总金额"

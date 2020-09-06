@@ -67,3 +67,10 @@ class AccountMove(models.Model):
     def _set_state(self):
         for move in self:
             move.write({"state": move.state2})
+
+    def action_download_xlsx(self):
+        return {
+            "type": "ir.actions.act_url",
+            "url": f'/qm/export/xlsx?model=account.move&ids={",".join([str(rec.id) for rec in self])}',
+            "target": "self",
+        }
