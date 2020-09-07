@@ -5,6 +5,7 @@
     "depends": [
         "base",
         "mail",
+        "product",
         "uom",
         "sale",
         "sale_management",
