@@ -97,7 +97,13 @@ class ExcelExport(http.Controller):
                     "partner_name": line.partner_id.account_name,
                     "vat": line.partner_id.vat,
                     "partner_address": " ".join(
-                        [line.partner_id.account_address, line.partner_id.account_phone]
+                        map(
+                            str,
+                            [
+                                line.partner_id.account_address,
+                                line.partner_id.account_phone,
+                            ],
+                        )
                     ),
                     "acc_number": _get_acc_number(line.partner_id),
                     "sku_code": line.product_id.code,

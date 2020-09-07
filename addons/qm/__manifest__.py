@@ -7,6 +7,7 @@
         "mail",
         "uom",
         "sale",
+        "sale_management",
         "account",
         "purchase",
         "l10n_cn_standard",
