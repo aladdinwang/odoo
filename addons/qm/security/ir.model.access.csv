@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tax_classification_account_user,qm.tax.classification.account.user,qm.model_tax_classification,base.group_user,1,1,1,1
+access_account_invoice_account_user,qm.account.invoice.account.user,qm.model_account_invoice,base.group_user,1,1,1,1

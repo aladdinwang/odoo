@@ -15,6 +15,7 @@
     ],
     "description": "专为荃玟定制",
     "data": [
+        "security/ir.model.access.csv",
         "data/tax.classification.csv",
         "data/product.category.csv",
         "data/ir.sequence.csv",
