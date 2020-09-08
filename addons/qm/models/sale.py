@@ -28,7 +28,7 @@ class SaleOrder(models.Model):
         change_default=True,
         index=True,
         tracking=1,
-        domain="['&', ('company_type', '=', 'company'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+        domain="[('is_company', '=', True), '|', ('company_id', '=', False), ('company_id', '=', company_id)]",
     )
 
     @api.depends("invoice_ids.state")
