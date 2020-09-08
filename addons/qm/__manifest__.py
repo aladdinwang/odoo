@@ -5,6 +5,7 @@
     "depends": [
         "base",
         "mail",
+        "contacts",
         "product",
         "uom",
         "sale",
