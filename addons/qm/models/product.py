@@ -127,3 +127,8 @@ class ProductTemplate(models.Model):
                 or [],
             }
         }
+
+    def _set_default_code(self):
+        for template in self:
+            if len(template.product_variant_ids) == 1:
+                template.default_code = template.product_variant_ids[0].default_code

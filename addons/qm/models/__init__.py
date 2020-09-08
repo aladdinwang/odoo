@@ -1,4 +1,5 @@
 from . import product
+from . import product_attribute
 from . import res_partner
 from . import sale
 from . import tax

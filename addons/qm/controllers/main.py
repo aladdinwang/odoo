@@ -77,7 +77,7 @@ class ExcelExport(http.Controller):
             ret = []
             for v in product.product_template_attribute_value_ids:
                 ret.append(f"{v.product_attribute_value_id.name}")
-            return ", ".join(ret)
+            return " ".join(ret)
 
         row_index_it = count()
         output = io.BytesIO()
