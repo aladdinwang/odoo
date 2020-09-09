@@ -278,7 +278,7 @@ msgstr "发票"
 #. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_order_form_qm
 msgid "Are you sure"
-msgstr "是否确认"
+msgstr "是否确认开票?"
 
 
 #. module: qm
