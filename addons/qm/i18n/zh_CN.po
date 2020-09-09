@@ -237,13 +237,17 @@ msgstr "源单据"
 
 #. module: qm
 #: model:ir.actions.server,name:qm.model_sale_order_action_to_invoice
+#: model_terms:ir.ui.view,arch_db:qm.view_order_form_qm
+msgid "To Invoice"
+msgstr "申请开票"
+
+#. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_move__state2__to_invoice
 #: model:ir.model.fields.selection,name:qm.selection__account_move__state__to_invoice
 #: model:ir.model.fields.selection,name:qm.selection__sale_order__invoice_state__to_invoice
-#: model_terms:ir.ui.view,arch_db:qm.view_order_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_sales_order_filter_qm
 msgid "To Invoice"
-msgstr "已申请开票"
+msgstr "已申请"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_move__state2__invoiced
