@@ -21,7 +21,7 @@
         <field name="arch" type="xml">
              <xpath expr="//button[@name='action_draft']" position="after">
                  <button name="action_to_invoice" type="object" string="To Invoice" confirm="Are you sure"
-                         attrs="{'invisible': [('invoice_state', '!=', 'pending'), ('state', 'in', ['sale', 'done']), ('invoice_status', '=', 'no')]}"/>
+                         attrs="{'invisible': ['|', ('invoice_state', '!=', 'pending'), '|', ('state', 'not in', ['sale', 'done']), ('invoice_status', '!=', 'to invoice')]}"/>
              </xpath>
 
             <field name="partner_id" position="after">
