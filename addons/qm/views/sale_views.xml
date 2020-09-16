@@ -48,7 +48,6 @@
         </field>
     </record>
 
-    <!--<delete model="ir.actions.server" id="sale.model_sale_order_action_quotation_sent"/>-->
     <record id="model_sale_order_action_to_invoice" model="ir.actions.server">
         <field name="name">To Invoice</field>
         <field name="model_id" ref="sale.model_sale_order"/>
@@ -57,5 +56,9 @@
         <field name="state">code</field>
         <field name="code">action = records.action_to_invoice()</field>
     </record>
+
+    <data noupdate="1">
+        <delete model="ir.actions.server" search="[('id','=',ref('sale.model_sale_order_action_quotation_sent'))]"/>
+    </data>
 
 </odoo>

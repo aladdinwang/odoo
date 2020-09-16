@@ -114,12 +114,18 @@ msgstr "供应商类型"
 
 #. module: account
 #: model:ir.ui.menu,name:account.account_invoicing_menu
-#: model:ir.ui.menu,name:account.menu_finance
 #: model_terms:ir.ui.view,arch_db:account.digest_digest_view_form
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:account.view_partner_property_form
 msgid "Invoicing"
 msgstr "开票和付款"
+
+
+#. module: account
+#: model:ir.ui.menu,name:account.menu_finance
+msgid "Invoicing"
+msgstr "财务"
+
 
 #. module: account
 #: model:ir.actions.act_window,name:account.action_move_out_invoice_type
@@ -138,7 +144,6 @@ msgstr "开票和付款"
 #: model_terms:ir.ui.view,arch_db:account.view_invoice_tree
 msgid "Invoices"
 msgstr "收款"
-
 
 
 #. module: qm
@@ -354,6 +359,13 @@ msgid "Invoices"
 msgstr "发票"
 
 #. module: qm
+#: model:ir.actions.act_window,name:qm.action_move_out_invoice_refund_type_qm
+#: model:ir.ui.menu,name:qm.menu_action_move_out_invoice_refund_type_qm
+msgid "Invoices"
+msgstr "账单"
+
+
+#. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
 msgid "Search Invoice"
 msgstr "搜索发票"
@@ -443,3 +455,15 @@ msgstr "付款金额不得超过订单总金额"
 #: model:ir.actions.server,name:qm.model_account_move_action_down_xlsx
 msgid "Download Xlsx"
 msgstr "发票导出"
+
+#. module: sale
+#: model:ir.model.fields,field_description:sale.field_sale_order__invoice_ids
+#: model_terms:ir.ui.view,arch_db:sale.view_order_form
+msgid "Invoices"
+msgstr "账单"
+
+#. module: account
+#: model:ir.model.fields.selection,name:account.selection__account_invoice_report__type__out_invoice
+#: model:ir.model.fields.selection,name:account.selection__account_move__type__out_invoice
+msgid "Customer Invoice"
+msgstr "客户账单"
