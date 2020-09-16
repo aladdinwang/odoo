@@ -78,6 +78,7 @@ class ProductCategory(models.Model):
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
+    _order = "id desc"
 
     default_code = fields.Char(
         "Internal Reference", compute="_compute_default_code", store=True, index=True
@@ -102,6 +103,7 @@ class ProductProduct(models.Model):
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
+    _order = "id desc"
 
     @api.onchange("company_id")
     def _onchange_company_id(self):

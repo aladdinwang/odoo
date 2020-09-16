@@ -467,3 +467,10 @@ msgstr "账单"
 #: model:ir.model.fields.selection,name:account.selection__account_move__type__out_invoice
 msgid "Customer Invoice"
 msgstr "客户账单"
+
+#. module: sale
+#: model:ir.model.fields,field_description:sale.field_sale_advance_payment_inv__advance_payment_method
+#: model_terms:ir.ui.view,arch_db:sale.view_order_form
+#: model_terms:ir.ui.view,arch_db:sale.view_sale_advance_payment_inv
+msgid "Create Invoice"
+msgstr "创建账单"
