@@ -10,6 +10,7 @@ class ProductCategory(models.Model):
         "Complete Code", compute="_compute_complete_code", store=True
     )
     tax_classification_id = fields.Many2one("tax.classification", "Tax Classification")
+    has_seq = fields.Boolean("Has ir.seq", compute="_compute_has_seq", store=True)
 
     @api.depends("code", "parent_id.complete_code")
     def _compute_complete_code(self):
@@ -20,6 +21,26 @@ class ProductCategory(models.Model):
                 )
             else:
                 category.complete_code = category.code
+
+    @api.depends("complete_code")
+    def _compute_has_seq(self):
+        if not self._ids:
+            return
+
+        self.env.cr.execute(
+            """
+        SELECT categ.id FROM product_category categ
+        INNER JOIN ir_sequence seq ON seq.code = concat('product.', categ.complete_code)
+        WHERE categ.id IN %s
+        """,
+            [self._ids],
+        )
+        categ_ids_with_seq = set([x[0] for x in self.env.cr.fetchall()])
+        for categ in self:
+            if categ.id in categ_ids_with_seq:
+                categ.has_seq = True
+            else:
+                categ.has_seq = False
 
     @api.model
     def _name_search(
@@ -104,6 +125,12 @@ class ProductProduct(models.Model):
 class ProductTemplate(models.Model):
     _inherit = "product.template"
     _order = "id desc"
+
+    @api.model
+    def default_get(self, default_fields):
+        values = super().default_get(default_fields)
+        values["type"] = "product"
+        return values
 
     @api.onchange("company_id")
     def _onchange_company_id(self):
