@@ -415,6 +415,7 @@ msgstr "状态"
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_move__state2__returned
 #: model:ir.model.fields.selection,name:qm.selection__account_move__state__returned
+#: model:ir.model.fields.selection,name:qm.selection__sale_order__invoice_state__returned
 msgid "Returned"
 msgstr "已退回"
 
@@ -427,6 +428,7 @@ msgstr "状态"
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_move__state2__received
 #: model:ir.model.fields.selection,name:qm.selection__account_move__state__received
+#: model:ir.model.fields.selection,name:qm.selection__sale_order__invoice_state__received
 msgid "Received"
 msgstr "已签收"
 
@@ -434,6 +436,7 @@ msgstr "已签收"
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_move__state2__sent
 #: model:ir.model.fields.selection,name:qm.selection__account_move__state__sent
+#: model:ir.model.fields.selection,name:qm.selection__sale_order__invoice_state__sent
 msgid "Sent"
 msgstr "已寄出"
 

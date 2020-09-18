@@ -11,6 +11,9 @@ class SaleOrder(models.Model):
             ("pending", "Pending"),
             ("to_invoice", "To Invoice"),
             ("invoiced", "Invoiced"),
+            ("sent", "Sent"),
+            ("received", "Received"),
+            ("returned", "Returned"),
         ],
         string="Invoice State",
         default="pending",
@@ -41,17 +44,30 @@ class SaleOrder(models.Model):
             return
 
         for order in confirmed_orders:
-            invoice_state_all = [invoice.state for invoice in order.invoice_ids]
-            if invoice_state_all and all(
-                state == "to_invoice" for state in invoice_state_all
-            ):
-                order.invoice_state = "to_invoice"
-            elif invoice_state_all and all(
-                state in ("invoiced", "sent", "received") for state in invoice_state_all
-            ):
-                order.invoice_state = "invoiced"
-            else:
+            invoice_states = set(
+                [
+                    invoice.state
+                    for invoice in order.invoice_ids
+                    if invoice.state not in ["draft", "cancel"]
+                ]
+            )
+            if any(state == "posted" for state in invoice_states):
                 order.invoice_state = "pending"
+            elif len(invoice_states) == 1 and invoice_states & {
+                "to_invoice",
+                "invoiced",
+                "sent",
+                "received",
+                "returned",
+            }:
+                order.invoice_state = list(invoice_states)[0]
+            else:
+                # use the last one state
+                last_invoice = max(order.invoice_ids, default=None, key=lambda x: x.id)
+                if last_invoice:
+                    order.invoice_state = last_invoice.state
+                else:
+                    order.invoice_state = "pending"
 
     def action_to_invoice(self):
         sale_orders = self.filtered(
