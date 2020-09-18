@@ -474,3 +474,15 @@ msgstr "客户账单"
 #: model_terms:ir.ui.view,arch_db:sale.view_sale_advance_payment_inv
 msgid "Create Invoice"
 msgstr "创建账单"
+
+
+#. module: qm
+#: code:addons/qm/models/product.py:0
+#, python-format
+msgid "Default code is duplicate"
+msgstr ""
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_product_category__number_next
+msgid "Number Next"
+msgstr "Sku序号"

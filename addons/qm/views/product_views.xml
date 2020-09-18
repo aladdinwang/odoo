@@ -9,6 +9,8 @@
                 <field name="code" class="oe_inline"/>
                 <field name="complete_code" class="oe_inline"/>
                 <field name="tax_classification_id" class="oe_inline"/>
+                <field name="has_seq" invisible="1"/>
+                <field name="number_next" class="oe_inline" attrs="{'invisible': [('has_seq', '=', False)]}"/>
             </field>
         </field>
     </record>
@@ -38,6 +40,7 @@
             <field name="display_name" position="after">
                 <field name="code" string="Reference"/>
                 <field name="complete_code" string="Complete Code"/>
+                <field name="tax_classification_id"/>
             </field>
         </field>
     </record>

@@ -1,4 +1,5 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
+from odoo.exceptions import ValidationError
 from odoo.osv import expression
 
 
@@ -10,7 +11,10 @@ class ProductCategory(models.Model):
         "Complete Code", compute="_compute_complete_code", store=True
     )
     tax_classification_id = fields.Many2one("tax.classification", "Tax Classification")
-    has_seq = fields.Boolean("Has ir.seq", compute="_compute_has_seq", store=True)
+    has_seq = fields.Boolean("Has ir.seq", compute="_compute_seq", store=True)
+    number_next = fields.Integer(
+        "Number Next", compute="_compute_seq", inverse="_set_number_next"
+    )
 
     @api.depends("code", "parent_id.complete_code")
     def _compute_complete_code(self):
@@ -23,24 +27,32 @@ class ProductCategory(models.Model):
                 category.complete_code = category.code
 
     @api.depends("complete_code")
-    def _compute_has_seq(self):
+    def _compute_seq(self):
         if not self._ids:
             return
 
         self.env.cr.execute(
             """
-        SELECT categ.id FROM product_category categ
+        SELECT categ.id, seq.number_next FROM product_category categ
         INNER JOIN ir_sequence seq ON seq.code = concat('product.', categ.complete_code)
         WHERE categ.id IN %s
         """,
             [self._ids],
         )
-        categ_ids_with_seq = set([x[0] for x in self.env.cr.fetchall()])
+        categ_id_to_number_next = {x[0]: x[1] for x in self.env.cr.fetchall()}
         for categ in self:
-            if categ.id in categ_ids_with_seq:
+            if categ.id in categ_id_to_number_next:
                 categ.has_seq = True
+                categ.number_next = categ_id_to_number_next[categ.id]
             else:
                 categ.has_seq = False
+                categ.number_next = False
+
+    def _set_number_seq(self):
+        for categ in self:
+            self.env["ir.sequence"].search(
+                [("code", "=", f"product.{categ.complete_code}")]
+            ).write({"number_next": categ.number_next})
 
     @api.model
     def _name_search(
@@ -102,7 +114,11 @@ class ProductProduct(models.Model):
     _order = "id desc"
 
     default_code = fields.Char(
-        "Internal Reference", compute="_compute_default_code", store=True, index=True
+        "Internal Reference",
+        compute="_compute_default_code",
+        store=True,
+        index=True,
+        inverse="_validate_default_code",
     )
 
     @api.depends("product_tmpl_id.categ_id")
@@ -120,6 +136,12 @@ class ProductProduct(models.Model):
                         ],
                     )
                 )
+
+    @api.constrains("default_code")
+    def _validate_default_code(self):
+        for product in self:
+            if self.search_count([("default_code", "=", product.default_code)]) > 1:
+                raise ValidationError(_("Default code is duplicate"))
 
 
 class ProductTemplate(models.Model):
