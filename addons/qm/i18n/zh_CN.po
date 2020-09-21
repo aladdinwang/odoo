@@ -489,3 +489,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:qm.field_product_category__number_next
 msgid "Number Next"
 msgstr "Sku序号"
+
+
+#. module: stock
+#: code:addons/stock/models/stock_quant.py:0
+#: model_terms:ir.ui.view,arch_db:stock.product_form_view_procurement_button
+#: model_terms:ir.ui.view,arch_db:stock.product_product_view_form_easy_inherit_stock
+#: model_terms:ir.ui.view,arch_db:stock.product_template_form_view_procurement_button
+#, python-format
+msgid "Update Quantity"
+msgstr "更新库存"

@@ -43,6 +43,14 @@ class SaleOrder(models.Model):
         if not confirmed_orders:
             return
 
+        _sale_order_invoice_states = {
+            "to_invoice",
+            "invoiced",
+            "sent",
+            "received",
+            "returned",
+        }
+
         for order in confirmed_orders:
             invoice_states = set(
                 [
@@ -53,18 +61,14 @@ class SaleOrder(models.Model):
             )
             if any(state == "posted" for state in invoice_states):
                 order.invoice_state = "pending"
-            elif len(invoice_states) == 1 and invoice_states & {
-                "to_invoice",
-                "invoiced",
-                "sent",
-                "received",
-                "returned",
-            }:
+            elif (
+                len(invoice_states) == 1 and invoice_states & _sale_order_invoice_states
+            ):
                 order.invoice_state = list(invoice_states)[0]
             else:
                 # use the last one state
                 last_invoice = max(order.invoice_ids, default=None, key=lambda x: x.id)
-                if last_invoice:
+                if last_invoice and last_invoice.state in _sale_order_invoice_states:
                     order.invoice_state = last_invoice.state
                 else:
                     order.invoice_state = "pending"
