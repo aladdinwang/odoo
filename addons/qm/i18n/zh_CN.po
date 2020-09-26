@@ -499,3 +499,8 @@ msgstr "Sku序号"
 #, python-format
 msgid "Update Quantity"
 msgstr "更新库存"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_move__amount_total_signed
+msgid "Total Signed"
+msgstr "合计"
