@@ -10,6 +10,7 @@
             </field>
             <field name="invoice_status" position="after">
                 <field name="invoice_state" optional="show"/>
+                <field name="payment_state" optional="show"/>
             </field>
         </field>
     </record>
@@ -29,6 +30,7 @@
             </field>
             <field name="payment_term_id" position="after">
                 <field name="invoice_state"/>
+                <field name="payment_state"/>
             </field>
         </field>
     </record>

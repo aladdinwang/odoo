@@ -504,3 +504,33 @@ msgstr "更新库存"
 #: model:ir.model.fields,field_description:account.field_account_move__amount_total_signed
 msgid "Total Signed"
 msgstr "合计"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_payment__overpayment_amount
+msgid "Overpayment Amount"
+msgstr "溢缴金额"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_order__payment_state__not_paid
+#: model:ir.model.fields.selection,name:qm.selection__sale_order__payment_state__not_paid
+msgid "Not Paid"
+msgstr "未付款"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_order__payment_state__paid
+#: model:ir.model.fields.selection,name:qm.selection__sale_order__payment_state__paid
+msgid "Paid"
+msgstr "已支付"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_order__payment_state
+#: model:ir.model.fields,field_description:qm.field_sale_order__payment_state
+msgid "Payment"
+msgstr "付款"
+
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_order__payment_state__in_payment
+#: model:ir.model.fields.selection,name:qm.selection__sale_order__payment_state__in_payment
+msgid "In Payment"
+msgstr "付款中"
