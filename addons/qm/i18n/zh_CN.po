@@ -345,7 +345,7 @@ msgstr "发票代码"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_invoice__name
 msgid "Invoice Reference"
-msgstr "发票号码"
+msgstr "发票代码"
 
 #. module: qm
 #: model:ir.actions.act_window,name:qm.action_account_invoice_qm
