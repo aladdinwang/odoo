@@ -60,11 +60,14 @@
                         <tree editable="bottom" string="Invoices">
                             <field name="name"/>
                             <field name="code"/>
+                            <field name="type"/>
                             <field name="invoice_date"/>
+                            <field name="tax_rate" optional="show"/>
                             <field name="amount_untaxed" optional="show" sum="Untaxed"/>
                             <field name="amount_tax" optional="show" sum="Tax"/>
                             <field name="amount_total" optional="show" sum="Total"/>
                             <field name="express_code" optional="show"/>
+                            <field name="sent_type" optional="show"/>
                             <field name="sent_date" optional="show"/>
                         </tree>
                     </field>

@@ -7,9 +7,12 @@
             <tree string="Invoices" decoration-muted="state=='cancel'" multi_edit="1">
                 <field name="name"/>
                 <field name="code" optional="show"/>
+                <field name="type" optional="show"/>
                 <field name="invoice_date" optional="show"/>
                 <field name="express_code" optional="show"/>
+                <field name="sent_type" optional="hide"/>
                 <field name="sent_date" optional="show"/>
+                <field name="tax_rate" optional="show"/>
                 <field name="amount_untaxed" optional="hide"/>
                 <field name="amount_tax" optional="hide"/>
                 <field name="amount_total" optional="show"/>
@@ -40,12 +43,14 @@
                         <group>
                             <field name="code"/>
                             <field name="invoice_date"/>
+                            <field name="tax_rate"/>
                             <field name="amount_untaxed" widget="monetary"/>
                             <field name="amount_tax" widget="monetary"/>
                             <field name="amount_total" widget="monetary"/>
                         </group>
                         <group>
                             <field name="express_code"/>
+                            <field name="sent_type"/>
                             <field name="sent_date"/>
                         </group>
                     </group>

@@ -327,7 +327,7 @@ msgstr "完成"
 #: model:ir.model.fields,field_description:qm.field_account_invoice__code
 #: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
 msgid "Invoice Code"
-msgstr "发票代码"
+msgstr "发票号码"
 
 
 #. module: qm
@@ -340,7 +340,7 @@ msgstr "开票日期"
 #. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
 msgid "Invoice Name"
-msgstr "发票号码"
+msgstr "发票代码"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_invoice__name
@@ -403,11 +403,11 @@ msgstr "作废"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_invoice__sent_date
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
-msgid "Sent Date"
-msgstr "寄票日期"
+msgid "Sent/Received Date"
+msgstr "收/寄票日期"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_invoice__state
 #: model:ir.model.fields,field_description:qm.field_account_move__state
 msgid "Status"
 msgstr "状态"
@@ -534,3 +534,28 @@ msgstr "付款"
 #: model:ir.model.fields.selection,name:qm.selection__sale_order__payment_state__in_payment
 msgid "In Payment"
 msgstr "付款中"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__account_invoice__sent_type__express
+msgid "Express"
+msgstr "财务寄送"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__account_invoice__sent_type__self_pickup
+msgid "Self Pickup"
+msgstr "销售自提"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_invoice__sent_type
+msgid "Sent Type"
+msgstr "寄送类型"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_invoice__tax_rate
+msgid "Tax Rate"
+msgstr "税率"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_invoice__type
+msgid "Type"
+msgstr "类型"

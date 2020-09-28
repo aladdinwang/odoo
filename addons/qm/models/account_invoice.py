@@ -18,6 +18,13 @@ class AccountInvoice(models.Model):
         string="Invoice Reference", required=True, copy=False, index=True
     )
     code = fields.Char(string="Invoice Code", required=True, copy=False, index=True)
+    type = fields.Selection(
+        selection=[("normal", "Normal"), ("special", "Special")],
+        string="Type",
+        required=True,
+        index=True,
+        default="special",
+    )
     currency_id = fields.Many2one(
         "res.currency",
         store=True,
@@ -34,7 +41,15 @@ class AccountInvoice(models.Model):
     invoice_date = fields.Date(
         string="Invoice Date", index=True, default=fields.Date.today()
     )
-    sent_date = fields.Date(string="Sent Date", index=True, default=fields.Date.today())
+    sent_date = fields.Date(
+        string="Sent/Received Date", index=True, default=fields.Date.today()
+    )
+    sent_type = fields.Selection(
+        selection=[("express", "Express"), ("self_pickup", "Self Pickup")],
+        string="Sent Type",
+        tracking=True,
+        default="express",
+    )
 
     state = fields.Selection(
         selection=[("done", "Done"), ("cancel", "Cancelled")],
@@ -43,6 +58,17 @@ class AccountInvoice(models.Model):
         index=True,
         tracking=True,
         default="done",
+    )
+    tax_rate = fields.Selection(
+        selection=[
+            ("1%", "1%"),
+            ("3%", "3%"),
+            ("6%", "6%"),
+            ("9%", "9%"),
+            ("13%", "13%"),
+        ],
+        string="Tax Rate",
+        default="13%",
     )
 
     def action_done(self):
