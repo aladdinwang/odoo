@@ -58,7 +58,8 @@
                             <field name="sale_line_id"/>
                             <field name="sale_order_id"/>
                             <field name="customer_id"/>
-                            <field name="partner_id"/>
+                            <field name="partner_ids" invisible="1"/>
+                            <field name="partner_id" domain="[('id','in', partner_ids)]"/>
                         </group>
                         <group>
                             <field name="product_id"/>

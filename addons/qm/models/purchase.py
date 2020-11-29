@@ -75,12 +75,12 @@ class PurchaseRequest(models.Model):
     _description = "Purchase Request"
     _order = "id desc"
 
+    @api.depends("sale_line_id")
     def _compute_partner_id_domain(self):
-        print("*" * 100)
-        print(list(self.mapped("product_id.product_tmpl_id.seller_ids.name").ids))
-        return [
-            ("id", "in", self.mapped("product_id.product_tmpl_id.seller_ids.name").ids)
-        ]
+        for rec in self:
+            rec.partner_ids = [
+                (6, 0, rec.mapped("product_id.product_tmpl_id.seller_ids.name").ids)
+            ]
 
     name = fields.Char(
         states={"draft": [("readonly", False)]},
@@ -131,8 +131,9 @@ class PurchaseRequest(models.Model):
         default="open",
         readonly=True,
     )
+    partner_ids = fields.Many2many("res.partner", compute=_compute_partner_id_domain)
     partner_id = fields.Many2one(
-        "res.partner", "Partner", domain=_compute_partner_id_domain
+        "res.partner", "Partner", domain="[('id', 'in', partner_ids)]"
     )
 
     @api.model
