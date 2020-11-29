@@ -51,6 +51,13 @@ class SaleOrder(models.Model):
         index=True,
     )
 
+    delivery_type = fields.Selection(
+        selection=[("warehouse", "Warehouse"), ("dropship", "Dropship")],
+        string="Delivery Type",
+        default="warehouse",
+        tracking=True,
+    )
+
     @api.depends("invoice_ids.state")
     def _compute_invoice_state(self):
         unconfirmed_orders = self.filtered(lambda so: so.state not in ["sale", "done"])

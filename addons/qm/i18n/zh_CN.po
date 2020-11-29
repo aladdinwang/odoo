@@ -230,10 +230,15 @@ msgstr "差异金额"
 msgid "Created on"
 msgstr "创建日期"
 
+
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__customer_id
+#: model:ir.model.fields,field_description:qm.field_sale_order__partner_id
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_request_search
 msgid "Customer"
 msgstr "客户"
+
 
 #. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
@@ -307,6 +312,7 @@ msgstr "创建新发票"
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_invoice__state__done
 #: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_request__state__done
 msgid "Done"
 msgstr "完成"
 
@@ -397,6 +403,7 @@ msgstr "未含税金额"
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_invoice__state__cancel
 #: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_request__state__cancel
 msgid "Cancelled"
 msgstr "作废"
 
@@ -409,6 +416,7 @@ msgstr "收/寄票日期"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_invoice__state
 #: model:ir.model.fields,field_description:qm.field_account_move__state
+#: model:ir.model.fields,field_description:qm.field_purchase_request__state
 msgid "Status"
 msgstr "状态"
 
@@ -559,3 +567,102 @@ msgstr "税率"
 #: model:ir.model.fields,field_description:qm.field_account_invoice__type
 msgid "Type"
 msgstr "类型"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__delivery_type
+#: model:ir.model.fields,field_description:qm.field_sale_order__delivery_type
+msgid "Delivery Type"
+msgstr "配送方式"
+
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_order__delivery_type__warehouse
+msgid "Warehouse"
+msgstr "非直发"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_order__delivery_type__dropship
+msgid "Dropship"
+msgstr "直发"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_request__state__open
+msgid "In progress"
+msgstr "进行中"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__sale_order_id
+msgid "Order Reference"
+msgstr "销售订单"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__partner_id
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_request_search
+msgid "Partner"
+msgstr "供应商"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__purchase_line_count
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_request_from
+msgid "Purchase Line Count"
+msgstr "采购订单行数量"
+
+
+#. module: qm
+#: model:ir.actions.act_window,name:qm.action_purchase_order_line
+#: model:ir.model.fields,field_description:qm.field_purchase_request__purchase_line_ids
+msgid "Purchase Lines"
+msgstr "采购订单行"
+
+#. module: qm
+#: model:ir.actions.act_window,name:qm.purchase_request_action
+#: model:ir.model,name:qm.model_purchase_request
+#: model:ir.model.fields,field_description:qm.field_purchase_order_line__request_id
+#: model:ir.ui.menu,name:qm.menu_purchase_request_action
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_request_from
+msgid "Purchase Request"
+msgstr "需求池"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__qty_purchased
+msgid "Purchased Qty"
+msgstr "已采购数量"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__product_uom_qty
+msgid "Quantity"
+msgstr "数量"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__qty_to_purchase
+msgid "To Purchase Qty"
+msgstr "剩余数量"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__sale_line_id
+msgid "Sale Order Line"
+msgstr "销售订单行"
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_request_search
+msgid "Search Purchase Request"
+msgstr "搜索需求池"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__product_uom
+msgid "Unit of Measure"
+msgstr "计量单位"
+
+#. module: qm
+#: model:ir.model,name:qm.model_product_product
+#: model:ir.model.fields,field_description:qm.field_purchase_request__product_id
+msgid "Product"
+msgstr "产品"

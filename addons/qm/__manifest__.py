@@ -13,6 +13,8 @@
         "account",
         "purchase",
         "l10n_cn_standard",
+        "stock",
+        "stock_request",
     ],
     "description": "专为荃玟定制",
     "data": [
