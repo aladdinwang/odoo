@@ -58,6 +58,8 @@ class SaleOrder(models.Model):
         tracking=True,
     )
 
+    picking_policy = fields.Selection(selection_add=[("dropship", "DropShip")])
+
     @api.depends("invoice_ids.state")
     def _compute_invoice_state(self):
         unconfirmed_orders = self.filtered(lambda so: so.state not in ["sale", "done"])

@@ -1,4 +1,8 @@
+from collections import defaultdict
+import datetime
+
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 from odoo.tools import float_compare
 
 
@@ -99,6 +103,9 @@ class PurchaseRequest(models.Model):
     delivery_type = fields.Selection(
         related="sale_order_id.delivery_type", readonly=True
     )
+    picking_policy = fields.Selection(
+        related="sale_order_id.picking_policy", readonly=True
+    )
     purchase_line_ids = fields.One2many(
         "purchase.order.line", "request_id", string="Purchase Lines"
     )
@@ -178,3 +185,71 @@ class PurchaseRequest(models.Model):
                 ]
             }
         }
+
+    @api.model
+    def _get_picking_type(self, company_id):
+        picking_type = self.env["stock.picking.type"].search(
+            [("code", "=", "incoming"), ("warehouse_id.company_id", "=", company_id)]
+        )
+        if not picking_type:
+            picking_type = self.env["stock.picking.type"].search(
+                [("code", "=", "incoming"), ("warehouse_id", "=", False)]
+            )
+        return picking_type[:1]
+
+    def action_create_purchase_order(self):
+        partners_by_delivery_type = defaultdict(list)
+        origins = set()
+
+        for rec in self:
+            origins.add(rec.sale_order_id.name)
+            partners_by_delivery_type[rec.delivery_type].append(
+                (rec.customer_id.id, rec.partner_id.id)
+            )
+        if len(partners_by_delivery_type) > 1:
+            raise UserError(_("Only one delivery type at most"))
+
+        delivery_type = next(iter(partners_by_delivery_type.keys()))
+        partner_tuples = partners_by_delivery_type[delivery_type]
+
+        partner_ids = set(x[1] for x in partner_tuples)
+        if len(partner_ids) > 1:
+            raise UserError(_("Only one supplier at most"))
+        partner_id = partner_ids.pop()
+
+        if delivery_type == "dropship":
+            if len(set(x[0] for x in partner_tuples)) > 1:
+                raise UserError(_("Dropship only support one customer"))
+
+        # 分离有库存的rec以及无库存的rec, 记录stock_move
+
+        company_id = self.company_id
+        picking_type_id = self._get_picking_type(company_id)
+        partner = self.env["res.partner"].browse(partner_id)
+        fpos = (
+            self.env["account.fiscal.position"]
+            .with_context(force_company=company_id.id)
+            .get_fiscal_position(partner.id)
+        )
+
+        purchase_order_vals = {
+            "partner_id": partner_id,
+            "user_id": self.user_id.id or False,
+            "picking_type_id": picking_type_id[0].id if picking_type_id else False,
+            "company_id": company_id.id,
+            "currency_id": partner.with_context(
+                force_company=company_id.id
+            ).property_purchase_currency_id.id
+            or company_id.currency_id.id,
+            "dest_address_id": partner_id,
+            "origin": ",".join(sorted(origins)),
+            "payment_term_id": partner.with_context(
+                force_company=company_id.id
+            ).property_supplier_payment_term_id.id,
+            "fiscal_position_id": fpos,
+            "date_order": datetime.datetime.now(),
+            "group_id": False,
+        }
+
+    def _prepare_purchase_order(self, company_id, values):
+        ...

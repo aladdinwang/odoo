@@ -14,9 +14,9 @@
         "purchase",
         "l10n_cn_standard",
         "stock",
-        "stock_request",
+        "sale_stock",
     ],
-    "description": "专为荃玟定制",
+    "description": ("专为荃玟定制" "该模块和sale_purchase, purchase_stock, stock_dropshipping冲突"),
     "data": [
         "security/ir.model.access.csv",
         "data/tax.classification.csv",
