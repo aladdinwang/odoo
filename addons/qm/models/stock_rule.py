@@ -45,7 +45,7 @@ class StockRule(models.Model):
         }
 
     @api.model
-    def _run_buy(self, procurements):
+    def _run_request(self, procurements):
         # 重新_run_buy生成purchase.request
 
         procurements_by_pr_domain = defaultdict(list)

@@ -27,6 +27,7 @@
         "data/ir_sequence_data.xml",
         "data/account_tax_template_data.xml",
         "data/account_chart_template_data.xml",
+        "data/purchase_request_data.xml",
         "views/product_views.xml",
         "views/res_partner_views.xml",
         "views/tax_views.xml",
