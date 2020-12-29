@@ -7,3 +7,5 @@ from . import purchase
 from . import account_move
 from . import account_invoice
 from . import account_payment
+from . import stock_rule
+from . import res_company

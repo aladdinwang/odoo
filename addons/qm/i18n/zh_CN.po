@@ -666,3 +666,9 @@ msgstr "计量单位"
 #: model:ir.model.fields,field_description:qm.field_purchase_request__product_id
 msgid "Product"
 msgstr "产品"
+
+
+#. module: qm
+#: model:stock.location.route,name:qm.route_purchase_request
+msgid "PurchaseRequest"
+msgstr "需求池"

@@ -184,6 +184,19 @@ class ProductTemplate(models.Model):
             if len(template.product_variant_ids) == 1:
                 template.default_code = template.product_variant_ids[0].default_code
 
+    @api.model
+    def _get_purchase_request_route(self):
+        purchase_request_route = self.env.ref(
+            "qm.route_purchase_request", raise_if_not_found=False
+        )
+        if purchase_request_route:
+            return purchase_request_route.ids
+        return []
+
+    route_ids = fields.Many2many(
+        default=lambda self: self._get_purchase_request_route()
+    )
+
 
 class ProductAttribute(models.Model):
     _name = "product.attribute"
