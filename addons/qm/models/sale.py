@@ -51,12 +51,12 @@ class SaleOrder(models.Model):
         index=True,
     )
 
-    delivery_type = fields.Selection(
-        selection=[("warehouse", "Warehouse"), ("dropship", "Dropship")],
-        string="Delivery Type",
-        default="warehouse",
-        tracking=True,
-    )
+    # delivery_type = fields.Selection(
+    #     selection=[("warehouse", "Warehouse"), ("dropship", "Dropship")],
+    #     string="Delivery Type",
+    #     default="warehouse",
+    #     tracking=True,
+    # )
 
     picking_policy = fields.Selection(selection_add=[("dropship", "DropShip")])
 

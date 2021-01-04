@@ -100,9 +100,9 @@ class PurchaseRequest(models.Model):
     customer_id = fields.Many2one(
         "res.partner", related="sale_order_id.partner_id", readonly=True, store=True
     )
-    delivery_type = fields.Selection(
-        related="sale_order_id.delivery_type", readonly=True
-    )
+    # delivery_type = fields.Selection(
+    #     related="sale_order_id.delivery_type", readonly=True
+    # )
     picking_policy = fields.Selection(
         related="sale_order_id.picking_policy", readonly=True
     )

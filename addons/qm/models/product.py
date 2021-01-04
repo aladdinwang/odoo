@@ -62,7 +62,7 @@ class ProductCategory(models.Model):
             args = []
 
         if name:
-            positive_operators = ["=", "ilike", "=ilike", "like", "=like"]
+            positive_operators = ["=", "ilike", "=ilike", "lifke", "=like"]
             cate_ids = []
 
             if operator in positive_operators:

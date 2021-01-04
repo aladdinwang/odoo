@@ -26,7 +26,7 @@
              </xpath>
 
             <field name="partner_id" position="after">
-                <field name="delivery_type"/>
+                <field name="picking_policy"/>
                 <field name="outer_name"/>
             </field>
             <field name="payment_term_id" position="after">
