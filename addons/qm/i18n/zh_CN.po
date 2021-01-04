@@ -672,3 +672,19 @@ msgstr "产品"
 #: model:stock.location.route,name:qm.route_purchase_request
 msgid "PurchaseRequest"
 msgstr "需求池"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_order__picking_policy__dropship
+msgid "DropShip"
+msgstr "代发货"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__procurement_group__move_type__dropship
+msgid "Dropship"
+msgstr "代发货"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__picking_policy
+#: model:ir.model.fields,field_description:qm.field_sale_order__picking_policy
+msgid "Shipping Policy"
+msgstr "发货策略"
