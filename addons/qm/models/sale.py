@@ -58,7 +58,9 @@ class SaleOrder(models.Model):
     #     tracking=True,
     # )
 
-    picking_policy = fields.Selection(selection_add=[("dropship", "DropShip")])
+    # picking_policy = fields.Selection(selection_add=[("dropship", "DropShip")])
+
+    is_dropshipping = fields.Boolean("Is Dropshipping")
 
     @api.depends("invoice_ids.state")
     def _compute_invoice_state(self):
