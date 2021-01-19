@@ -90,9 +90,33 @@ class PurchaseOrder(models.Model):
         if not reqs:
             raise UserError(_("You can only select open request"))
 
-        partner_id = reqs[0].partner_id
-        partner = self.env["res.partner"].browse(partner_id)
-        is_dropshipping = reqs[0].is_dropshipping
+        origins = set()
+        customer_partner_id_tuples = []
+
+        last_req = None
+        for req in reqs:
+            origins.add(req.sale_order_id.name)
+            customer_partner_id_tuples.append(
+                (req.customer_shipping_id.id, req.partner_id.id)
+            )
+            if last_req and last_req.is_dropshipping != req.is_dropshipping:
+                raise UserError(_("Only one delivery type at most"))
+            last_req = req
+
+        # 如果没有选中, 则什么都不做
+        if last_req is None:
+            return
+
+        partner_ids = set(x[1] for x in customer_partner_id_tuples)
+        if len(partner_ids) > 1:
+            raise UserError(_("Only one supplier at most"))
+
+        if last_req.is_dropshipping:
+            if len(customer_partner_id_tuples) > 1:
+                raise UserError(_("Only one customer at most"))
+
+        partner_id = last_req.partner_id
+        is_dropshipping = last_req.is_dropshipping
 
         if is_dropshipping:
             picking_type_id = self.env["stock.picking.type"].search(
@@ -100,7 +124,7 @@ class PurchaseOrder(models.Model):
                     ("sequence_code", "=", "DS"),
                     "|",
                     ("warehouse_id", "=", False),
-                    ("warehouse_id.company_id", "=", company_id.id),
+                    ("warehouse_id.company_id", "=", self.env.company.id),
                 ],
                 limit=1,
             )
@@ -110,21 +134,21 @@ class PurchaseOrder(models.Model):
                     ("sequence_code", "=", "OUT"),
                     "|",
                     ("warehouse_id", "=", False),
-                    ("warehouse_id.company_id", "=", company_id.id),
+                    ("warehouse_id.company_id", "=", self.env.company.id),
                 ],
                 limit=1,
             )
 
         fpos = (
             self.env["account.fiscal.position"]
-            .with_context(force_company=self.company_id.id)
-            .get_fiscal_position(partner.id)
+            .with_context(force_company=self.env.company.id)
+            .get_fiscal_position(partner_id.id)
         )
         currency_id = (
-            partner.with_context(
-                force_company=self.company_id.id
-            ).property_purchase_currency_id.id
-            or self.company_id.currency_id.id
+            partner_id.with_context(
+                force_company=self.env.company.id
+            ).property_purchase_currency_id
+            or self.env.company.currency_id
         )
 
         origins = set()
@@ -137,9 +161,9 @@ class PurchaseOrder(models.Model):
                 req.product_uom_qty, product_id.uom_po_id
             )
             seller = product_id.with_context(
-                force_company=self.company_id.id
+                force_company=self.env.company.id
             )._select_seller(
-                partner_id=partner,
+                partner_id=partner_id,
                 quantity=uom_po_qty,
                 date=now,
                 uom_id=product_id.uom_po_id,
@@ -149,7 +173,7 @@ class PurchaseOrder(models.Model):
             taxes_id = fpos.map_tax(taxes, product_id, seller.name) if fpos else taxes
             if taxes_id:
                 taxes_id = taxes_id.filtered(
-                    lambda x: x.company_id.id == self.company_id.id
+                    lambda x: x.company_id.id == self.env.company.id
                 )
 
             price_unit = (
@@ -157,7 +181,7 @@ class PurchaseOrder(models.Model):
                     seller.price,
                     product_id.supplier_taxes_id,
                     taxes_id,
-                    self.company_id,
+                    self.env.company,
                 )
                 if seller
                 else 0.0
@@ -169,17 +193,17 @@ class PurchaseOrder(models.Model):
                 and seller.currency_id != currency_id
             ):
                 price_unit = seller.currency_id._convert(
-                    price_unit, currency_id, self.company_id, fields.Date.today()
+                    price_unit, currency_id, self.env.company, fields.Date.today()
                 )
 
             product_lang = product_id.with_prefetch().with_context(
-                lang=partner.lang, partner_id=partner.id
+                lang=partner_id.lang, partner_id=partner_id.id
             )
             name = product_lang.display_name
             if product_lang.description_purchase:
                 name += "\n" + product_lang.description_purchase
 
-            date_planned = datetime.today() + relativedelta(
+            date_planned = datetime.datetime.today() + relativedelta(
                 days=seller.delay if seller else 0
             )
             new_order_lines.append(
@@ -199,15 +223,15 @@ class PurchaseOrder(models.Model):
             )
 
         order_vals = {
-            "partner_id": partner.id,
-            "user_id": self.user_id.id or False,
+            "partner_id": partner_id.id,
+            "user_id": self.env.user.id or False,
             "picking_type_id": picking_type_id.id,
-            "company_id": self.company_id.id,
-            "currency_id": currency_id,
+            "company_id": self.env.company.id,
+            "currency_id": currency_id.id,
             "dest_address_id": picking_type_id.default_location_dest_id.id,
             "origin": ",".join(sorted(origins)),
-            "payment_term_id": partner.with_context(
-                force_company=self.company_id.id
+            "payment_term_id": partner_id.with_context(
+                force_company=self.env.company.id
             ).property_supplier_payment_term_id.id,
             "fiscal_position_id": fpos,
             "date_order": datetime.datetime.now(),
@@ -226,7 +250,7 @@ class PurchaseOrder(models.Model):
             "name": _("Create Purchase Order"),
             "res_model": "purchase.order",
             "view_mode": "form",
-            "view_id": self.env.ref("qm.view_purchase_order_form_qm"),
+            "view_id": self.env.ref("qm.view_purchase_order_form_qm").id,
             "context": self.env.context,
             "target": "new",
             "type": "ir.actions.act_window",
@@ -347,7 +371,7 @@ class PurchaseRequest(models.Model):
         action = self.env.ref("action_purchase_order_line").read()[0]
         if len(purchase_line_ids) <= 0:
             action = {"type": "ir.actions.act_window_close"}
-        action["context"] = {"default_user_id": self.user_id.id}
+        action["context"] = {"default_user_id": self.env.user.id}
         return action
 
     @api.onchange("sale_line_id")
@@ -411,35 +435,3 @@ class PurchaseRequest(models.Model):
             )
             .action_create_purchase_order()
         )
-
-        partner_id = partner_ids.pop()
-
-        # 分离有库存的rec以及无库存的rec, 记录stock_move
-        company_id = self.company_id
-        # picking_type_id = self._get_picking_type(company_id)
-        partner = self.env["res.partner"].browse(partner_id)
-
-        fpos = (
-            self.env["account.fiscal.position"]
-            .with_context(force_company=company_id.id)
-            .get_fiscal_position(partner.id)
-        )
-
-        purchase_order_vals = {
-            "partner_id": partner_id,
-            "user_id": self.user_id.id or False,
-            "picking_type_id": self.picking_type_id.id,
-            "company_id": company_id.id,
-            "currency_id": partner.with_context(
-                force_company=company_id.id
-            ).property_purchase_currency_id.id
-            or company_id.currency_id.id,
-            "dest_address_id": partner_id,
-            "origin": ",".join(sorted(origins)),
-            "payment_term_id": partner.with_context(
-                force_company=company_id.id
-            ).property_supplier_payment_term_id.id,
-            "fiscal_position_id": fpos,
-            "date_order": datetime.datetime.now(),
-            "group_id": False,
-        }
