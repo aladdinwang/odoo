@@ -6,22 +6,24 @@ from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from odoo.tools import float_compare
 
+from odoo.addons.purchase.models.purchase import PurchaseOrder as Purchase
+
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    READONLY_STATES = {
-        "purchase": [("readonly", True)],
-        "done": [("readonly", True)],
-        "cancel": [("readonly", True)],
-    }
+    @api.model
+    def _default_picking_type(self):
+        return self._get_picking_type(
+            self.env.context.get("company_id") or self.env.company.id
+        )
 
     sale_order_ids = fields.Many2many("sale.order", string="Sale Orders")
     partner_id = fields.Many2one(
         "res.partner",
         string="Vendor",
         required=True,
-        states=READONLY_STATES,
+        states=Purchase.READONLY_STATES,
         change_default=True,
         tracking=True,
         domain="[('is_company', '=', True), '|', ('company_id', '=', False), ('company_id', '=', company_id)]",
@@ -44,6 +46,20 @@ class PurchaseOrder(models.Model):
         index=True,
     )
 
+    picking_type_id = fields.Many2one(
+        "stock.picking.type",
+        "Deliver To",
+        states=Purchase.READONLY_STATES,
+        required=True,
+        default=_default_picking_type,
+        domain="['|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]",
+        help="This will determine operation type of incoming shipment",
+    )
+
+    group_id = fields.Many2one(
+        "procurement.group", string="Procurement Group", copy=False
+    )
+
     @api.depends("invoice_ids", "invoice_ids.state", "invoice_ids.amount_residual")
     def _compute_payment_state(self):
         for order in self:
@@ -64,7 +80,7 @@ class PurchaseOrder(models.Model):
     @api.model
     def _get_picking_type(self, company_id):
         picking_type = self.env["stock.picking.type"].search(
-            [("code", "=", "incoming"), ("warehouse_id.company_id", "=", company_id.id)]
+            [("code", "=", "incoming"), ("warehouse_id.company_id", "=", company_id)]
         )
         if not picking_type:
             picking_type = self.env["stock.picking.type"].search(
@@ -152,9 +168,11 @@ class PurchaseOrder(models.Model):
         )
 
         origins = set()
+        sale_order_ids = set()
         new_order_lines = []
         now = datetime.datetime.now()
         for req in reqs:
+            sale_order_ids.add(req.sale_order_id.id)
             origins.add(req.sale_order_id.name)
             product_id = req.product_id
             uom_po_qty = req.product_uom._compute_quantity(
@@ -218,6 +236,7 @@ class PurchaseOrder(models.Model):
                         "price_unit": price_unit,
                         "date_planned": date_planned,
                         "taxes_id": [(6, 0, taxes_id.ids)],
+                        "request_id": req.id,
                     },
                 )
             )
@@ -237,6 +256,7 @@ class PurchaseOrder(models.Model):
             "date_order": datetime.datetime.now(),
             "group_id": False,
             "order_line": new_order_lines,
+            "sale_order_ids": [(6, 0, [x for x in sorted(sale_order_ids)])],
         }
         rec.update(order_vals)
         return rec
