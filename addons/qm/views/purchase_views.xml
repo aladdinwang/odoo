@@ -79,7 +79,7 @@
         <field name="name">purchase.request.tree</field>
         <field name="model">purchase.request</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-muted="state=='cancel'" decoration-success="state=='done'">
                 <field name="name"/>
                 <field name="sale_order_id"/>
                 <field name="is_dropshipping"/>
@@ -90,6 +90,7 @@
                 <field name="qty_to_purchase"/>
                 <field name="customer_id"/>
                 <field name="partner_id"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>

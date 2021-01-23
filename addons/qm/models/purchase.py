@@ -382,15 +382,21 @@ class PurchaseRequest(models.Model):
         for rec in self:
             line_ids = rec.purchase_line_ids.filtered(lambda x: x.state != "cancel")
             rec.purchase_line_count = len(line_ids)
-            qty_purchased = sum(x.product_qty for x in line_ids)
+            qty_purchased = sum(x.product_qty for x in line_ids if x != "cancel")
             rec.qty_purchased = qty_purchased
             rec.qty_to_purchase = rec.product_uom_qty - qty_purchased
 
+            if rec.state == "open" and rec.qty_to_purchase <= 0:
+                rec.state = "done"
+            elif rec.state == "done" and rec.qty_to_purchase > 0:
+                rec.state = "open"
+
     def action_view_purchase_line(self):
         purchase_line_ids = self.mapped("purchase_line_ids")
-        action = self.env.ref("action_purchase_order_line").read()[0]
+        action = self.env.ref("qm.action_purchase_order_line").read()[0]
         if len(purchase_line_ids) <= 0:
             action = {"type": "ir.actions.act_window_close"}
+        action["domain"] = [("id", "in", purchase_line_ids.ids)]
         action["context"] = {"default_user_id": self.env.user.id}
         return action
 
