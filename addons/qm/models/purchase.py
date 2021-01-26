@@ -46,19 +46,7 @@ class PurchaseOrder(models.Model):
         index=True,
     )
 
-    picking_type_id = fields.Many2one(
-        "stock.picking.type",
-        "Deliver To",
-        states=Purchase.READONLY_STATES,
-        required=True,
-        default=_default_picking_type,
-        domain="['|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]",
-        help="This will determine operation type of incoming shipment",
-    )
-
-    group_id = fields.Many2one(
-        "procurement.group", string="Procurement Group", copy=False
-    )
+    is_dropshipping = fields.Boolean(default=False, readonly=True)
 
     @api.depends("invoice_ids", "invoice_ids.state", "invoice_ids.amount_residual")
     def _compute_payment_state(self):
@@ -257,6 +245,7 @@ class PurchaseOrder(models.Model):
             "group_id": False,
             "order_line": new_order_lines,
             "sale_order_ids": [(6, 0, [x for x in sorted(sale_order_ids)])],
+            "is_dropshipping": last_req.is_dropshipping,
         }
         rec.update(order_vals)
         return rec

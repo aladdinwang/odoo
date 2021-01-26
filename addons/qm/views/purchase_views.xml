@@ -13,6 +13,9 @@
                        widget="many2many_tags"
                        options="{'no_create_edit': True}"/>
             </field>
+            <field name="origin" position="replace">
+              <field name="is_dropshipping"/>
+            </field>
             <field name="company_id" position="after">
                 <field name="payment_state"/>
             </field>
@@ -24,9 +27,12 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_tree"/>
         <field name="arch" type="xml">
-            <field name="state" position="after">
-                <field name="payment_state"/>
-            </field>
+          <field name="date_approve" position="after">
+            <field name="is_dropshipping"/>
+          </field>
+          <field name="state" position="after">
+            <field name="payment_state"/>
+          </field>
         </field>
     </record>
 

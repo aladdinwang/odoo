@@ -691,6 +691,7 @@ msgstr "发货策略"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_order__is_dropshipping
 #: model:ir.model.fields,field_description:qm.field_purchase_request__is_dropshipping
 #: model:ir.model.fields,field_description:qm.field_sale_order__is_dropshipping
 msgid "Is Dropshipping"
