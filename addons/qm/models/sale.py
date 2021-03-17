@@ -1,12 +1,12 @@
 from odoo import api, fields, models, SUPERUSER_ID, _
-from odoo.tools import float_compare
+from odoo.exceptions import UserError
+from odoo.tools import float_is_zero, float_compare
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     outer_name = fields.Char(string="Outer Order Reference")
-
     invoice_state = fields.Selection(
         [
             ("pending", "Pending"),
@@ -133,3 +133,133 @@ class SaleOrder(models.Model):
                 order.payment_state = "in_payment"
             else:
                 order.payment_state = "not_paid"
+
+    def _prepare_receipt(self):
+        self = self.with_context(
+            default_company_id=self.company_id.id, force_company=self.company_id.id
+        )
+        journal = (
+            self.env["account.move"]
+            .with_context(default_type="out_receipt")
+            ._get_default_journal()
+        )
+
+        receipt_vals = {
+            "type": "out_receipt",
+            "currency_id": self.pricelist_id.currency_id.id,
+            "campaign_id": self.campaign_id.id,
+            "invoice_user_id": self.env.user.id or self.user_id.id,
+            "team_id": self.team_id.id or False,
+            "partner_id": self.partner_invoice_id.id,
+            "partner_shipping_id": self.partner_shipping_id.id,
+            "invoice_partner_bank_id": self.company_id.partner_id.bank_ids[:1].id,
+            "invoice_payment_term_id": self.payment_term_id.id,
+            "fiscal_position_id": self.fiscal_position_id.id
+            or self.partner_invoice_id.property_account_position_id.id,
+            "journal_id": journal.id,
+            "invoice_line_ids": [],
+            "company_id": self.company_id.id,
+        }
+        return receipt_vals
+
+
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    @api.depends("invoice_lines.move_id.state", "invoice_lines.quantity")
+    def _get_receipt_qty(self):
+        for line in self:
+            qty_receipt = 0.0
+            for invoice_line in line.invoice_lines:
+                if invoice_line.move_id.state != "cancel":
+                    if invoice_line.move_id.type == "out_receipt":
+                        qty_receipt += invoice_line.product_uom_id._compute_quantity(
+                            invoice_line.quantity, line.product_uom
+                        )
+            line.qty_receipt = qty_receipt
+
+    @api.depends("qty_receipt", "product_uom_qty", "order_id.state")
+    def _get_to_receipt_qty(self):
+        for line in self:
+            if line.order_id.state in ["sale", "done"]:
+                if line.product_id.invoice_policy == "order":
+                    line.qty_to_receipt = line.product_uom_qty - line.qty_receipt
+                else:
+                    line.qty_to_receipt = line.qty_delivered - line.qty_receipt
+            else:
+                line.qty_to_receipt = 0
+
+    # 已开票数量
+    qty_receipt = fields.Float(
+        compute="_get_receipt_qty",
+        string="Receipt quantity",
+        store=True,
+        readonly=True,
+        digits="Product Unit of Measure",
+    )
+
+    # 带开票数量
+    qty_to_receipt = fields.Float(
+        compute="_get_to_receipt_qty",
+        string="To Receipt Quantity",
+        store=True,
+        readonly=True,
+        digits="Product Unit of Measure",
+    )
+
+    def _check_receipt_validity(self):
+        if not self:
+            raise UserError(_("One order line at least"))
+
+        last_line = False
+        for line in self:
+            if last_line and last_line.order_partner_id != line.order_partner_id:
+                raise UserError(_("Only one partner at most"))
+            last_line = line
+
+    def _prepare_receipt_line(self):
+        self.ensure_one()
+        return {
+            "display_type": self.display_type,
+            "sequence": self.sequence,
+            "name": self.name,
+            "product_id": self.product_id.id,
+            "product_uom_id": self.product_uom.id,
+            "quantity": self.qty_to_receipt,
+            "price_unit": self.price_unit,
+            "tax_ids": [(6, 0, self.tax_id.ids)],
+            "analytic_account_id": self.order_id.analytic_account_id.id,
+            "analytic_tag_ids": [(6, 0, self.analytic_tag_ids.ids)],
+            "sale_line_ids": [(4, self.id)],
+            "account_id": False,
+        }
+
+    # 根据勾选的sale.order.line, 创建开票申请
+    # 一次只能生成一个
+    def _create_receipt(self):
+        self._check_receipt_validity()
+
+        precision = self.env["decimal.precision"].precision_get(
+            "Product Unit of Measure"
+        )
+        order_id = self[0].order_id
+        move = order_id._prepare_receipt()
+        for line in self:
+            if float_is_zero(line.qty_to_receipt, precision_digits=precision):
+                continue
+            move["invoice_line_ids"].append((0, 0, line._prepare_receipt_line()))
+        move = (
+            self.env["account.move"]
+            .sudo()
+            .with_context(default_type="out_receipt")
+            .create(move)
+        )
+        move.message_post_with_view(
+            "mail.message_origin_link",
+            values={
+                "self": move,
+                "origin": move.line_ids.mapped("sale_line_ids.order_id"),
+            },
+            subtype_id=self.env.ref("mail.mt_note").id,
+        )
+        return move

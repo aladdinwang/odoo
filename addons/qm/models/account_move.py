@@ -1,6 +1,8 @@
 from odoo import fields, models, api
 
 
+# Todo: 最后整理的时候，去掉冗余
+
 class AccountMove(models.Model):
     _inherit = "account.move"
 
@@ -17,31 +19,72 @@ class AccountMove(models.Model):
     # payment_difference = fields.Monetary(
     #     compute="_compute_payment_amount", readonly=True
     # )
-    state = fields.Selection(
-        selection_add=[
-            ("to_invoice", "To Invoice"),
-            ("invoiced", "Invoiced"),
-            ("sent", "Sent"),
-            ("received", "Received"),
-            ("returned", "Returned"),
-        ]
+
+    # state = fields.Selection(
+    #     selection_add=[
+    #         ("to_invoice", "To Invoice"),
+    #         ("invoiced", "Invoiced"),
+    #         ("sent", "Sent"),
+    #         ("received", "Received"),
+    #         ("returned", "Returned"),
+    #     ]
+    # )
+
+    # state2 = fields.Selection(
+    #     selection=[
+    #         ("to_invoice", "To Invoice"),
+    #         ("invoiced", "Invoiced"),
+    #         ("sent", "Sent"),
+    #         ("received", "Received"),
+    #         ("returned", "Returned"),
+    #     ],
+    #     string="Status2",
+    #     inverse="_set_state",
+    #     required=True,
+    #     copy=False,
+    #     tracking=True,
+    #     default="to_invoice",
+    # )
+
+    # 发票状态
+    receipt_state = fields.Selection(
+        selection=[
+            ("draft", "Draft"),
+            ("posted", "Posted"),
+            ("approved", "Approved"),
+            ("reject", "Rejected"),
+            ("cancel", "Cancelled"),
+        ],
+        string="Status",
+        required=True,
+        index=True,
+        tracking=True,
+        default="draft",
     )
 
-    state2 = fields.Selection(
-        selection=[
-            ("to_invoice", "To Invoice"),
-            ("invoiced", "Invoiced"),
-            ("sent", "Sent"),
-            ("received", "Received"),
-            ("returned", "Returned"),
-        ],
-        string="Status2",
-        inverse="_set_state",
-        required=True,
-        copy=False,
-        tracking=True,
-        default="to_invoice",
+    # 提交日期，提交人
+    posted_date = fields.Date(string="Posted Date", index=True)
+    posted_by = fields.Many2one("res.users", string="Posted by")
+
+    # 审核日期，审核人
+    approve_date = fields.Date(
+        string="Approve Date", index=True, default=fields.Date.today()
     )
+    approve_by = fields.Many2one("res.users", string="Approved by")
+
+    # 驳回日期，驳回人
+    reject_date = fields.Date(
+        string="Reject Date", index=True, default=fields.Date.today()
+    )
+    reject_by = fields.Many2one("res.users", string="Reject by")
+    reject_reason = fields.Char("Reject Reason")
+
+    # 作废
+    cancel_date = fields.Date(
+        string="Cancel Date", index=True, default=fields.Date.today()
+    )
+    cancel_by = fields.Many2one("res.users", string="Cancelled by")
+    cancel_reason = fields.Char(string="Cancel reason")
 
     invoice_ids = fields.Many2many(
         "account.invoice",
@@ -64,10 +107,10 @@ class AccountMove(models.Model):
     #     not_paid_moves.payment_amount = 0
     #     not_paid_moves.payment_difference = 0
 
-    def _set_state(self):
-        for move in self:
-            if move.state in ("to_invoice", "invoiced", "sent", "received", "returned"):
-                move.write({"state": move.state2})
+    # def _set_state(self):
+    #     for move in self:
+    #         if move.state in ("to_invoice", "invoiced", "sent", "received", "returned"):
+    #             move.write({"state": move.state2})
 
     def action_download_xlsx(self):
         return {

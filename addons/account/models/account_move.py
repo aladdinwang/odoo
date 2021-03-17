@@ -5261,7 +5261,7 @@ class AccountMoveLine(models.Model):
         remaining_moves = self.auto_reconcile_lines()
 
         writeoff_to_reconcile = self.env["account.move.line"]
-        # if writeoff_acc_id specified, then create write-off move with value the remaining amount from move in self
+        # if writeoff_acc_id specified, then create write-off movesdf with value the remaining amount from move in self
         if writeoff_acc_id and writeoff_journal_id and remaining_moves:
             all_aml_share_same_currency = all(
                 [x.currency_id == self[0].currency_id for x in self]
