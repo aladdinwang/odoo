@@ -66,12 +66,20 @@
       <field name="model">sale.order.line</field>
       <field name="inherit_id" ref="sale.view_order_line_tree"/>
       <field name="arch" type="xml">
-         <field name="qty_invoiced" position="attributes">
-           <field name="qty_receipt"/>
-         </field>
-         <field name="qty_to_invoice" position="attributes">
-           <field name="qty_to_receipt"/>
-         </field>
+        <xpath expr="//tree" position="attributes">
+          <attribute name="decoration-success">
+            qty_to_receipt == 0
+          </attribute>
+        </xpath>
+        <field name="salesman_id" position="after">
+          <field name="price_unit"/>
+        </field>
+        <field name="qty_invoiced" position="replace">
+          <field name="qty_receipt"/>
+        </field>
+        <field name="qty_to_invoice" position="replace">
+          <field name="qty_to_receipt"/>
+        </field>
       </field>
     </record>
 

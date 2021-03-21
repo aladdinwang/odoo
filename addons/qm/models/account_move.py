@@ -3,6 +3,7 @@ from odoo import fields, models, api
 
 # Todo: 最后整理的时候，去掉冗余
 
+
 class AccountMove(models.Model):
     _inherit = "account.move"
 
@@ -15,6 +16,7 @@ class AccountMove(models.Model):
     #     copy=False,
     #     readonly=True,
     # )
+
     # payment_amount = fields.Monetary(compute="_compute_payment_amount", readonly=True)
     # payment_difference = fields.Monetary(
     #     compute="_compute_payment_amount", readonly=True
