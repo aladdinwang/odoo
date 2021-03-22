@@ -720,3 +720,11 @@ msgstr "已开票数量"
 #: model:ir.model.fields,field_description:qm.field_sale_order_line__qty_to_receipt
 msgid "To Receipt Quantity"
 msgstr "待开票数量"
+
+
+#. module: qm
+#: code:addons/qm/models/account_move.py:0
+#: model:ir.actions.server,name:qm.action_create_sale_receipt_from_sale_lines
+#, python-format
+msgid "Create Sale Receipt"
+msgstr "申请开票"

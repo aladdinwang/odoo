@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 
 
 # Todo: 最后整理的时候，去掉冗余
@@ -113,6 +113,27 @@ class AccountMove(models.Model):
     #     for move in self:
     #         if move.state in ("to_invoice", "invoiced", "sent", "received", "returned"):
     #             move.write({"state": move.state2})
+
+    @api.model
+    def default_get(self, default_fields):
+        rec = super(AccountMove, self).default_get(default_fields)
+        active_ids = self._context.get("active_ids") or self._context.get("active_id")
+        active_model = self._context.get("active_model")
+
+        if not active_ids or active_model != "sale.order.line":
+            return rec
+
+        sale_lines = (
+            self.env["sale.order.line"]
+            .browse(active_ids)
+            .filtered(
+                lambda x: x.state not in ("draft", "cancel") and x.qty_to_receipt > 0
+            )
+        )
+        sale_lines._check_receipt_validity()
+        new_rec = sale_lines._create_receipt()
+        rec.update(new_rec)
+        return rec
 
     def action_download_xlsx(self):
         return {
@@ -244,3 +265,18 @@ class AccountMove(models.Model):
                     move.invoice_payment_state = "paid"
             else:
                 move.invoice_payment_state = "not_paid"
+
+    def action_create_receipt(self):
+        active_ids = self._context.get("active_ids") or self._context.get("active_id")
+        if not active_ids:
+            return ""
+
+        return {
+            "name": _("Create Sale Receipt"),
+            "res_model": "account.move",
+            "view_mode": "form",
+            "view_id": self.env.ref("qm.view_account_move_form_qm").id,
+            "context": self.env.context,
+            "target": "new",
+            "type": "ir.actions.act_window",
+        }

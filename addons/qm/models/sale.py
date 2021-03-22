@@ -158,7 +158,9 @@ class SaleOrder(models.Model):
             or self.partner_invoice_id.property_account_position_id.id,
             "journal_id": journal.id,
             "invoice_line_ids": [],
+            "line_ids": [],
             "company_id": self.company_id.id,
+            "invoice_date": fields.Date.today(),
         }
         return receipt_vals
 
@@ -198,7 +200,7 @@ class SaleOrderLine(models.Model):
         digits="Product Unit of Measure",
     )
 
-    # 带开票数量
+    # 待开票数量
     qty_to_receipt = fields.Float(
         compute="_get_to_receipt_qty",
         string="To Receipt Quantity",
@@ -237,8 +239,6 @@ class SaleOrderLine(models.Model):
     # 根据勾选的sale.order.line, 创建开票申请
     # 一次只能生成一个
     def _create_receipt(self):
-        self._check_receipt_validity()
-
         precision = self.env["decimal.precision"].precision_get(
             "Product Unit of Measure"
         )
@@ -247,19 +247,5 @@ class SaleOrderLine(models.Model):
         for line in self:
             if float_is_zero(line.qty_to_receipt, precision_digits=precision):
                 continue
-            move["invoice_line_ids"].append((0, 0, line._prepare_receipt_line()))
-        move = (
-            self.env["account.move"]
-            .sudo()
-            .with_context(default_type="out_receipt")
-            .create(move)
-        )
-        move.message_post_with_view(
-            "mail.message_origin_link",
-            values={
-                "self": move,
-                "origin": move.line_ids.mapped("sale_line_ids.order_id"),
-            },
-            subtype_id=self.env.ref("mail.mt_note").id,
-        )
+            move["line_ids"].append((0, 0, line._prepare_receipt_line()))
         return move
