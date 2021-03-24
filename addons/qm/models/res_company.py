@@ -136,4 +136,4 @@ class ResCompany(models.Model):
 
     def _create_per_company_rules(self):
         super(ResCompany, self)._create_per_company_rules()
-        self._create_dropship_rule()
+        # self._create_dropship_rule()

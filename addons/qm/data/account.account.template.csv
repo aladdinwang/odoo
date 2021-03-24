@@ -5,6 +5,5 @@ account_6401,6401,主营业务成本,FALSE,account.data_account_type_expenses,l1
 account_6001,6001,主营业务收入,FALSE,account.data_account_type_revenue,l10n_chart_china_latest
 account_6061,6061,汇兑损益,FALSE,account.data_account_type_revenue,l10n_chart_china_latest
 account_1124,1124,应收账款 (PoS),TRUE,account.data_account_type_receivable,l10n_chart_china_latest
-
-
-
+account_7001,7001,销售发票,FALSE,account.data_account_type_current_assets,l10n_chart_china_latest
+account_7002,7002,采购发票,FALSE,account.data_account_type_current_assets,l10n_chart_china_latest

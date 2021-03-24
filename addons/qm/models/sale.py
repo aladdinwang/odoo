@@ -221,6 +221,11 @@ class SaleOrderLine(models.Model):
 
     def _prepare_receipt_line(self):
         self.ensure_one()
+        company_id = self.env.context.get("company_id") or self.env.company.id
+        account_id = self.env["account.account"].search(
+            [("code", "=like", "7001%"), ("company_id", "=", company_id)], limit=1
+        )
+
         return {
             "display_type": self.display_type,
             "sequence": self.sequence,
@@ -233,7 +238,7 @@ class SaleOrderLine(models.Model):
             "analytic_account_id": self.order_id.analytic_account_id.id,
             "analytic_tag_ids": [(6, 0, self.analytic_tag_ids.ids)],
             "sale_line_ids": [(4, self.id)],
-            "account_id": False,
+            "account_id": account_id.id,
         }
 
     # 根据勾选的sale.order.line, 创建开票申请

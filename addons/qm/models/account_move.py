@@ -130,6 +130,9 @@ class AccountMove(models.Model):
                 lambda x: x.state not in ("draft", "cancel") and x.qty_to_receipt > 0
             )
         )
+        if not sale_lines:
+            return rec
+
         sale_lines._check_receipt_validity()
         new_rec = sale_lines._create_receipt()
         rec.update(new_rec)
