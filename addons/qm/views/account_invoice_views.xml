@@ -39,7 +39,8 @@
                     </div>
 
                     <group>
-                        <group>
+                      <group>
+                            <field name="type"/>
                             <field name="code"/>
                             <field name="tax_rate"/>
                             <field name="amount_untaxed" widget="monetary"/>

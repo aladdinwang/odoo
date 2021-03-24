@@ -77,14 +77,14 @@ class AccountInvoice(models.Model):
             ("posted", "Posted"),
             ("sent", "Sent"),
             ("return", "Return"),
-            ("taken", "Taken by"),
+            ("taken", "Taken"),
             ("cancel", "Cancelled"),
         ],
         string="Status",
         required=True,
         index=True,
         tracking=True,
-        default="done",
+        default="draft",
     )
     # Todo: 税率去掉
     tax_rate = fields.Selection(
