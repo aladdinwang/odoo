@@ -71,10 +71,10 @@
                 <field name="code" string="Invoice Code"/>
                 <field name="express_code" string="Express Reference"/>
                 <separator/>
-                <filter name="done" string="Done" domain="[('state','=','done')]" />
+                <filter name="sent" string="Sent" domain="[('state','=','sent')]" />
                 <filter name="cancel" string="Cancelled" domain="[('state','=','cancel')]" />
                 <separator/>
-                <filter string="Invoice Date" name="invoice_date" date="invoice_date"/>
+                <filter string="Invoice Date" name="posted_date" date="posted_date"/>
                 <filter string="Sent Date" name="sent_date" date="sent_date"/>
             </search>
         </field>

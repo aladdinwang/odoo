@@ -416,6 +416,7 @@ msgstr "收/寄票日期"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_invoice__state
 #: model:ir.model.fields,field_description:qm.field_account_move__state
+#: model:ir.model.fields,field_description:qm.field_account_move__receipt_state
 #: model:ir.model.fields,field_description:qm.field_purchase_request__state
 msgid "Status"
 msgstr "状态"
@@ -728,3 +729,10 @@ msgstr "待开票数量"
 #, python-format
 msgid "Create Sale Receipt"
 msgstr "申请开票"
+
+
+#. module: qm
+#: model:ir.actions.act_window,name:account.action_move_out_receipt_type
+#: model:ir.ui.menu,name:account.menu_action_move_out_receipt_type
+msgid "Receipts"
+msgstr "开票申请"
