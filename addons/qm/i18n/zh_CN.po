@@ -710,7 +710,7 @@ msgstr "申请采购"
 #: model:ir.actions.act_window,name:qm.action_order_lines_to_receipt
 #: model:ir.ui.menu,name:qm.menu_order_lines_to_receipt_action
 msgid "Orders to Receipt"
-msgstr "代开票明细"
+msgstr "待开票明细"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_order_line__qty_receipt
