@@ -876,3 +876,8 @@ msgstr "自取日期"
 #, python-format
 msgid "One order line at least"
 msgstr "至少需要一行有效订单明细"
+
+#. module: qm
+#: model:res.groups,name:qm.group_hidden_menu
+msgid "Hidden Menu"
+msgstr "隐藏菜单"

@@ -126,6 +126,10 @@
     </record>
 
     <menuitem action="action_order_lines_to_receipt" id="menu_order_lines_to_receipt_action" parent="sale.menu_sale_invoicing" sequence="0" active="True"/>
+
+    <record id="sale.menu_sale_order_invoice" model="ir.ui.menu">
+      <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/> 
+    </record>
     
     <data noupdate="1">
         <delete model="ir.actions.server" search="[('id','=',ref('sale.model_sale_order_action_quotation_sent'))]"/>

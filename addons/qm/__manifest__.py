@@ -19,6 +19,7 @@
     ],
     "description": ("专为荃玟定制" "该模块和sale_purchase, purchase_stock, stock_dropshipping冲突"),
     "data": [
+        "security/security.xml",
         "security/ir.model.access.csv",
         "data/tax.classification.csv",
         "data/product.category.csv",
