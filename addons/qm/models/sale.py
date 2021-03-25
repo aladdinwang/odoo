@@ -161,6 +161,9 @@ class SaleOrder(models.Model):
             "line_ids": [],
             "company_id": self.company_id.id,
             "invoice_date": fields.Date.today(),
+            "invoice_vendor_bill_id": False,
+            "purchase_id": False,
+            "purchase_vendor_bill_id": False,
         }
         return receipt_vals
 

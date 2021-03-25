@@ -130,7 +130,12 @@ class AccountMove(models.Model):
                 lambda x: x.state not in ("draft", "cancel") and x.qty_to_receipt > 0
             )
         )
-        if not sale_lines:
+
+        # hack, account.move.create会再次调用default_get
+        if not sale_lines and not any(
+            set(default_fields)
+            - {"invoice_vendor_bill_id", "purchase_id", "purchase_vendor_bill_id"}
+        ):
             return rec
 
         sale_lines._check_receipt_validity()

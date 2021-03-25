@@ -870,3 +870,9 @@ msgstr "已自取"
 #: model:ir.model.fields,field_description:qm.field_account_invoice__taken_date
 msgid "Taken date"
 msgstr "自取日期"
+
+#. module: qm
+#: code:addons/qm/models/sale.py:0
+#, python-format
+msgid "One order line at least"
+msgstr "至少需要一行有效订单明细"
