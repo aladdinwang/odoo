@@ -125,7 +125,14 @@
       </field>
     </record>
 
-    <menuitem action="action_order_lines_to_receipt" id="menu_order_lines_to_receipt_action" parent="sale.menu_sale_invoicing" sequence="0" active="True"/>
+    <menuitem action="action_order_lines_to_receipt"
+              id="menu_order_lines_to_receipt_action"
+              parent="sale.menu_sale_invoicing"
+              sequence="0" active="True"/>
+
+    <menuitem id="menu_action_move_out_receipt_type_qm"
+              action="sale.menu_action_move_out_receipt_type"
+              parent="account.menu_finance_receivables" sequence="1"/>
 
     <record id="sale.menu_sale_order_invoice" model="ir.ui.menu">
       <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/> 
