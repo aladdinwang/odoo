@@ -89,8 +89,8 @@ class AccountMove(models.Model):
     cancel_reason = fields.Char(string="Cancel reason")
 
     invoice_ids = fields.Many2many(
-        "account.invoice",
-        "account_invoice_rel",
+        "account.sale.invoice",
+        "account_sale_invoice_rel",
         "move_id",
         "invoice_id",
         string="Invoices",

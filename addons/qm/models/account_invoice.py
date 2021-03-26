@@ -2,9 +2,9 @@ from odoo import fields, models, api
 
 
 class AccountInvoice(models.Model):
-    _name = "account.invoice"
+    _name = "account.sale.invoice"
     _inherit = ["portal.mixin", "mail.thread", "mail.activity.mixin"]
-    _description = "Account Invoice"
+    _description = "Account Sale Invoice"
     _order = "create_date desc, name desc, id desc"
 
     @api.model

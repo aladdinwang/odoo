@@ -208,7 +208,7 @@ msgid "Sale Orders"
 msgstr "销售订单"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__amount_total
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__amount_total
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Total"
 msgstr "总计"
@@ -281,7 +281,7 @@ msgstr "待申请"
 
 
 #. module: qm
-#: model:ir.model,name:qm.model_account_invoice
+#: model:ir.model,name:qm.model_account_sale_invoice
 msgid "Account Invoice"
 msgstr "发票"
 
@@ -292,73 +292,73 @@ msgstr "是否确认开票?"
 
 
 #. module: qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 msgid "Cancel"
 msgstr "作废"
 
 
 #. module: qm
-#: model_terms:ir.actions.act_window,help:qm.action_account_invoice_qm
+#: model_terms:ir.actions.act_window,help:qm.action_account_sale_invoice_qm
 msgid "Create a customer invoice"
 msgstr "创建客户发票"
 
 
 #. module: qm
-#: model_terms:ir.actions.act_window,help:qm.action_account_invoice_qm
+#: model_terms:ir.actions.act_window,help:qm.action_account_sale_invoice_qm
 msgid "Create invoices"
 msgstr "创建新发票"
 
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__state__done
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__done
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
 #: model:ir.model.fields.selection,name:qm.selection__purchase_request__state__done
 msgid "Done"
 msgstr "完成"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__express_code
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__express_code
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
 msgid "Express Reference"
 msgstr "快递单号"
 
 #. module: qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 msgid "Finish"
 msgstr "完成"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__code
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__code
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
 msgid "Invoice Code"
 msgstr "发票号码"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__invoice_date
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__invoice_date
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Invoice Date"
 msgstr "开票日期"
 
 #. module: qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
 msgid "Invoice Name"
 msgstr "发票代码"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__name
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__name
 msgid "Invoice Reference"
 msgstr "发票代码"
 
 #. module: qm
-#: model:ir.actions.act_window,name:qm.action_account_invoice_qm
+#: model:ir.actions.act_window,name:qm.action_account_sale_invoice_qm
 #: model:ir.model.fields,field_description:qm.field_account_move__invoice_ids
-#: model:ir.ui.menu,name:qm.menu_action_account_invoice_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_form_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_tree_qm
+#: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_tree_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Invoices"
@@ -372,7 +372,7 @@ msgstr "账单"
 
 
 #. module: qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
 msgid "Search Invoice"
 msgstr "搜索发票"
 
@@ -389,20 +389,20 @@ msgid "Tax Excluded"
 msgstr "未含税金额"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__amount_tax
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__amount_tax
 msgid "Taxes"
 msgstr "税"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__amount_untaxed
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__amount_untaxed
 msgid "Untaxed Amount"
 msgstr "未含税金额"
 
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__state__cancel
-#: model_terms:ir.ui.view,arch_db:qm.view_account_invoice_filter_qm
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__cancel
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
 #: model:ir.model.fields.selection,name:qm.selection__purchase_request__state__cancel
 #: model:ir.model.fields.selection,name:qm.selection__account_move__receipt_state__cancel
 msgid "Cancelled"
@@ -410,12 +410,12 @@ msgstr "作废"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__sent_date
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__sent_date
 msgid "Sent/Received Date"
 msgstr "收/寄票日期"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__state
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__state
 #: model:ir.model.fields,field_description:qm.field_account_move__state
 #: model:ir.model.fields,field_description:qm.field_account_move__receipt_state
 #: model:ir.model.fields,field_description:qm.field_purchase_request__state
@@ -445,7 +445,7 @@ msgstr "已签收"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__sale_order__invoice_state__sent
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__state__sent
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__sent
 msgid "Sent"
 msgstr "已寄出"
 
@@ -475,7 +475,7 @@ msgid "Invoices"
 msgstr "账单"
 
 #. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_invoice_report__type__out_invoice
+#: model:ir.model.fields.selection,name:account.selection__account_sale_invoice_report__type__out_invoice
 #: model:ir.model.fields.selection,name:account.selection__account_move__type__out_invoice
 msgid "Customer Invoice"
 msgstr "客户账单"
@@ -545,27 +545,27 @@ msgid "In Payment"
 msgstr "付款中"
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__sent_type__express
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__sent_type__express
 msgid "Express"
 msgstr "财务寄送"
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__sent_type__self_pickup
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__sent_type__self_pickup
 msgid "Self Pickup"
 msgstr "销售自提"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__sent_type
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__sent_type
 msgid "Sent Type"
 msgstr "寄送类型"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__tax_rate
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__tax_rate
 msgid "Tax Rate"
 msgstr "税率"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__type
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__type
 msgid "Type"
 msgstr "类型"
 
@@ -755,44 +755,44 @@ msgstr "审核人"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__cancel_date
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__cancel_date
 #: model:ir.model.fields,field_description:qm.field_account_move__cancel_date
 msgid "Cancel Date"
 msgstr "作废日期"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__cancel_by
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__cancel_by
 msgid "Cancel by"
 msgstr "作废人"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__cancel_reason
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__cancel_reason
 #: model:ir.model.fields,field_description:qm.field_account_move__cancel_reason
 msgid "Cancel reason"
 msgstr "作废原因"
 
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__state__draft
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__draft
 #: model:ir.model.fields.selection,name:qm.selection__account_move__receipt_state__draft
 msgid "Draft"
 msgstr "草稿"
 
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__state__posted
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__posted
 #: model:ir.model.fields.selection,name:qm.selection__account_move__receipt_state__posted
 msgid "Posted"
 msgstr "已提交"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__posted_date
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__posted_date
 #: model:ir.model.fields,field_description:qm.field_account_move__posted_date
 msgid "Posted Date"
 msgstr "提交日期"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__posted_by
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__posted_by
 #: model:ir.model.fields,field_description:qm.field_account_move__posted_by
 msgid "Posted by"
 msgstr "提交人"
@@ -820,54 +820,54 @@ msgstr "已驳回"
 
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__state__return
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__return
 msgid "Return"
 msgstr "已退回"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__return_by
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__return_by
 msgid "Return by"
 msgstr "退回人"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__return_date
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__return_date
 msgid "Return date"
 msgstr "退回日期"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__sent_by
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__sent_by
 msgid "Sent by"
 msgstr "寄出人"
 
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__type__normal
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__type__normal
 msgid "Normal"
 msgstr "普通"
 
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__type__special
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__type__special
 msgid "Special"
 msgstr "专用"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__taken_by
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__taken_by
 msgid "Taken by"
 msgstr "自取人"
 
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_invoice__state__taken
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__taken
 msgid "Taken"
 msgstr "已自取"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_invoice__taken_date
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__taken_date
 msgid "Taken date"
 msgstr "自取日期"
 

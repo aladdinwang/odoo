@@ -108,7 +108,7 @@
         parent="account.menu_finance_receivables"
         sequence="0"/>
 
-
+    <!-- 应该是隐藏掉 -->
     <data noupdate="1">
         <delete model="ir.ui.menu" search="[('id','=',ref('account.menu_action_move_out_invoice_type'))]"/>
         <delete model="ir.ui.menu" search="[('id','=',ref('account.menu_action_move_out_refund_type'))]"/>
