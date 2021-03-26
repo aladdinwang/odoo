@@ -881,3 +881,9 @@ msgstr "至少需要一行有效订单明细"
 #: model:res.groups,name:qm.group_hidden_menu
 msgid "Hidden Menu"
 msgstr "隐藏菜单"
+
+
+#. module: qm
+#: model:ir.ui.menu,name:qm.menu_action_move_out_receipt_type_qm
+msgid "Receipts"
+msgstr "开票申请"
