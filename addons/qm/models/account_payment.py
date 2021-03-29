@@ -10,6 +10,7 @@ class AccountPayment(models.Model):
     overpayment_amount = fields.Monetary(
         compute="_compute_overpayment_amount", readonly=True
     )
+    register_id = fields.One2many("account.payment.register", index=True)
 
     def post(self):
         for pay in self:
@@ -34,3 +35,111 @@ class AccountPayment(models.Model):
                 pay.overpayment_amount = pay.amount - amount
             else:
                 pay.overpayment_amount = 0.0
+
+
+# 销售到款单
+class PaymentRegister(models.Model):
+    _inherit = "account.payment.register"
+
+    name = fields.Char(readonly=True, copy=False)
+    payment_type = fields.Selection(
+        [
+            ("outbound", "Send Money"),
+            ("inbound", "Receive Money"),
+            ("transfer", "Internal Transfer"),
+        ],
+        string="Payment Type",
+        required=True,
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+    )
+    partner_type = fields.Selection(
+        [("customer", "Customer"), ("supplier", "Vendor")],
+        tracking=True,
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+    )
+    company_id = fields.Many2one(
+        "res.company", related="journal_id.company_id", string="Company", readonly=True
+    )
+    partner_id = fields.Many2one(
+        "res.partner",
+        string="Partner",
+        tracking=True,
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+    )
+    payment_method_code = fields.Char(
+        related="payment_method_id.code",
+        help="Technical field used to adapt the interface to the payment type selected.",
+        readonly=True,
+    )
+
+    amount = fields.Monetary(
+        string="Amount",
+        required=True,
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+        tracking=True,
+    )
+    currency_id = fields.Many2one(
+        "res.currency",
+        string="Currency",
+        required=True,
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+        default=lambda self: self.env.company.currency_id,
+    )
+    communication = fields.Char(string="Memo", tracking=True)
+
+    # one2many line
+    line_ids = fields.One2many(
+        "account.payment.register.line", "register_id", string="Register Lines"
+    )
+    payment_ids = fields.One2many("account.payment", "register_id", string="Payments")
+
+    # return, returned已退票
+    # posted 待付款
+    # waiting 销售认领
+    # reject 已驳回
+    state = fields.Selection(
+        [
+            ("draft", "Draft"),
+            ("posted", "Posted"),
+            ("waiting", "Waiting"),
+            ("reconciled", "Reconciled"),
+            ("cancelled", "Cancelled"),
+            ("reject", "Rejected"),
+            ("return", "Returned"),
+        ],
+        readonly=True,
+        default="draft",
+        copy=False,
+        string="Status",
+    )
+
+    cancel_by = fields.Many2one("res.users", string="Cancel by")
+    reject_by = fields.Many2one("res.users", string="Reject by")
+
+
+class PaymentRegisterLine(models.Model):
+    _name = "account.payment.register.line"
+    _description = "Register Payment Line"
+
+    register_id = fields.Many2one("account.payment.register", index=True, required=True)
+    invoice_id = fields.Many2one("account.move", index=True, required=True)
+    amount = fields.Monetary(
+        string="Amount",
+        required=True,
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+        tracking=True,
+    )
+    currency_id = fields.Many2one(
+        "res.currency",
+        string="Currency",
+        related="register_id.currency_id",
+        readonly=True,
+    )
+    sequence = fields.Integer(default=10)

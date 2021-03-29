@@ -26,4 +26,108 @@
         </field>
     </record>
 
+    <!-- 客户到款单from -->
+    <record id="view_account_payment_register_form_qm" model="ir.ui.view">
+      <field name="name">account.payment.register.form.qm</field>
+      <field name="model">account.payment.register</field>
+      <field name="arch" type="xml">
+        <form string="Register Payment">
+          <header>
+            <!-- 添加按钮 -->
+            <field name="state" widget="statusbar" statusbar_visible="draft,waiting,reconciled,cancelled"/>
+          </header>
+          <sheet>
+            <div class="oe_title" attrs="{'invisible': [('state', '=', 'draft')]}">
+              <h1><field name="name"/></h1>
+            </div>
+            <group>
+              <group>
+                <field name="payment_type" widget="radio"/>
+                <field name="partner_id"/>
+                <field name="company_id"/>
+              </group>
+              <group>
+                <field name="journal_id" widget="selection"/>
+                <field name="cancel_by"/>
+                <field name="reject_by"/>
+              </group>
+              <group>
+                <field name="amount"/>
+                <field name="payment_date"/>
+                <field name="communication"/>
+              </group>
+            </group>
+
+            <notebook>
+              <page id="line_tab" string="Lines">
+                <field name="line_ids" mode="tree" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                  <tree editable="bottom"
+                        string="Lines"
+                        default_order="sequence, date desc, id"
+                        widget="section_and_note_one2many"
+                        >
+                    <control>
+                      <create name="add_line_control" string="Add a line"/>
+                    </control>
+                    <field name="sequence" widget="handle"/>
+                    <field name="inovice_id"/>
+                    <field name="amount"/>
+                  </tree>
+                </field>
+              </page>
+              <page id="payment_tab" string="Payments" attrs="{'invisible': [('payment_ids', '=', False)]}">
+                <field name="payment_ids" mode="tree">
+                  <tree string="Payments" edit="false" create="false" delete="false">
+                    <field name="name"/>
+                    <field name="communication"/>
+                    <field name="partner_id"/>
+                    <field name="amount"/>
+                    <field name="payment_date"/>
+                    <field name="state"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record id="view_account_payment_register_tree_qm" model="ir.ui.view">
+      <field name="name">account.payment.register.tree.qm</field>
+      <field name="model">account.payment.register</field>
+      <field name="arch" type="xml">
+        <tree string="Payment Register" decoration-muted="state in ('cancel', 'reject')" decoration-success="state=='reconciled'">
+          <field name="name"/>
+          <field name="payment_type"/>
+          <field name="partner_id"/>
+          <field name="amount"/>
+          <field name="payment_date"/>
+          <filed name="state"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="veiw_account_payment_register_filter" model="ir.ui.view">
+      <field name="name">account.payment.register.select.qm</field>
+      <field name="model">account.payment.register</field>
+      <field name="arch" type="xml">
+        <search string="Search Payment Register">
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="amount"/>
+          <separator/>
+          <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]" />
+          <filter name="waiting" string="Waiting" domain="[('state', '=', 'waiting')]" />
+          <filter name="reconciled" string="Reconciled" domain="[('state', '=', 'reconciled')]" />
+          <filter name="cancelled" string="Cancelled" domain="[('state', '=', 'cancelled')]" />
+          <separator/>
+          <filter name="payment_date" string="Payment Date" date="payment_date"/>
+        </search>
+      </field>
+    </record>
+
+
 </odoo>
