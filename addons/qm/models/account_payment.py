@@ -38,8 +38,11 @@ class AccountPayment(models.Model):
 
 
 # 销售到款单
-class PaymentRegister(models.Model):
-    _inherit = "account.payment.register"
+class SalePaymentRegister(models.Model):
+    _name = "sale.payment.register"
+    _inherit = ["portal.mixin", "mail.thread", "mail.activity.mixin"]
+
+    _description = "Sale Payment Register"
 
     name = fields.Char(readonly=True, copy=False)
     payment_type = fields.Selection(
@@ -69,6 +72,20 @@ class PaymentRegister(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+    )
+    payment_date = fields.Date(required=True, default=fields.Date.context_today)
+    journal_id = fields.Many2one(
+        "account.journal", required=True, domain=[("type", "in", ("bank", "cash"))]
+    )
+    payment_method_id = fields.Many2one(
+        "account.payment.method",
+        string="Payment Method Type",
+        required=True,
+        help="Manual: Get paid by cash, check or any other method outside of Odoo.\n"
+        "Electronic: Get paid automatically through a payment acquirer by requesting a transaction on a card saved by the customer when buying or subscribing online (payment token).\n"
+        "Check: Pay bill by check and print it from Odoo.\n"
+        "Batch Deposit: Encase several customer checks at once by generating a batch deposit to submit to your bank. When encoding the bank statement in Odoo, you are suggested to reconcile the transaction with the batch deposit.To enable batch deposit, module account_batch_payment must be installed.\n"
+        "SEPA Credit Transfer: Pay bill from a SEPA Credit Transfer file you submit to your bank. To enable sepa credit transfer, module account_sepa must be installed ",
     )
     payment_method_code = fields.Char(
         related="payment_method_id.code",
@@ -106,12 +123,10 @@ class PaymentRegister(models.Model):
     state = fields.Selection(
         [
             ("draft", "Draft"),
-            ("posted", "Posted"),
             ("waiting", "Waiting"),
             ("reconciled", "Reconciled"),
             ("cancelled", "Cancelled"),
             ("reject", "Rejected"),
-            ("return", "Returned"),
         ],
         readonly=True,
         default="draft",
@@ -123,11 +138,11 @@ class PaymentRegister(models.Model):
     reject_by = fields.Many2one("res.users", string="Reject by")
 
 
-class PaymentRegisterLine(models.Model):
-    _name = "account.payment.register.line"
-    _description = "Register Payment Line"
+class SalePaymentRegisterLine(models.Model):
+    _name = "sale.payment.register.line"
+    _description = "Sale Payment Register Line"
 
-    register_id = fields.Many2one("account.payment.register", index=True, required=True)
+    register_id = fields.Many2one("sale.payment.register", index=True, required=True)
     invoice_id = fields.Many2one("account.move", index=True, required=True)
     amount = fields.Monetary(
         string="Amount",

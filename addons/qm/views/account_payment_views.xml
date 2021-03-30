@@ -27,11 +27,11 @@
     </record>
 
     <!-- 客户到款单from -->
-    <record id="view_account_payment_register_form_qm" model="ir.ui.view">
-      <field name="name">account.payment.register.form.qm</field>
-      <field name="model">account.payment.register</field>
+    <record id="view_sale_payment_register_form" model="ir.ui.view">
+      <field name="name">sale.payment.register.form</field>
+      <field name="model">sale.payment.register</field>
       <field name="arch" type="xml">
-        <form string="Register Payment">
+        <form string="Sale Payment Register">
           <header>
             <!-- 添加按钮 -->
             <field name="state" widget="statusbar" statusbar_visible="draft,waiting,reconciled,cancelled"/>
@@ -94,11 +94,11 @@
     </record>
 
 
-    <record id="view_account_payment_register_tree_qm" model="ir.ui.view">
-      <field name="name">account.payment.register.tree.qm</field>
-      <field name="model">account.payment.register</field>
+    <record id="view_sale_payment_register_tree" model="ir.ui.view">
+      <field name="name">sale.payment.register.tree</field>
+      <field name="model">sale.payment.register</field>
       <field name="arch" type="xml">
-        <tree string="Payment Register" decoration-muted="state in ('cancel', 'reject')" decoration-success="state=='reconciled'">
+        <tree string="Sale Payment Register" decoration-muted="state in ('cancel', 'reject')" decoration-success="state=='reconciled'">
           <field name="name"/>
           <field name="payment_type"/>
           <field name="partner_id"/>
@@ -110,11 +110,11 @@
     </record>
 
 
-    <record id="veiw_account_payment_register_filter_qm" model="ir.ui.view">
-      <field name="name">account.payment.register.select.qm</field>
-      <field name="model">account.payment.register</field>
+    <record id="veiw_sale_payment_register_filter" model="ir.ui.view">
+      <field name="name">sale.payment.register.select</field>
+      <field name="model">sale.payment.register</field>
       <field name="arch" type="xml">
-        <search string="Search Payment Register">
+        <search string="Search Sale Payment Register">
           <field name="name"/>
           <field name="partner_id"/>
           <field name="amount"/>
@@ -130,12 +130,12 @@
     </record>
 
     <!-- 到款单 -->
-    <record id="action_account_payment_register_qm" model="ir.actions.act_window">
-      <field name="name">Register Sale Payment</field>
-      <field name="res_model">account.payment.register</field>
+    <record id="action_sale_payment_register" model="ir.actions.act_window">
+      <field name="name">Sale Payment Register</field>
+      <field name="res_model">sale.payment.register</field>
       <field name="view_mode">tree,form</field>
-      <field name="view_id" ref="view_account_payment_register_tree_qm" />
-      <field name="search_view_id" ref="view_account_payment_register_filter_qm" />
+      <field name="view_id" ref="view_sale_payment_register_tree" />
+      <field name="search_view_id" ref="view_sale_payment_register_filter" />
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
           Create a purchase sale payment
@@ -144,7 +144,7 @@
     </record>
 
 
-    <menuitem id="menu_action_account_payment_register_qm" action="action_account_payment_register_qm"
+    <menuitem id="menu_action_sale_payment_register" action="action_sale_payment_register"
               parent="sale.menu_sale_invoicing"
               sequence="2"/>
 
