@@ -112,7 +112,7 @@
     </record>
 
 
-    <record id="veiw_sale_payment_register_filter" model="ir.ui.view">
+    <record id="view_sale_payment_register_filter" model="ir.ui.view">
       <field name="name">sale.payment.register.select</field>
       <field name="model">sale.payment.register</field>
       <field name="arch" type="xml">
