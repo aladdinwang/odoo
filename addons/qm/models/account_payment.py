@@ -128,7 +128,6 @@ class SalePaymentRegister(models.Model):
             ("waiting", "Waiting"),
             ("reconciled", "Reconciled"),
             ("cancelled", "Cancelled"),
-            ("reject", "Rejected"),
         ],
         readonly=True,
         default="draft",
@@ -137,7 +136,9 @@ class SalePaymentRegister(models.Model):
     )
 
     cancel_by = fields.Many2one("res.users", string="Cancel by")
-    reject_by = fields.Many2one("res.users", string="Reject by")
+    cancel_date = fields.Date(string="Cancelled Date", index=True)
+    reconciled_by = fields.Many2one("res.users", string="Reconciled by")
+    reconciled_date = fields.Date(string="Reconciled Date", index=True)
 
 
 class SalePaymentRegisterLine(models.Model):
