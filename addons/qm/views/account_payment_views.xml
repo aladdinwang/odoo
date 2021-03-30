@@ -62,7 +62,7 @@
 
             <notebook>
               <page id="line_tab" string="Lines">
-                <field name="line_ids" mode="tree" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                <field name="line_ids" mode="tree" attrs="{'readonly': [('parent.state', '!=', 'draft')]}">
                   <tree editable="bottom"
                         string="Lines"
                         default_order="sequence, date desc, id"
