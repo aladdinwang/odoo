@@ -100,7 +100,7 @@
       <field name="name">sale.payment.register.tree</field>
       <field name="model">sale.payment.register</field>
       <field name="arch" type="xml">
-        <tree string="Sale Payment Register" decoration-muted="state in ('cancel', 'reject')" decoration-success="state=='reconciled'">
+        <tree string="Sale Payment Register" decoration-muted="state=='cancelled'" decoration-success="state=='reconciled'">
           <field name="name"/>
           <field name="payment_type"/>
           <field name="partner_id"/>
