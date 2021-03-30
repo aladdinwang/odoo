@@ -106,7 +106,7 @@
           <field name="partner_id"/>
           <field name="amount"/>
           <field name="payment_date"/>
-          <filed name="state"/>
+          <field name="state"/>
         </tree>
       </field>
     </record>
