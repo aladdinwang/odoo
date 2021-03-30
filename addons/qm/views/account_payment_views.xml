@@ -110,7 +110,7 @@
     </record>
 
 
-    <record id="veiw_account_payment_register_filter" model="ir.ui.view">
+    <record id="veiw_account_payment_register_filter_qm" model="ir.ui.view">
       <field name="name">account.payment.register.select.qm</field>
       <field name="model">account.payment.register</field>
       <field name="arch" type="xml">
@@ -128,6 +128,25 @@
         </search>
       </field>
     </record>
+
+    <!-- 到款单 -->
+    <record id="action_account_payment_register_qm" model="ir.actions.act_window">
+      <field name="name">Register Sale Payment</field>
+      <field name="res_model">account.payment.register</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_account_payment_register_tree_qm" />
+      <field name="search_view_id" ref="view_account_payment_register_filter_qm" />
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create a purchase sale payment
+        </p>
+      </field>
+    </record>
+
+
+    <menuitem id="menu_action_account_payment_register_qm" action="action_account_payment_register_qm"
+              parent="sale.menu_sale_invoicing"
+              sequence="2"/>
 
 
 </odoo>
