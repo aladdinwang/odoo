@@ -10,7 +10,7 @@ class AccountPayment(models.Model):
     overpayment_amount = fields.Monetary(
         compute="_compute_overpayment_amount", readonly=True
     )
-    register_id = fields.One2many("account.payment.register", index=True)
+    sale_register_id = fields.Many2one("sale.payment.register", index=True)
 
     def post(self):
         for pay in self:
@@ -112,9 +112,11 @@ class SalePaymentRegister(models.Model):
 
     # one2many line
     line_ids = fields.One2many(
-        "account.payment.register.line", "register_id", string="Register Lines"
+        "sale.payment.register.line", "register_id", string="Register Lines"
     )
-    payment_ids = fields.One2many("account.payment", "register_id", string="Payments")
+    payment_ids = fields.One2many(
+        "account.payment", "sale_register_id", string="Payments"
+    )
 
     # return, returned已退票
     # posted 待付款
