@@ -151,7 +151,6 @@ class SalePaymentRegisterLine(models.Model):
         string="Amount",
         required=True,
         readonly=True,
-        states={"draft": [("readonly", False)]},
         tracking=True,
     )
     currency_id = fields.Many2one(
