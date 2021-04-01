@@ -150,7 +150,6 @@ class SalePaymentRegisterLine(models.Model):
     amount = fields.Monetary(
         string="Amount",
         required=True,
-        readonly=True,
         tracking=True,
     )
     currency_id = fields.Many2one(
