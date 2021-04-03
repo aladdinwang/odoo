@@ -154,7 +154,7 @@ class SalePaymentRegister(models.Model):
         if default_payment_method_id:
             payment_method_ids.append(default_payment_method_id)
 
-        rec["journal_id"] = jorunal_id.id
+        rec["journal_id"] = journal_id.id
         rec["payment_method_id"] = payment_method_ids and payment_method_ids[0] or False
         return rec
 
