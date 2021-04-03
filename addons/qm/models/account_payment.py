@@ -142,22 +142,22 @@ class SalePaymentRegister(models.Model):
     reconciled_by = fields.Many2one("res.users", string="Reconciled by")
     reconciled_date = fields.Date(string="Reconciled Date", index=True)
 
-    # @api.model
-    # def default_get(self, default_fields):
-    #     rec = super(SalePaymentRegister, self).default_get(default_fields)
-    #     return rec
-    #     journal_id = self.env["account.journal"].search(
-    #         [("type", "in", ("bank", "cash"), ("company_id", "=", company_id))], limit=1
-    #     )
-    #     payment_method_ids = journal_id.inbound_payment_method_ids.ids
+    @api.model
+    def default_get(self, default_fields):
+        rec = super(SalePaymentRegister, self).default_get(default_fields)
+        return rec
+        journal_id = self.env["account.journal"].search(
+            [("type", "in", ("bank", "cash"), ("company_id", "=", company_id))], limit=1
+        )
+        payment_method_ids = journal_id.inbound_payment_method_ids.ids
 
-    #     default_payment_method_id = self.env.context.get("default_payment_method_id")
-    #     if default_payment_method_id:
-    #         payment_method_ids.append(default_payment_method_id)
+        default_payment_method_id = self.env.context.get("default_payment_method_id")
+        if default_payment_method_id:
+            payment_method_ids.append(default_payment_method_id)
 
-    #     rec["journal_id"] = jorunal_id.id
-    #     rec["payment_method_id"] = payment_method_ids and payment_method_ids[0] or False
-    #     return rec
+        rec["journal_id"] = jorunal_id.id
+        rec["payment_method_id"] = payment_method_ids and payment_method_ids[0] or False
+        return rec
 
 
 class SalePaymentRegisterLine(models.Model):
