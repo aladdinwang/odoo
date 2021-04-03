@@ -77,7 +77,7 @@ class SalePaymentRegister(models.Model):
     journal_id = fields.Many2one(
         "account.journal",
         required=True,
-        domain="[('type', 'in', ('bank', 'cash')), ('company_id', '=', company_id)]",
+        domain="[('type', 'in', ('bank', 'cash'))]",
     )
     payment_method_id = fields.Many2one(
         "account.payment.method",
