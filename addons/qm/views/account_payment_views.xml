@@ -77,18 +77,6 @@
                   </tree>
                 </field>
               </page>
-              <page id="payment_tab" string="Payments" attrs="{'invisible': [('payment_ids', '=', False)]}">
-                <field name="payment_ids" mode="tree">
-                  <tree string="Payments" edit="false" create="false" delete="false">
-                    <field name="name"/>
-                    <field name="communication"/>
-                    <field name="partner_id"/>
-                    <field name="amount"/>
-                    <field name="payment_date"/>
-                    <field name="state"/>
-                  </tree>
-                </field>
-              </page>
             </notebook>
           </sheet>
         </form>

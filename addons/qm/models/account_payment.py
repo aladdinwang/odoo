@@ -75,7 +75,9 @@ class SalePaymentRegister(models.Model):
     )
     payment_date = fields.Date(required=True, default=fields.Date.context_today)
     journal_id = fields.Many2one(
-        "account.journal", required=True, domain=[("type", "in", ("bank", "cash"))]
+        "account.journal",
+        required=True,
+        domain=[("type", "in", ("bank", "cash"), ("company_id", "=", company_id))],
     )
     payment_method_id = fields.Many2one(
         "account.payment.method",
@@ -140,6 +142,22 @@ class SalePaymentRegister(models.Model):
     reconciled_by = fields.Many2one("res.users", string="Reconciled by")
     reconciled_date = fields.Date(string="Reconciled Date", index=True)
 
+    @api.model
+    def default_get(self, default_fields):
+        rec = super().default_get(default_fields)
+        journal_id = self.env["account.journal"].search(
+            [("type", "in", ("bank", "cash"), ("company_id", "=", company_id))], limit=1
+        )
+        payment_method_ids = journal_id.inbound_payment_method_ids.ids
+
+        default_payment_method_id = self.env.context.get("default_payment_method_id")
+        if default_payment_method_id:
+            payment_method_ids.append(default_payment_method_id)
+
+        rec["journal_id"] = jorunal_id.id
+        rec["payment_method_id"] = payment_method_ids and payment_method_ids[0] or False
+        return rec
+
 
 class SalePaymentRegisterLine(models.Model):
     _name = "sale.payment.register.line"
@@ -148,7 +166,7 @@ class SalePaymentRegisterLine(models.Model):
     register_id = fields.Many2one("sale.payment.register", index=True, required=True)
     # invoice_id = fields.Many2one("account.move", index=True, required=True)
     # 关联销售单
-    sale_order_id = fields.Many2one('sale.order', index=True, required=True)
+    sale_order_id = fields.Many2one("sale.order", index=True, required=True)
     amount = fields.Monetary(
         string="Amount",
         required=True,
