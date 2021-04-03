@@ -271,6 +271,8 @@ class Field(MetaField('DummyField', (object,), {})):
     def __getattr__(self, name):
         """ Access non-slot field attribute. """
         try:
+            print('*' * 100)
+            print(name)
             return self._attrs[name]
         except KeyError:
             raise AttributeError(name)
