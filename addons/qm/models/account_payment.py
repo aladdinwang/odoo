@@ -144,7 +144,7 @@ class SalePaymentRegister(models.Model):
 
     @api.model
     def default_get(self, default_fields):
-        rec = super().default_get(default_fields)
+        rec = super(SalePaymentRegister, self).default_get(default_fields)
         return rec
         journal_id = self.env["account.journal"].search(
             [("type", "in", ("bank", "cash"), ("company_id", "=", company_id))], limit=1
