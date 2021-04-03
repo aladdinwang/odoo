@@ -146,7 +146,9 @@ class SalePaymentRegisterLine(models.Model):
     _description = "Sale Payment Register Line"
 
     register_id = fields.Many2one("sale.payment.register", index=True, required=True)
-    invoice_id = fields.Many2one("account.move", index=True, required=True)
+    # invoice_id = fields.Many2one("account.move", index=True, required=True)
+    # 关联销售单
+    sale_order_id = fields.Many2one('sale.order', index=True, required=True)
     amount = fields.Monetary(
         string="Amount",
         required=True,
