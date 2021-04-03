@@ -147,7 +147,7 @@ class SalePaymentRegister(models.Model):
         rec = super(SalePaymentRegister, self).default_get(default_fields)
         return rec
         journal_id = self.env["account.journal"].search(
-            [("type", "in", ("bank", "cash")), ("company_id", "=", company_id)], limit=1
+            [("type", "in", ("bank", "cash"))], limit=1
         )
         payment_method_ids = journal_id.inbound_payment_method_ids.ids
 
