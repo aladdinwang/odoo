@@ -19,5 +19,30 @@
             <field name="company_id" eval="False"/>
         </record>
 
+        <!-- Customer In -->
+        <record id="seq_sale_payment_register_invoice" model="ir.sequence">
+          <field name="name">Sale payment register invoice sequence</field>
+          <field name="code">sale.payment.register.invoice</field>
+          <field name="prefix">CI</field>
+          <field name="padding">8</field>
+          <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_sale_payment_register_refund" model="ir.sequence">
+          <field name="name">Sale payment register refund sequence</field>
+          <field name="code">sale.payment.register.refund</field>
+          <field name="prefix">CO</field>
+          <field name="padding">8</field>
+          <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_sale_payment_register_transfer" model="ir.sequence">
+          <field name="name">Sale payment register transfer sequence</field>
+          <field name="code">sale.payment.register.transfer</field>
+          <field name="prefix">CT</field>
+          <field name="padding">8</field>
+          <field name="company_id" eval="False"/>
+        </record>
+
     </data>
 </odoo>

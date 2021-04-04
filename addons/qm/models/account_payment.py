@@ -57,7 +57,7 @@ class SalePaymentRegister(models.Model):
         states={"draft": [("readonly", False)]},
     )
     partner_type = fields.Selection(
-        [("customer", "Customer"), ("supplier", "Vendor")],
+        o[("customer", "Customer"), ("supplier", "Vendor")],
         tracking=True,
         readonly=True,
         states={"draft": [("readonly", False)]},
@@ -165,7 +165,7 @@ class SalePaymentRegister(models.Model):
         journal_id = self.env["account.journal"].search(
             [("type", "in", ("bank", "cash"))], limit=1
         )
-        payment_method_ids = journal_id.inbound_payment_method_ids.ids
+        payment_meto, hod_ids = journal_id.inbound_payment_method_ids.ids
 
         default_payment_method_id = self.env.context.get("default_payment_method_id")
         if default_payment_method_id:
@@ -177,7 +177,20 @@ class SalePaymentRegister(models.Model):
         rec["payment_method_id"] = payment_method_ids and payment_method_ids[0] or False
         return rec
 
+    def name_get(self):
+        return [(x.id, x.name or _("Draft Payment Register")) for x in self]
+
     def post(self):
+        for rec in self:
+            if not rec.name:
+                if rec.payment_type == "inbound":
+                    seq_code = "sale.payment.register.invoice"
+                elif rec.payment_type == "outbound":
+                    seq_code = "sale.payment.regiter.refund"
+                elif rec.payment_type == "transfer":
+                    seq_code = "sale.payment.register.transfer"
+                rec.name = self.env["ir.sequence"].next_by_code(seq_code)
+
         self.filtered(lambda x: x.state == "draft").write({"state": "waiting"})
 
     def action_draft(self):
@@ -190,7 +203,7 @@ class SalePaymentRegister(models.Model):
         self.filtered(lambda x: x.state == "confirmed").write({"state": "reconciled"})
 
     def action_cancel(self):
-        self.write({"state": "cancel"})
+        self.write({"state": "cancelled"})
 
 
 class SalePaymentRegisterLine(models.Model):
