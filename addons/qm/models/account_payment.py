@@ -57,7 +57,7 @@ class SalePaymentRegister(models.Model):
         states={"draft": [("readonly", False)]},
     )
     partner_type = fields.Selection(
-        o[("customer", "Customer"), ("supplier", "Vendor")],
+        [("customer", "Customer"), ("supplier", "Vendor")],
         tracking=True,
         readonly=True,
         states={"draft": [("readonly", False)]},
