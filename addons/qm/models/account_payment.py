@@ -57,7 +57,7 @@ class SalePaymentRegister(models.Model):
         states={"draft": [("readonly", False)]},
     )
     partner_type = fields.Selection(
-         [("customer", "Customer"), ("supplier", "Vendor")],
+        [("customer", "Customer"), ("supplier", "Vendor")],
         tracking=True,
         readonly=True,
         states={"draft": [("readonly", False)]},
@@ -128,7 +128,7 @@ class SalePaymentRegister(models.Model):
         [
             ("draft", "Draft"),
             ("waiting", "Waiting"),
-            ('confirmed', 'Confirmed'),
+            ("confirmed", "Confirmed"),
             ("reconciled", "Reconciled"),
             ("cancelled", "Cancelled"),
         ],
@@ -138,15 +138,26 @@ class SalePaymentRegister(models.Model):
         string="Status",
     )
 
-    cancel_by = fields.Many2one("res.users", string="Cancel by", required=True, tracking=True)
-    cancel_date = fields.Date(string="Cancelled Date", index=True, required=True, tracking=True)
+    cancel_by = fields.Many2one(
+        "res.users", string="Cancel by", required=True, tracking=True
+    )
+    cancel_date = fields.Date(
+        string="Cancelled Date", index=True, required=True, tracking=True
+    )
     # 确认人， 确认日期
-    reconciled_by = fields.Many2one("res.users", string="Reconciled by", required=True, tracking=True)
-    reconciled_date = fields.Date(string="Reconciled Date", index=True, required=True, tracking=True)
+    reconciled_by = fields.Many2one(
+        "res.users", string="Reconciled by", required=True, tracking=True
+    )
+    reconciled_date = fields.Date(
+        string="Reconciled Date", index=True, required=True, tracking=True
+    )
     # 销售处理人
-    confirm_by = fields.Many2one('res.users', string='Confirm by', required=True, tracking=True)
-    confirm_date = fields.Date(string='Confirm Date', index=True, required=True, tracking=True)
-
+    confirm_by = fields.Many2one(
+        "res.users", string="Confirm by", required=True, tracking=True
+    )
+    confirm_date = fields.Date(
+        string="Confirm Date", index=True, required=True, tracking=True
+    )
 
     @api.model
     def default_get(self, default_fields):
@@ -160,8 +171,8 @@ class SalePaymentRegister(models.Model):
         if default_payment_method_id:
             payment_method_ids.append(default_payment_method_id)
 
-        rec['payment_type'] = 'inbound'
-        rec['partner_type'] = 'customer'
+        rec["payment_type"] = "inbound"
+        rec["partner_type"] = "customer"
         rec["journal_id"] = journal_id.id
         rec["payment_method_id"] = payment_method_ids and payment_method_ids[0] or False
         return rec
@@ -176,10 +187,11 @@ class SalePaymentRegister(models.Model):
         ...
 
     def action_reconcile(self):
-        ..
+        ...
 
     def action_cancel(self):
         ...
+
 
 class SalePaymentRegisterLine(models.Model):
     _name = "sale.payment.register.line"
