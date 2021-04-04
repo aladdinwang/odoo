@@ -139,24 +139,24 @@ class SalePaymentRegister(models.Model):
     )
 
     cancel_by = fields.Many2one(
-        "res.users", string="Cancel by", required=True, tracking=True
+        "res.users", string="Cancel by", readonly=True, tracking=True
     )
     cancel_date = fields.Date(
-        string="Cancelled Date", index=True, required=True, tracking=True
+        string="Cancelled Date", index=True, readonly=True, tracking=True
     )
     # 确认人， 确认日期
     reconciled_by = fields.Many2one(
-        "res.users", string="Reconciled by", required=True, tracking=True
+        "res.users", string="Reconciled by", readonly=True, tracking=True
     )
     reconciled_date = fields.Date(
-        string="Reconciled Date", index=True, required=True, tracking=True
+        string="Reconciled Date", index=True, readonly=True, tracking=True
     )
     # 销售处理人
     confirm_by = fields.Many2one(
-        "res.users", string="Confirm by", required=True, tracking=True
+        "res.users", string="Confirm by", readonly=True, tracking=True
     )
     confirm_date = fields.Date(
-        string="Confirm Date", index=True, required=True, tracking=True
+        string="Confirm Date", index=True, readonly=True, tracking=True
     )
 
     @api.model
@@ -178,19 +178,19 @@ class SalePaymentRegister(models.Model):
         return rec
 
     def post(self):
-        ...
+        self.filtered(lambda x: x.state == "draft").write({"state": "waiting"})
 
     def action_draft(self):
-        ...
+        self.write({"state": "draft"})
 
     def action_confirm(self):
-        ...
+        self.filtered(lambda x: x.state == "waiting").write({"state": "confirmed"})
 
     def action_reconcile(self):
-        ...
+        self.filtered(lambda x: x.state == "confirmed").write({"state": "reconciled"})
 
     def action_cancel(self):
-        ...
+        self.write({"state": "cancel"})
 
 
 class SalePaymentRegisterLine(models.Model):
