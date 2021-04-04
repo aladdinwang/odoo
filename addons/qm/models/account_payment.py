@@ -165,7 +165,7 @@ class SalePaymentRegister(models.Model):
         journal_id = self.env["account.journal"].search(
             [("type", "in", ("bank", "cash"))], limit=1
         )
-        payment_meto, hod_ids = journal_id.inbound_payment_method_ids.ids
+        payment_method_ids = journal_id.inbound_payment_method_ids.ids
 
         default_payment_method_id = self.env.context.get("default_payment_method_id")
         if default_payment_method_id:
