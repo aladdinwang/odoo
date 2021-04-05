@@ -1,4 +1,4 @@
-# Translation of Odoo Server.
+nslation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* qm
 #
@@ -292,12 +292,6 @@ msgstr "是否确认开票?"
 
 
 #. module: qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
-msgid "Cancel"
-msgstr "作废"
-
-
-#. module: qm
 #: model_terms:ir.actions.act_window,help:qm.action_account_sale_invoice_qm
 msgid "Create a customer invoice"
 msgstr "创建客户发票"
@@ -401,18 +395,15 @@ msgstr "未含税金额"
 
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__cancel
-#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
-#: model:ir.model.fields.selection,name:qm.selection__purchase_request__state__cancel
 #: model:ir.model.fields.selection,name:qm.selection__account_move__receipt_state__cancel
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__cancel
+#: model:ir.model.fields.selection,name:qm.selection__purchase_request__state__cancel
+#: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__cancelled
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
 msgid "Cancelled"
 msgstr "作废"
 
-
-#. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__sent_date
-msgid "Sent/Received Date"
-msgstr "收/寄票日期"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__state
@@ -487,12 +478,6 @@ msgstr "客户账单"
 msgid "Create Invoice"
 msgstr "创建账单"
 
-
-#. module: qm
-#: code:addons/qm/models/product.py:0
-#, python-format
-msgid "Default code is duplicate"
-msgstr ""
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_product_category__number_next
@@ -600,9 +585,15 @@ msgstr "销售订单"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_request__partner_id
+#: model:ir.model.fields,field_description:qm.field_purchase_request__partner_ids
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_request_search
 msgid "Partner"
 msgstr "供应商"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__partner_id
+msgid "Partner"
+msgstr "客户"
 
 
 #. module: qm
@@ -761,7 +752,13 @@ msgid "Cancel Date"
 msgstr "作废日期"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__cancel_date
+msgid "Cancelled Date"
+msgstr "作废日期"
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__cancel_by
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__cancel_by
 msgid "Cancel by"
 msgstr "作废人"
 
@@ -771,10 +768,11 @@ msgstr "作废人"
 msgid "Cancel reason"
 msgstr "作废原因"
 
-
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__draft
 #: model:ir.model.fields.selection,name:qm.selection__account_move__receipt_state__draft
+#: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__draft
+#: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__draft
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
 msgid "Draft"
 msgstr "草稿"
 
@@ -884,18 +882,6 @@ msgstr "隐藏菜单"
 
 
 #. module: qm
-#: model:ir.ui.menu,name:qm.menu_action_move_out_receipt_type_qm
-msgid "Receipts"
-msgstr "开票申请"
-
-
-#. module: qm
-#: model:ir.model,name:qm.model_account_sale_invoice
-msgid "Account Sale Invoice"
-msgstr "销售发票"
-
-
-#. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Add a line"
 msgstr "添加明细行"
@@ -907,11 +893,6 @@ msgstr "添加明细行"
 msgid "Amount"
 msgstr "金额"
 
-
-#. module: qm
-#: model:ir.model.fields,field_description:qm.field_sale_payment_register__cancel_date
-msgid "Cancelled Date"
-msgstr "取消日期"
 
 
 #. module: qm
@@ -1010,11 +991,6 @@ msgstr "最多一个客户"
 msgid "Only one delivery type at most"
 msgstr "自发代发只能二选一"
 
-#. module: qm
-#: code:addons/qm/models/sale.py:0
-#, python-format
-msgid "Only one partner at most"
-msgstr "
 
 #. module: qm
 #: code:addons/qm/models/sale.py:0
@@ -1155,7 +1131,7 @@ msgstr "寄送日期"
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__waiting
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
-msgid "Waiting"
+msgid "Waiting" 
 msgstr "待销售认领"
 
 
@@ -1182,4 +1158,14 @@ msgid "Writeoff reference"
 msgstr "红冲代码"
 
 
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__payment_type__transfer
+msgid "Internal Transfer"
+msgstr "内部转账"
 
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
+msgid "Cancel"
+msgstr "作废"
