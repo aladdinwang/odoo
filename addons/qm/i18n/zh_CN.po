@@ -887,3 +887,299 @@ msgstr "隐藏菜单"
 #: model:ir.ui.menu,name:qm.menu_action_move_out_receipt_type_qm
 msgid "Receipts"
 msgstr "开票申请"
+
+
+#. module: qm
+#: model:ir.model,name:qm.model_account_sale_invoice
+msgid "Account Sale Invoice"
+msgstr "销售发票"
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
+msgid "Add a line"
+msgstr "添加明细行"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__amount
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__amount
+msgid "Amount"
+msgstr "金额"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__cancel_date
+msgid "Cancelled Date"
+msgstr "取消日期"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_move__cancel_by
+msgid "Cancelled by"
+msgstr "取消人"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__company_id
+msgid "Company"
+msgstr "公司"
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
+msgid "Confirm"
+msgstr "提交"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__confirm_by
+msgid "Confirm by"
+msgstr "销售处理人"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__confirm_date
+msgid "Confirm Date"
+msgstr "销售处理日期"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__courier
+msgid "Courier"
+msgstr "物流公司"
+
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__confirmed
+msgid "Confirmed"
+msgstr "待财务确认"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__currency_id
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__currency_id
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__currency_id
+msgid "Currency"
+msgstr "货币"
+
+
+#. module: qm
+#: code:addons/qm/models/product.py:0
+#, python-format
+msgid "Default code is duplicate"
+msgstr "产品代码重复"
+
+#. module: qm
+#: code:addons/qm/models/account_payment.py:0
+#, python-format
+msgid "Draft Payment Register"
+msgstr "新建"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__journal_id
+msgid "Journal"
+msgstr "日记账"
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
+msgid "Lines"
+msgstr "明细行"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__communication
+msgid "Memo"
+msgstr "备注"
+
+
+#. module: qm
+#: model_terms:ir.actions.act_window,help:qm.action_order_lines_to_receipt
+msgid "No orders to invoice found"
+msgstr "未选中可开票的订单明细"
+
+#. module: qm
+#: code:addons/qm/models/purchase.py:0 code:addons/qm/models/purchase.py:0
+#, python-format
+msgid "Only one customer at most"
+msgstr "最多一个客户"
+
+#. module: qm
+#: code:addons/qm/models/purchase.py:0 code:addons/qm/models/purchase.py:0
+#, python-format
+msgid "Only one delivery type at most"
+msgstr "自发代发只能二选一"
+
+#. module: qm
+#: code:addons/qm/models/sale.py:0
+#, python-format
+msgid "Only one partner at most"
+msgstr "
+
+#. module: qm
+#: code:addons/qm/models/sale.py:0
+#, python-format
+msgid "Only one partner at most"
+msgstr "供应商只能有一个"
+
+
+#. module: qm
+#: code:addons/qm/models/purchase.py:0 code:addons/qm/models/purchase.py:0
+#, python-format
+msgid "Only one supplier at most"
+msgstr "供应商只能有一个"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__partner_type
+msgid "Partner Type"
+msgstr "业务伙伴类型"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__payment_date
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
+msgid "Payment Date"
+msgstr "付款日期"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__payment_method_id
+msgid "Payment Method Type"
+msgstr "付款方式"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__payment_type
+msgid "Payment Type"
+msgstr "付款类型"
+
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__payment_type__inbound
+msgid "Receive Money"
+msgstr "收款"
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
+msgid "Reconcile"
+msgstr "财务确认"
+
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__reconciled
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
+msgid "Reconciled"
+msgstr "财务已确认"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__reconciled_date
+msgid "Reconciled Date"
+msgstr "财务确认日期"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__reconciled_by
+msgid "Reconciled by"
+msgstr "财务确认人"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__register_id
+msgid "Register"
+msgstr "到款单"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__line_ids
+msgid "Register Lines"
+msgstr "明细行"
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
+msgid "Reset To Draft"
+msgstr "重置为草稿"
+
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
+msgid "Sale Confirm"
+msgstr "销售确认"
+
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__sale_order_id
+msgid "Sale Order"
+msgstr "销售订单"
+
+
+#. module: qm
+#: model:ir.actions.act_window,name:qm.action_sale_payment_register
+#: model:ir.model,name:qm.model_sale_payment_register
+#: model:ir.ui.menu,name:qm.menu_action_sale_payment_register
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
+msgid "Sale Payment Register"
+msgstr "销售到款单"
+
+
+
+#. module: qm
+#: model:ir.model,name:qm.model_sale_payment_register_line
+msgid "Sale Payment Register Line"
+msgstr "到款单明细"
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
+msgid "Search Sale Payment Register"
+msgstr "搜索到款单"
+
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__payment_type__outbound
+msgid "Send Money"
+msgstr "付款"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__sent_date
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
+msgid "Sent Date"
+msgstr "寄送日期"
+
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__waiting
+#: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
+msgid "Waiting"
+msgstr "待销售认领"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__writeoff_date
+msgid "Writeoff Date"
+msgstr "红冲日期"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__writeoff_by
+msgid "Writeoff by"
+msgstr "红冲人"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__writeoff_code
+msgid "Writeoff code"
+msgstr "红冲号码"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__writeoff_name
+msgid "Writeoff reference"
+msgstr "红冲代码"
+
+
+
