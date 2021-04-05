@@ -728,6 +728,11 @@ msgstr "申请开票"
 msgid "Receipts"
 msgstr "开票申请"
 
+#. module: qm
+#: model:ir.ui.menu,name:qm.menu_action_move_in_receipt_type_qm
+msgid "Receipts"
+msgstr "开票申请"
+
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_move__approve_date
@@ -1099,7 +1104,7 @@ msgstr "销售订单"
 #: model:ir.ui.menu,name:qm.menu_action_sale_payment_register
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Sale Payment Register"
-msgstr "销售到款单"
+msgstr "到款单"
 
 
 
