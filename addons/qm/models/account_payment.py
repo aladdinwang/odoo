@@ -209,7 +209,7 @@ class SalePaymentRegister(models.Model):
     def _onchange_amount(self):
         total_amount = sum(x.amount for x in self.line_ids)
         if self.amount < total_amount:
-            return {"title": _("警告"), "message": _("明细金额超出总金额")}
+            return {"warning": {"title": _("警告"), "message": _("明细金额超出总金额")}}
 
 
 class SalePaymentRegisterLine(models.Model):
