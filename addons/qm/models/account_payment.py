@@ -205,7 +205,7 @@ class SalePaymentRegister(models.Model):
     def action_cancel(self):
         self.write({"state": "cancelled"})
 
-    @api.onchange("amount", "line_ids.amount")
+    @api.onchange("amount", "line_ids", "line_ids.amount")
     def _onchange_amount(self):
         total_amount = sum(x.amount for x in self.line_ids)
         if self.amount < total_amount:
