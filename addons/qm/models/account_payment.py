@@ -197,13 +197,39 @@ class SalePaymentRegister(models.Model):
         self.write({"state": "draft"})
 
     def action_confirm(self):
-        self.filtered(lambda x: x.state == "waiting").write({"state": "confirmed"})
+        recs = self.filtered(lambda x: x.state == "waiting")
+        recs.write(
+            {
+                "confirm_by": self.env.user.id,
+                "state": "confirmed",
+                "confirm_date": fields.Date.today(),
+            }
+        )
 
     def action_reconcile(self):
-        self.filtered(lambda x: x.state == "confirmed").write({"state": "reconciled"})
+        recs = self.filtered(lambda x: x.state == "confirmed")
+        recs.write(
+            {
+                "state": "reconciled",
+                "reconciled_by": self.env.user.id,
+                "reconciled_date": fields.Date.today(),
+            }
+        )
 
     def action_cancel(self):
-        self.write({"state": "cancelled"})
+        self.write(
+            {
+                "state": "cancelled",
+                "cancel_by": self.env.user.id,
+                "cancel_date": fields.Date.today(),
+            }
+        )
+
+    @api.onchange("amount", "line_ids", "line_ids.amount")
+    def _onchange_amount(self):
+        total_amount = sum(x.amount for x in self.line_ids)
+        if self.amount < total_amount:
+            return {"warning": {"title": _("警告"), "message": _("明细金额超出总金额")}}
 
 
 class SalePaymentRegisterLine(models.Model):
