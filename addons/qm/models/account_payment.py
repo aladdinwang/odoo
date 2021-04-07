@@ -37,12 +37,9 @@ class AccountPayment(models.Model):
                 pay.overpayment_amount = 0.0
 
 
-# 销售到款单
-class SalePaymentRegister(models.Model):
-    _name = "sale.payment.register"
+class PaymentRegister(models.AbstractModel):
+    _name = "payment.register"
     _inherit = ["portal.mixin", "mail.thread", "mail.activity.mixin"]
-
-    _description = "Sale Payment Register"
 
     name = fields.Char(readonly=True, copy=False)
     payment_type = fields.Selection(
@@ -110,15 +107,55 @@ class SalePaymentRegister(models.Model):
         states={"draft": [("readonly", False)]},
         default=lambda self: self.env.company.currency_id,
     )
-    communication = fields.Char(string="Memo", tracking=True)
+    communication = fields.Text(string="Memo", tracking=True)
 
-    # one2many line
-    line_ids = fields.One2many(
-        "sale.payment.register.line", "register_id", string="Register Lines"
+    # payment_ids = fields.One2many(
+    #     "account.payment", "sale_register_id", string="Payments"
+    # )
+
+    cancel_by = fields.Many2one(
+        "res.users", string="Cancel by", readonly=True, tracking=True
     )
-    payment_ids = fields.One2many(
-        "account.payment", "sale_register_id", string="Payments"
+    cancel_date = fields.Date(
+        string="Cancelled Date", index=True, readonly=True, tracking=True
     )
+    # 确认人， 确认日期
+    reconciled_by = fields.Many2one(
+        "res.users", string="Reconciled by", readonly=True, tracking=True
+    )
+    reconciled_date = fields.Date(
+        string="Reconciled Date", index=True, readonly=True, tracking=True
+    )
+
+    def action_draft(self):
+        self.write({"state": "draft"})
+
+    def action_reconcile(self):
+        recs = self.filtered(lambda x: x.state == "confirmed")
+        recs.write(
+            {
+                "state": "reconciled",
+                "reconciled_by": self.env.user.id,
+                "reconciled_date": fields.Date.today(),
+            }
+        )
+
+    def action_cancel(self):
+        self.write(
+            {
+                "state": "cancelled",
+                "cancel_by": self.env.user.id,
+                "cancel_date": fields.Date.today(),
+            }
+        )
+
+
+# 销售到款单
+class SalePaymentRegister(models.Model):
+    _name = "sale.payment.register"
+    _inherit = "payment.register"
+
+    _description = "Sale Payment Register"
 
     # return, returned已退票
     # posted 待付款
@@ -137,19 +174,8 @@ class SalePaymentRegister(models.Model):
         copy=False,
         string="Status",
     )
-
-    cancel_by = fields.Many2one(
-        "res.users", string="Cancel by", readonly=True, tracking=True
-    )
-    cancel_date = fields.Date(
-        string="Cancelled Date", index=True, readonly=True, tracking=True
-    )
-    # 确认人， 确认日期
-    reconciled_by = fields.Many2one(
-        "res.users", string="Reconciled by", readonly=True, tracking=True
-    )
-    reconciled_date = fields.Date(
-        string="Reconciled Date", index=True, readonly=True, tracking=True
+    line_ids = fields.One2many(
+        "sale.payment.register.line", "register_id", string="Register Lines"
     )
     # 销售处理人
     confirm_by = fields.Many2one(
@@ -177,9 +203,6 @@ class SalePaymentRegister(models.Model):
         rec["payment_method_id"] = payment_method_ids and payment_method_ids[0] or False
         return rec
 
-    def name_get(self):
-        return [(x.id, x.name or _("Draft Payment Register")) for x in self]
-
     def post(self):
         for rec in self:
             if not rec.name:
@@ -193,8 +216,14 @@ class SalePaymentRegister(models.Model):
 
         self.filtered(lambda x: x.state == "draft").write({"state": "waiting"})
 
-    def action_draft(self):
-        self.write({"state": "draft"})
+    def name_get(self):
+        return [(x.id, x.name or _("Draft Payment Register")) for x in self]
+
+    @api.onchange("amount", "line_ids", "line_ids.amount")
+    def _onchange_amount(self):
+        total_amount = sum(x.amount for x in self.line_ids)
+        if self.amount < total_amount:
+            return {"warning": {"title": _("警告"), "message": _("明细金额超出总金额")}}
 
     def action_confirm(self):
         recs = self.filtered(lambda x: x.state == "waiting")
@@ -205,31 +234,6 @@ class SalePaymentRegister(models.Model):
                 "confirm_date": fields.Date.today(),
             }
         )
-
-    def action_reconcile(self):
-        recs = self.filtered(lambda x: x.state == "confirmed")
-        recs.write(
-            {
-                "state": "reconciled",
-                "reconciled_by": self.env.user.id,
-                "reconciled_date": fields.Date.today(),
-            }
-        )
-
-    def action_cancel(self):
-        self.write(
-            {
-                "state": "cancelled",
-                "cancel_by": self.env.user.id,
-                "cancel_date": fields.Date.today(),
-            }
-        )
-
-    @api.onchange("amount", "line_ids", "line_ids.amount")
-    def _onchange_amount(self):
-        total_amount = sum(x.amount for x in self.line_ids)
-        if self.amount < total_amount:
-            return {"warning": {"title": _("警告"), "message": _("明细金额超出总金额")}}
 
 
 class SalePaymentRegisterLine(models.Model):
