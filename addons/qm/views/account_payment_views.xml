@@ -145,5 +145,11 @@
               parent="sale.menu_sale_invoicing"
               sequence="2"/>
 
+    <menuitem
+        id="menu_action_account_sale_payment_register"
+        action="action_sale_payment_register"
+        parent="account.menu_finance_receivables"
+        sequence="1"/>
+    
 
 </odoo>
