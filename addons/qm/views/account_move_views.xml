@@ -106,7 +106,11 @@
         id="menu_action_move_out_invoice_refund_type_qm"
         action="action_move_out_invoice_refund_type_qm"
         parent="account.menu_finance_receivables"
-        sequence="0"/>
+        sequence="0" groups="qm.group_hidden_menu"/>
+
+    <record id="account.menu_action_account_payments_receivable" model="ir.ui.menu">
+      <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
+    </record>
 
     <!-- 应该是隐藏掉 -->
     <data noupdate="1">
