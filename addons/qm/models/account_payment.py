@@ -72,9 +72,7 @@ class PaymentRegister(models.AbstractModel):
     )
     payment_date = fields.Date(required=True, default=fields.Date.context_today)
     journal_id = fields.Many2one(
-        "account.journal",
-        required=True,
-        domain="[('type', 'in', ('bank', 'cash'))]",
+        "account.journal", required=True, domain="[('type', 'in', ('bank', 'cash'))]"
     )
     payment_method_id = fields.Many2one(
         "account.payment.method",
@@ -244,11 +242,7 @@ class SalePaymentRegisterLine(models.Model):
     # invoice_id = fields.Many2one("account.move", index=True, required=True)
     # 关联销售单
     sale_order_id = fields.Many2one("sale.order", index=True, required=True)
-    amount = fields.Monetary(
-        string="Amount",
-        required=True,
-        tracking=True,
-    )
+    amount = fields.Monetary(string="Amount", required=True, tracking=True)
     currency_id = fields.Many2one(
         "res.currency",
         string="Currency",
@@ -256,3 +250,98 @@ class SalePaymentRegisterLine(models.Model):
         readonly=True,
     )
     sequence = fields.Integer(default=10)
+
+
+class PurchasePaymentRegister(models.Model):
+    _name = "purchase.payment.register"
+    _inherit = "payment.register"
+
+    _description = "Purchase Payment Register Line"
+
+    purchase_order_id = fields.Many2one("purchase.order", index=True, required=True)
+    state = fields.Selection(
+        [
+            ("draft", "Draft"),
+            ("waiting", "Waiting"),
+            ("reconciled", "Reconciled"),
+            ("reject", "Reject"),
+            ("return", "return"),
+            ("cancelled", "Cancelled"),
+        ],
+        readonly=True,
+        default="draft",
+        copy=False,
+        string="Status",
+    )
+
+    reject_by = fields.Many2one(
+        "res.users", string="Reject by", readonly=True, tracking=True
+    )
+    reject_date = fields.Date(
+        string="Reject Date", index=True, readonly=True, tracking=True
+    )
+    reject_reason = fields.Text(string="Reject reason", tracking=True)
+
+    # 销售处理人
+    confirm_by = fields.Many2one(
+        "res.users", string="Confirm by", readonly=True, tracking=True
+    )
+    confirm_date = fields.Date(
+        string="Confirm Date", index=True, readonly=True, tracking=True
+    )
+
+    return_by = fields.Many2one(
+        "res.users", string="Return by", readonly=True, tracking=True
+    )
+    return_date = fields.Date(
+        string="Return Date", index=True, readonly=True, tracking=True
+    )
+
+    def name_get(self):
+        return [(x.id, x.name or _("Draft Payment Register")) for x in self]
+
+    @api.model
+    def default_get(self, default_fields):
+        rec = super().default_get(default_fields)
+        active_ids = self._context.get("active_ids") or self._context.get("active_id")
+        active_model = self._context.get("active_model")
+
+        if not active_ids or active_model != "purchase.order":
+            return rec
+
+        purchase_order = self.env["purchase.order"].browse(active_ids[0])
+        journal_id = self.env["account.journal"].search(
+            [("type", "in", ("bank", "cash"))], limit=1
+        )
+        payment_method_ids = journal_id.inbound_payment_method_ids.ids
+
+        default_payment_method_id = self.env.context.get("default_payment_method_id")
+        if default_payment_method_id:
+            payment_method_ids.append(default_payment_method_id)
+
+        rec["payment_type"] = "outbound"
+        rec["partner_type"] = "supplier"
+        rec["journal_id"] = journal_id.id
+        rec["purchase_order_id"] = purchase_order.id
+        rec["payment_method_id"] = payment_method_ids and payment_method_ids[0] or False
+        rec["partner_id"] = purchase_order.partner_id.id
+        return rec
+
+    def post(self):
+        for rec in self:
+            if not rec.name:
+                if rec.payment_type == "inbound":
+                    seq_code = "purchase.payment.register.invoice"
+                elif rec.payment_type == "outbound":
+                    seq_code = "purchase.payment.regiter.refund"
+                elif rec.payment_type == "transfer":
+                    seq_code = "purchase.payment.register.transfer"
+                rec.name = self.env["ir.sequence"].next_by_code(seq_code)
+
+        self.filtered(lambda x: x.state == "draft").write(
+            {
+                "state": "waiting",
+                "confirm_by": self.env.user.id,
+                "confirm_date": fields.Date.today(),
+            }
+        )
