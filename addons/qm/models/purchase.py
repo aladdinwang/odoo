@@ -265,6 +265,21 @@ class PurchaseOrder(models.Model):
             "type": "ir.actions.act_window",
         }
 
+    def action_create_purchase_payment_register(self):
+        active_ids = self.env.context.get("active_ids")
+        if not active_ids:
+            return ""
+
+        return {
+            "name": _("Create Purchase Payment Register"),
+            "res_model": "purchase.payment.register",
+            "view_mode": "form",
+            "view_id": self.env.ref("qm.view_purchase_payment_register_form"),
+            "context": self.env.context,
+            "target": "new",
+            "type": "ir.actions.act_window",
+        }
+
 
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"

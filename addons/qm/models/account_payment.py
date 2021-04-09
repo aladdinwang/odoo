@@ -258,7 +258,9 @@ class PurchasePaymentRegister(models.Model):
 
     _description = "Purchase Payment Register Line"
 
-    purchase_order_id = fields.Many2one("purchase.order", index=True, required=True)
+    purchase_order_id = fields.Many2one(
+        "purchase.order", index=True, required=True, readonly=True
+    )
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -281,8 +283,6 @@ class PurchasePaymentRegister(models.Model):
         string="Reject Date", index=True, readonly=True, tracking=True
     )
     reject_reason = fields.Text(string="Reject reason", tracking=True)
-
-    # 销售处理人
     confirm_by = fields.Many2one(
         "res.users", string="Confirm by", readonly=True, tracking=True
     )
@@ -329,6 +329,7 @@ class PurchasePaymentRegister(models.Model):
 
     def post(self):
         for rec in self:
+
             if not rec.name:
                 if rec.payment_type == "inbound":
                     seq_code = "purchase.payment.register.invoice"
@@ -343,5 +344,25 @@ class PurchasePaymentRegister(models.Model):
                 "state": "waiting",
                 "confirm_by": self.env.user.id,
                 "confirm_date": fields.Date.today(),
+            }
+        )
+
+    def action_return(self):
+        recs = self.filtered(lambda x: x.state in ("waiting", "reconciled", "reject"))
+        recs.write(
+            {
+                "state": "return",
+                "return_by": self.env.user.id,
+                "return_date": fields.Date.today(),
+            }
+        )
+
+    def action_reject(self):
+        recs = self.filtered(lambda x: x.state in ("waiting", "return"))
+        recs.write(
+            {
+                "state": "reject",
+                "reject_by": self.env.user.id,
+                "reject_date": fields.Date.today(),
             }
         )

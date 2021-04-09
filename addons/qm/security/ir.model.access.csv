@@ -4,3 +4,4 @@ access_account_sale_invoice_account_user,qm.account.sale.invoice.account.user,qm
 access_purchase_request_user,qm.purchase.request,qm.model_purchase_request,base.group_user,1,1,1,1
 access_sale_payment_register_user,qm.sale.payment.register,qm.model_sale_payment_register,base.group_user,1,1,1,1
 access_sale_payment_register_line_user,qm.sale.payment.register.line,qm.model_sale_payment_register_line,base.group_user,1,1,1,1
+access_purchase_payment_register_user,qm.purchase.payment.register,qm.model_purchase_payment_register,base.group_user,1,1,1,1

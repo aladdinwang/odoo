@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_account_payment_tree_qm" model="ir.ui.view">
         <field name="name">account.payment.tree.inherit</field>
@@ -39,7 +40,7 @@
             <button name="action_cancel" string="Cancel"  attrs="{'invisible': [('state', '=', 'cancel')]}" type="object"/>
             <button name="action_confirm" string="Sale Confirm" states="waiting" type="object"/>
             <button name="action_reconcile" string="Reconcile" states="confirmed" type="object"/>
-            <field name="state" widget="statusbar" statusbar_visible="draft,waiting,reconciled,cancelled"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,waiting,confirmed,reconciled,cancelled"/>
           </header>
           <sheet>
             <div class="oe_title" attrs="{'invisible': [('state', '=', 'draft')]}">
@@ -107,7 +108,7 @@
     </record>
 
 
-    <record id="view_sale_payment_register_filter" model="ir.ui.view">
+   <record id="view_sale_payment_register_filter" model="ir.ui.view">
       <field name="name">sale.payment.register.select</field>
       <field name="model">sale.payment.register</field>
       <field name="arch" type="xml">
@@ -126,6 +127,96 @@
       </field>
     </record>
 
+
+    <record id="view_purchase_payment_register_form" model="ir.ui.view">
+      <field name="name">purchase.payment.register.form</field>
+      <field name="model">purchase.payment.register</field>
+      <field name="arch" type="xml">
+        <form string="Purchase Payment Register">
+          <header>
+            <!-- 添加按钮 -->
+            <button name="post" class="oe_highlight" states="draft" string="Confirm" type="object"/>
+            <button name="action_draft" class="btn btn-secondary" attrs="{'invisible': [('state', '=', 'draft')]}" string="Reset To Draft" type="object"/>
+            <button name="action_cancel" string="Cancel"  attrs="{'invisible': [('state', '=', 'cancel')]}" type="object"/>
+            <button name="action_return" string="Return" states="waiting,reconciled,reject" type="object"/>
+            <button name="action_reconcile" string="Reconcile" states="waiting" type="object"/>
+            <button name="action_reject" string="Reject" states="waiting,return" type="object"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,waiting,reconciled,reject,return,cancelled"/>
+          </header>
+          <sheet>
+            <div class="oe_title" attrs="{'invisible': [('state', '=', 'draft')]}">
+              <h1><field name="name"/></h1>
+            </div>
+            <group>
+              <group>
+                <field name="payment_type" widget="radio"/>
+                <field name="partner_id"/>
+                <field name="company_id"/>
+                <field name="purchase_order_id"/>
+              </group>
+              <group>
+                <field name="journal_id" widget="selection"/>
+                <field name="confirm_by"/>
+                <field name="confirm_date"/>
+                <field name="reconciled_by"/>
+                <field name="reconciled_date"/>
+                <field name="return_by"/>
+                <field name="return_date"/>
+                <field name="reject_by"/>
+                <field name="reject_date"/>
+                <field name="cancel_by"/>
+                <field name="cancel_date"/>
+              </group>
+              <group>
+                <field name="amount"/>
+                <field name="payment_date"/>
+                <field name="communication"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record id="view_purchase_payment_register_tree" model="ir.ui.view">
+      <field name="name">purchase.payment.register.tree</field>
+      <field name="model">purchase.payment.register</field>
+      <field name="arch" type="xml">
+        <tree decoration-muted="state in ['cancelled', 'reject']" decoration-success="state=='reconciled'">
+          <field name="name"/>
+          <field name="purchase_order_id"/>
+          <field name="payment_type"/>
+          <field name="partner_id"/>
+          <field name="amount"/>
+          <field name="create_date"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_purchase_payment_register_filter" model="ir.ui.view">
+      <field name="name">Purchase Payment Register</field>
+      <field name="model">purchase.payment.register</field>
+      <field name="arch" type="xml">
+        <search string="Search Purchase Payment Register">
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="purchase_order_id"/>
+          <separator/>
+          <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]" />
+          <filter name="waiting" string="Waiting" domain="[('state', '=', 'waiting')]" />
+          <filter name="reconciled" string="Reconciled" domain="[('state', '=', 'reconciled')]" />
+          <filter name="return" string="Return" domain="[('state', '=', 'return')]" />
+          <filter name="reject" string="Reject" domain="[('state', '=', 'reject')]" />
+          <filter name="cancelled" string="Cancelled" domain="[('state', '=', 'cancelled')]" />
+          <separator/>
+          <filter name="reconciled_date" string="Reconciled Date" date="reconciled_date" />
+        </search>
+      </field>
+    </record>
+
+
     <!-- 到款单 -->
     <record id="action_sale_payment_register" model="ir.actions.act_window">
       <field name="name">Sale Payment Register</field>
@@ -135,7 +226,20 @@
       <field name="search_view_id" ref="view_sale_payment_register_filter" />
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
-          Create a purchase sale payment
+          Create a sale payment
+        </p>
+      </field>
+    </record>
+
+    <record id="action_purchase_payment_register" model="ir.actions.act_window">
+      <field name="name">Purchase Payment Register</field>
+      <field name="res_model">purchase.payment.register</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_purchase_payment_register_tree" />
+      <field name="search_view_id" ref="view_purchase_payment_register_filter" />
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create a purchase payment
         </p>
       </field>
     </record>
@@ -150,6 +254,11 @@
         action="action_sale_payment_register"
         parent="account.menu_finance_receivables"
         sequence="1"/>
+
+
+    <menuitem
+        id="menu_action_purchase_payment_register" action="action_purchase_payment_register"
+        parent="account.menu_finance_payables" sequence="2"/>
     
 
 </odoo>

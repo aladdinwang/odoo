@@ -5,6 +5,9 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
+          <field name="state" position="before">
+            <button name="action_create_purchase_payment_register" string="Create Purchase Payment Register" type="object"/>
+          </field>
             <field name="price_subtotal" position="replace">
                 <field name="price_total" widget="monetary"/>
             </field>
