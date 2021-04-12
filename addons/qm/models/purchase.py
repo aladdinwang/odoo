@@ -266,15 +266,13 @@ class PurchaseOrder(models.Model):
         }
 
     def action_create_purchase_payment_register(self):
-        active_ids = self.env.context.get("active_ids")
-        if not active_ids:
-            return ""
+        self.ensure_one()
 
         return {
             "name": _("Create Purchase Payment Register"),
             "res_model": "purchase.payment.register",
             "view_mode": "form",
-            "view_id": self.env.ref("qm.view_purchase_payment_register_form"),
+            "view_id": self.env.ref("qm.view_purchase_payment_register_form").id,
             "context": self.env.context,
             "target": "new",
             "type": "ir.actions.act_window",
