@@ -334,7 +334,7 @@ class PurchasePaymentRegister(models.Model):
                 if rec.payment_type == "inbound":
                     seq_code = "purchase.payment.register.refund"
                 elif rec.payment_type == "outbound":
-                    seq_code = "purchase.payment.regiter.invoice"
+                    seq_code = "purchase.payment.register.invoice"
                 elif rec.payment_type == "transfer":
                     seq_code = "purchase.payment.register.transfer"
                 rec.name = self.env["ir.sequence"].next_by_code(seq_code)
