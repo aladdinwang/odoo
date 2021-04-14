@@ -263,12 +263,12 @@ class PurchasePaymentRegister(models.Model):
     )
     state = fields.Selection(
         [
-            ("draft", "Draft"),
-            ("waiting", "Waiting"),
-            ("reconciled", "Reconciled"),
-            ("reject", "Reject"),
-            ("return", "return"),
-            ("cancelled", "Cancelled"),
+            ("draft", "Draft"),  # 草稿
+            ("waiting", "Waiting"),  # 待财务付款
+            ("reconciled", "Reconciled"),  # 已付款
+            ("reject", "Reject"),  # 已驳回
+            ("return", "return"),  # 已退票
+            ("cancelled", "Cancelled"),  # 已取消
         ],
         readonly=True,
         default="draft",
@@ -332,9 +332,9 @@ class PurchasePaymentRegister(models.Model):
 
             if not rec.name:
                 if rec.payment_type == "inbound":
-                    seq_code = "purchase.payment.register.invoice"
+                    seq_code = "purchase.payment.register.refund"
                 elif rec.payment_type == "outbound":
-                    seq_code = "purchase.payment.regiter.refund"
+                    seq_code = "purchase.payment.regiter.invoice"
                 elif rec.payment_type == "transfer":
                     seq_code = "purchase.payment.register.transfer"
                 rec.name = self.env["ir.sequence"].next_by_code(seq_code)

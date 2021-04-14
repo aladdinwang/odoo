@@ -1,4 +1,4 @@
-nslation of Odoo Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* qm
 #
@@ -228,11 +228,6 @@ msgstr "支付金额"
 msgid "Payment Difference"
 msgstr "差异金额"
 
-#. module: qm
-#: model:ir.model.fields,field_description:qm.field_tax_classification__create_date
-msgid "Created on"
-msgstr "创建日期"
-
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_request__customer_id
@@ -414,10 +409,11 @@ msgstr "作废"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__state
-#: model:ir.model.fields,field_description:qm.field_account_move__state
 #: model:ir.model.fields,field_description:qm.field_account_move__receipt_state
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__state
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__state
 #: model:ir.model.fields,field_description:qm.field_purchase_request__state
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__state
 msgid "Status"
 msgstr "状态"
 
@@ -592,6 +588,8 @@ msgstr "销售订单"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__partner_id
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__partner_id
 #: model:ir.model.fields,field_description:qm.field_purchase_request__partner_id
 #: model:ir.model.fields,field_description:qm.field_purchase_request__partner_ids
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_request_search
@@ -817,6 +815,7 @@ msgstr "提交人"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_move__reject_date
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__reject_date
 msgid "Reject Date"
 msgstr "驳回日期"
 
@@ -826,7 +825,13 @@ msgid "Reject Reason"
 msgstr "驳回原因"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__reject_reason
+msgid "Reject reason"
+msgstr "驳回原因"
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_move__reject_by
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__reject_by
 msgid "Reject by"
 msgstr "驳回人"
 
@@ -838,11 +843,20 @@ msgstr "已驳回"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__return
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 msgid "Return"
 msgstr "已退回"
 
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__return
+msgid "return"
+msgstr "已退票"
+
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__return_by
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__return_by
 msgid "Return by"
 msgstr "退回人"
 
@@ -850,6 +864,12 @@ msgstr "退回人"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__return_date
 msgid "Return date"
+msgstr "退回日期"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__return_date
+msgid "Return Date"
 msgstr "退回日期"
 
 
@@ -985,6 +1005,8 @@ msgid "Draft Payment Register"
 msgstr "新建"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__journal_id
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__journal_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__journal_id
 msgid "Journal"
 msgstr "日记账"
@@ -1037,12 +1059,16 @@ msgstr "供应商只能有一个"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__partner_type
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__partner_type
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__partner_type
 msgid "Partner Type"
 msgstr "业务伙伴类型"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__payment_date
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__payment_date
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__payment_date
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
 msgid "Payment Date"
@@ -1050,42 +1076,56 @@ msgstr "付款日期"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__payment_method_id
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__payment_method_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__payment_method_id
 msgid "Payment Method Type"
 msgstr "付款方式"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__payment_type
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__payment_type
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__payment_type
 msgid "Payment Type"
 msgstr "付款类型"
 
 
 #. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__payment_register__payment_type__inbound
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__payment_type__inbound
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__payment_type__inbound
 msgid "Receive Money"
 msgstr "收款"
 
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Reconcile"
 msgstr "财务确认"
 
 
 #. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__reconciled
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__reconciled
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
 msgid "Reconciled"
 msgstr "财务已确认"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__reconciled_date
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__reconciled_date
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__reconciled_date
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
 msgid "Reconciled Date"
 msgstr "财务确认日期"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__reconciled_by
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__reconciled_by
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__reconciled_by
 msgid "Reconciled by"
 msgstr "财务确认人"
@@ -1104,6 +1144,7 @@ msgstr "明细行"
 
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Reset To Draft"
 msgstr "重置为草稿"
@@ -1146,6 +1187,8 @@ msgstr "搜索到款单"
 
 
 #. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__payment_register__payment_type__outbound
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__payment_type__outbound
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__payment_type__outbound
 msgid "Send Money"
 msgstr "付款"
@@ -1163,6 +1206,13 @@ msgstr "寄送日期"
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
 msgid "Waiting" 
 msgstr "待销售认领"
+
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__waiting
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
+msgid "Waiting"
+msgstr "待财务付款"
 
 
 #. module: qm
@@ -1189,6 +1239,8 @@ msgstr "红冲代码"
 
 
 #. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__payment_register__payment_type__transfer
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__payment_type__transfer
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__payment_type__transfer
 msgid "Internal Transfer"
 msgstr "内部转账"
@@ -1196,6 +1248,7 @@ msgstr "内部转账"
 
 #. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Cancel"
 msgstr "作废"
@@ -1271,3 +1324,56 @@ msgstr "新建销售到款单"
 #: model:ir.model.fields,field_description:qm.field_tax_classification__display_name
 msgid "Display Name"
 msgstr "显示名称"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__name
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__name
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__name
+msgid "Name"
+msgstr "号码"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__reject
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
+msgid "Reject"
+msgstr "驳回"
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
+msgid "Search Purchase Payment Register"
+msgstr "搜索采购请款单"
+
+
+#. module: qm
+#: model:ir.actions.act_window,name:qm.action_purchase_payment_register
+#: model:ir.ui.menu,name:qm.menu_action_purchase_payment_register
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
+msgid "Purchase Payment Register"
+msgstr "采购请款单"
+
+#. module: qm
+#: model:ir.model,name:qm.model_purchase_order
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__purchase_order_id
+msgid "Purchase Order"
+msgstr "采购订单"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__create_date
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__create_date
+#: model:ir.model.fields,field_description:qm.field_purchase_request__create_date
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__create_date
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__create_date
+#: model:ir.model.fields,field_description:qm.field_tax_classification__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+
+#. module: qm
+#: code:addons/qm/models/purchase.py:0
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_order_form_qm
+#, python-format
+msgid "Create Purchase Payment Register"
+msgstr "创建请款单"
