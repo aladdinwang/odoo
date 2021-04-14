@@ -147,6 +147,9 @@ msgstr "收款"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__payment_method_code
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__payment_method_code
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__payment_method_code
 #: model:ir.model.fields,field_description:qm.field_tax_classification__code
 msgid "Code"
 msgstr "编号"
@@ -234,6 +237,9 @@ msgstr "创建日期"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_request__customer_id
 #: model:ir.model.fields,field_description:qm.field_sale_order__partner_id
+#: model:ir.model.fields.selection,name:qm.selection__payment_register__partner_type__customer
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__partner_type__customer
+#: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__partner_type__customer
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_request_search
 msgid "Customer"
@@ -397,9 +403,11 @@ msgstr "未含税金额"
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_move__receipt_state__cancel
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__cancel
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__cancelled
 #: model:ir.model.fields.selection,name:qm.selection__purchase_request__state__cancel
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__cancelled
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_filter_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
 msgid "Cancelled"
 msgstr "作废"
@@ -757,6 +765,8 @@ msgid "Cancel Date"
 msgstr "作废日期"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__cancel_date
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__cancel_date
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__cancel_date
 msgid "Cancelled Date"
 msgstr "作废日期"
@@ -764,6 +774,8 @@ msgstr "作废日期"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__cancel_by
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__cancel_by
+#: model:ir.model.fields,field_description:qm.field_payment_register__cancel_by
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__cancel_by
 msgid "Cancel by"
 msgstr "作废人"
 
@@ -776,7 +788,9 @@ msgstr "作废原因"
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_move__receipt_state__draft
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__draft
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__draft
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__draft
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
 msgid "Draft"
 msgstr "草稿"
@@ -893,6 +907,8 @@ msgstr "添加明细行"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__amount
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__amount
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__amount
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__amount
 msgid "Amount"
@@ -907,24 +923,29 @@ msgstr "取消人"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__company_id
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__company_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__company_id
 msgid "Company"
 msgstr "公司"
 
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Confirm"
 msgstr "提交"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__confirm_by
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__confirm_by
 msgid "Confirm by"
 msgstr "销售处理人"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__confirm_date
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__confirm_date
 msgid "Confirm Date"
 msgstr "销售处理日期"
@@ -943,6 +964,8 @@ msgstr "待财务确认"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__currency_id
+#: model:ir.model.fields,field_description:qm.field_payment_register__currency_id
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__currency_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__currency_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__currency_id
 msgid "Currency"
@@ -974,6 +997,8 @@ msgstr "明细行"
 
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_payment_register__communication
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__communication
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__communication
 msgid "Memo"
 msgstr "备注"
@@ -1174,3 +1199,75 @@ msgstr "内部转账"
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Cancel"
 msgstr "作废"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__access_warning
+#: model:ir.model.fields,field_description:qm.field_payment_register__access_warning
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__access_warning
+#: model:ir.model.fields,field_description:qm.field_purchase_request__access_warning
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__access_warning
+msgid "Access warning"
+msgstr "访问警告"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__message_needaction
+#: model:ir.model.fields,field_description:qm.field_payment_register__message_needaction
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_needaction
+#: model:ir.model.fields,field_description:qm.field_purchase_request__message_needaction
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_needaction
+msgid "Action Needed"
+msgstr "需要采取操作"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__activity_ids
+#: model:ir.model.fields,field_description:qm.field_payment_register__activity_ids
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__activity_ids
+#: model:ir.model.fields,field_description:qm.field_purchase_request__activity_ids
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__activity_ids
+msgid "Activities"
+msgstr "活动"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__activity_state
+#: model:ir.model.fields,field_description:qm.field_payment_register__activity_state
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__activity_state
+#: model:ir.model.fields,field_description:qm.field_purchase_request__activity_state
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__activity_state
+msgid "Activity State"
+msgstr "活动状态"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__message_attachment_count
+#: model:ir.model.fields,field_description:qm.field_payment_register__message_attachment_count
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_attachment_count
+#: model:ir.model.fields,field_description:qm.field_purchase_request__message_attachment_count
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_attachment_count
+msgid "Attachment Count"
+msgstr "附件数量"
+
+
+#. module: qm
+#: model_terms:ir.actions.act_window,help:qm.action_purchase_payment_register
+msgid "Create a purchase payment"
+msgstr "新建采购请款单"
+
+
+#. module: qm
+#: model_terms:ir.actions.act_window,help:qm.action_sale_payment_register
+msgid "Create a sale payment"
+msgstr "新建销售到款单"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_sale_invoice__display_name
+#: model:ir.model.fields,field_description:qm.field_payment_register__display_name
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__display_name
+#: model:ir.model.fields,field_description:qm.field_purchase_request__display_name
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__display_name
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__display_name
+#: model:ir.model.fields,field_description:qm.field_tax_classification__display_name
+msgid "Display Name"
+msgstr "显示名称"
