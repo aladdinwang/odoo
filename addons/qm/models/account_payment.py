@@ -204,12 +204,10 @@ class SalePaymentRegister(models.Model):
     def post(self):
         for rec in self:
             if not rec.name:
-                if rec.payment_type == "inbound":
-                    seq_code = "sale.payment.register.invoice"
-                elif rec.payment_type == "outbound":
-                    seq_code = "sale.payment.regiter.refund"
-                elif rec.payment_type == "transfer":
-                    seq_code = "sale.payment.register.transfer"
+                if rec.payment_type == "transfer":
+                    seq_code = "payment.register.transfer"
+                else:
+                    seq_code = "sale.payment.register"
                 rec.name = self.env["ir.sequence"].next_by_code(seq_code)
 
         self.filtered(lambda x: x.state == "draft").write({"state": "waiting"})
@@ -331,12 +329,10 @@ class PurchasePaymentRegister(models.Model):
         for rec in self:
 
             if not rec.name:
-                if rec.payment_type == "inbound":
-                    seq_code = "purchase.payment.register.refund"
-                elif rec.payment_type == "outbound":
-                    seq_code = "purchase.payment.register.invoice"
-                elif rec.payment_type == "transfer":
-                    seq_code = "purchase.payment.register.transfer"
+                if rec.payment_type == "transfer":
+                    seq_code = "payment.register.transfer"
+                else:
+                    seq_code = "purchase.payment.register"
                 rec.name = self.env["ir.sequence"].next_by_code(seq_code)
 
         self.filtered(lambda x: x.state == "draft").write(

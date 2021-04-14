@@ -19,53 +19,29 @@
             <field name="company_id" eval="False"/>
         </record>
 
-        <!-- Customer In -->
-        <record id="seq_sale_payment_register_invoice" model="ir.sequence">
-          <field name="name">Sale payment register invoice sequence</field>
-          <field name="code">sale.payment.register.invoice</field>
-          <field name="prefix">CI</field>
+        <!-- 到款单 -->
+        <record id="seq_sale_payment_register" model="ir.sequence">
+          <field name="name">Sale payment register sequence</field>
+          <field name="code">sale.payment.register</field>
+          <field name="prefix">DK</field>
           <field name="padding">8</field>
           <field name="company_id" eval="False"/>
         </record>
 
-        <record id="seq_sale_payment_register_refund" model="ir.sequence">
-          <field name="name">Sale payment register refund sequence</field>
-          <field name="code">sale.payment.register.refund</field>
-          <field name="prefix">CO</field>
+        <record id="seq_payment_register_transfer" model="ir.sequence">
+          <field name="name">Payment register transfer sequence</field>
+          <field name="code">payment.register.transfer</field>
+          <field name="prefix">T</field>
           <field name="padding">8</field>
-          <field name="company_id" eval="False"/>
-        </record>
-
-        <record id="seq_sale_payment_register_transfer" model="ir.sequence">
-          <field name="name">Sale payment register transfer sequence</field>
-          <field name="code">sale.payment.register.transfer</field>
-          <field name="prefix">CT</field>
-          <field name="padding">8</field>
-          <field name="company_id" eval="False"/>
+          <field name="company_id" eval="False"/>          
         </record>
 
 
-        <!--- Partner Out -->
-        <record id="seq_purchase_payment_register_invoice" model="ir.sequence">
-          <field name="name">Purchase payment register invoice sequence</field>
-          <field name="code">purchase.payment.register.invoice</field>
-          <field name="prefix">PO</field>
-          <field name="padding">8</field>
-          <field name="company_id" eval="False"/>
-        </record>
-
-        <record id="seq_purchase_payment_register_refund" model="ir.sequence">
-          <field name="name">Purchase payment register refund sequence</field>
-          <field name="code">purchase.payment.register.refund</field>
-          <field name="prefix">PI</field>
-          <field name="padding">8</field>
-          <field name="company_id" eval="False"/>
-        </record>
-
-        <record id="seq_purchase_payment_register_transfer" model="ir.sequence">
-          <field name="name">Purchase payment register transfer sequence</field>
-          <field name="code">purchase.payment.register.transfer</field>
-          <field name="prefix">PT</field>
+        <!-- 请款单 -->
+        <record id="seq_purchase_payment_register" model="ir.sequence">
+          <field name="name">Purchase payment register sequence</field>
+          <field name="code">purchase.payment.register</field>
+          <field name="prefix">QK</field>
           <field name="padding">8</field>
           <field name="company_id" eval="False"/>
         </record>
