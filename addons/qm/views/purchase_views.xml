@@ -5,6 +5,15 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button type="object"
+                    name="action_view_payment_register"
+                    class="oe_stat_button"
+                    icon="fa-paper-plane-o" attrs="{'invisible':[('payment_register_ids','=',[])]}">
+                    <field name="picking_count" widget="statinfo" string="Receipt" help="Incoming Shipments"/>
+                    <field name="picking_ids" invisible="1"/>
+                </button>
+            </xpath>          
           <field name="state" position="before">
             <button name="action_create_purchase_payment_register" string="Create Purchase Payment Register" type="object"/>
           </field>

@@ -47,6 +47,9 @@ class PurchaseOrder(models.Model):
     )
 
     is_dropshipping = fields.Boolean(default=False, readonly=True)
+    payment_register_ids = fields.One2many(
+        "purchase.payment.register", "purhcase_order_id", readonly=True, copy=False
+    )
 
     @api.depends("invoice_ids", "invoice_ids.state", "invoice_ids.amount_residual")
     def _compute_payment_state(self):
@@ -277,6 +280,24 @@ class PurchaseOrder(models.Model):
             "target": "new",
             "type": "ir.actions.act_window",
         }
+
+    def action_view_payment_register(self):
+        registers = self.mapped("payment_register_ids")
+        action = self.env.ref("qm.action_purchase_payment_register").read()[0]
+        if len(registers) > 1:
+            action["domain"] = [("id", "in", registers.ids)]
+        elif len(registers) == 1:
+            form_view = [(self.env.ref("qm.view_purchase_register_form").id, "form")]
+            if "views" in action:
+                action["views"] = form_view + [
+                    (state, view) for state, view in action["views"] if view != "form"
+                ]
+            else:
+                action["views"] = form_view
+            action["res_id"] = registers.id
+        else:
+            action = {"type": "ir.actions.act_window_close"}
+        return action
 
 
 class PurchaseOrderLine(models.Model):
