@@ -51,6 +51,14 @@ class PurchaseOrder(models.Model):
         "purchase.payment.register", "purhcase_order_id", readonly=True, copy=False
     )
 
+    payment_register_count = fields.Integer(
+        compute="_compute_payment_register",
+        string="Payment Register Count",
+        copy=False,
+        default=0,
+        store=True,
+    )
+
     @api.depends("invoice_ids", "invoice_ids.state", "invoice_ids.amount_residual")
     def _compute_payment_state(self):
         for order in self:
@@ -298,6 +306,11 @@ class PurchaseOrder(models.Model):
         else:
             action = {"type": "ir.actions.act_window_close"}
         return action
+
+    @api.depends("payment_register_ids")
+    def _compute_payment_register(self):
+        for order in self:
+            order.payment_register_count = len(order.payment_register_ids)
 
 
 class PurchaseOrderLine(models.Model):

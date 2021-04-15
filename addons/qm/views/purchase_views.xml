@@ -10,8 +10,8 @@
                     name="action_view_payment_register"
                     class="oe_stat_button"
                     icon="fa-paper-plane-o" attrs="{'invisible':[('payment_register_ids','=',[])]}">
-                    <field name="picking_count" widget="statinfo" string="Receipt" help="Incoming Shipments"/>
-                    <field name="picking_ids" invisible="1"/>
+                    <field name="payment_register_count" widget="statinfo" string="Payment Register Count" help="Click to review detail"/>
+                    <field name="payment_register_ids" invisible="1"/>
                 </button>
             </xpath>          
           <field name="state" position="before">
