@@ -48,7 +48,7 @@ class PurchaseOrder(models.Model):
 
     is_dropshipping = fields.Boolean(default=False, readonly=True)
     payment_register_ids = fields.One2many(
-        "purchase.payment.register", "purhcase_order_id", readonly=True, copy=False
+        "purchase.payment.register", "purchase_order_id", readonly=True, copy=False
     )
 
     payment_register_count = fields.Integer(
