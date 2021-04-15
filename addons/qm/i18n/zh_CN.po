@@ -958,17 +958,26 @@ msgstr "提交"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__confirm_by
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__confirm_by
 msgid "Confirm by"
 msgstr "销售处理人"
 
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__confirm_date
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__confirm_by
+msgid "Confirm by"
+msgstr "提交人"
+
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__confirm_date
 msgid "Confirm Date"
 msgstr "销售处理日期"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__confirm_date
+msgid "Confirm Date"
+msgstr "提交日期"
 
 
 #. module: qm
