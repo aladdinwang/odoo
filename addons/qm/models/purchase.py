@@ -318,8 +318,49 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
+    @api.depends("receipt_lines.invoice_id.state", "receipt_lines.quantity")
+    def _get_receipt_qty(self):
+        for line in self:
+            qty_receipt = 0.0
+            for receipt_line in line.receipt_lines:
+                if receipt_line.invoice_id not in ("cancelled", "reject"):
+                    qty_receipt += receipt_line.product_qty
+            line.qty_receipt = qty_receipt
+
+    @api.depends("qty_receipt", "product_uom_qty", "order_id.state")
+    def _get_to_receipt_qty(self):
+        for line in self:
+            if line.order_id.state not in ("draft", "cancel"):
+                line.qty_to_receipt = line.product_qty - line.qty_receipt
+            else:
+                line.qty_to_receipt = 0
+
     request_id = fields.Many2one(
         "purchase.request", string="Purchase Request", index=True
+    )
+
+    qty_receipt = fields.Float(
+        compute="_get_receipt_qty",
+        string="Receipt quantity",
+        store=True,
+        readonly=True,
+        digits="Product Unit of Measure",
+    )
+
+    qty_to_receipt = fields.Float(
+        compute="_get_to_receipt_qty",
+        string="To Receipt Quantity",
+        store=True,
+        readonly=True,
+        digits="Product Unit of Measure",
+    )
+
+    receipt_lines = fields.One2many(
+        "account.purchase.invoice.line",
+        "purchase_line_id",
+        string="Receipts",
+        copy=False,
+        readonly=True,
     )
 
 

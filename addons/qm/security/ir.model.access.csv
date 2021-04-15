@@ -5,3 +5,5 @@ access_purchase_request_user,qm.purchase.request,qm.model_purchase_request,base.
 access_sale_payment_register_user,qm.sale.payment.register,qm.model_sale_payment_register,base.group_user,1,1,1,1
 access_sale_payment_register_line_user,qm.sale.payment.register.line,qm.model_sale_payment_register_line,base.group_user,1,1,1,1
 access_purchase_payment_register_user,qm.purchase.payment.register,qm.model_purchase_payment_register,base.group_user,1,1,1,1
+access_account_purchase_invoice_user,qm.account.purchase.invoice.user,qm.model_account_purchase_invoice,base.group_user,1,1,1,1
+access_account_purchase_invoice_line_user,qm.account.purchase.invoice.line.user,qm.model_account_purchase_invoice_line,base.group_user,1,1,1,1

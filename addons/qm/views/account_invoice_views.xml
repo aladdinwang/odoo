@@ -103,4 +103,46 @@
     action="action_account_sale_invoice_qm"
     parent="account.menu_finance_receivables"
     sequence="1"/>
+
+
+    <record id="view_account_purchase_invoice_tree_qm" model="ir.ui.view">
+      <field name="name">qm.account.purchase.invoice.tree</field>
+      <field name="model">account.purchase.invoice</field>
+      <field name="arch" type="xml">
+        <tree decoration-muted="state in ['cancelled', 'reject']" decoration-success="state=='verified'">
+          <field name="name"/>
+          <field name="code" optional="show"/>
+          <field name="type" optional="show"/>
+          <field name="partner_id"/>
+          <field name="amount_untaxed" optional="hide"/>
+          <field name="amount_tax" optional="show"/>
+          <field name="amount_total" optional="show"/>
+          <field name="create_date" optional="show"/>
+          <field name="posted_date" optional="show"/>
+          <field name="state" optional="show"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="view_account_purchase_invoice_form_qm" model="ir.ui.view">
+      <field name="name">qm.account.purchase.invoice.form</field>
+      <field name="model">account.purchase.invoice</field>
+      <field name="arch" type="xml">
+        <form string="Invoices">
+          <header>
+            <button name="post" states="draft" type="object" class="btn-primary" string="Post"/>
+            <button name="action_cancel" states="" type="object" string="Cancel"/>
+            <button name="action_reject" states="" type="object" string="Reject"/>
+          </header>
+
+          <sheet>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    
+
+
 </odoo>
