@@ -295,7 +295,9 @@ class PurchaseOrder(models.Model):
         if len(registers) > 1:
             action["domain"] = [("id", "in", registers.ids)]
         elif len(registers) == 1:
-            form_view = [(self.env.ref("qm.view_purchase_register_form").id, "form")]
+            form_view = [
+                (self.env.ref("qm.view_purchase_payment_register_form").id, "form")
+            ]
             if "views" in action:
                 action["views"] = form_view + [
                     (state, view) for state, view in action["views"] if view != "form"

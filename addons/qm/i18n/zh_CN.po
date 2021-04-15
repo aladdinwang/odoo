@@ -1377,3 +1377,15 @@ msgstr "创建时间"
 #, python-format
 msgid "Create Purchase Payment Register"
 msgstr "创建请款单"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_order__payment_register_ids
+msgid "Payment Register"
+msgstr "请款单"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_order__payment_register_count
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_order_form_qm
+msgid "Payment Register Count"
+msgstr "请款单"
