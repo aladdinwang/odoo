@@ -135,14 +135,98 @@
             <button name="action_cancel" states="" type="object" string="Cancel"/>
             <button name="action_reject" states="" type="object" string="Reject"/>
           </header>
-
           <sheet>
+            <div class="oe_title">
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
+
+            <group>
+              <group>
+                <field name="type"/>
+                <field name="code"/>
+                <field name="tax_rate"/>
+                <field name="amount_untaxed" widget="monetary"/>
+                <field name="amount_tax" widget="monetary"/>
+                <field name="amount_total" widget="monetary"/>
+              </group>
+
+              <group>
+                <field name="partner_id"/>
+                <field name="purchase_order_ids"/>
+                <field name="posted_by"/>
+                <field name="posted_date"/>
+                <field name="approved_by"/>
+                <field name="approved_date"/>
+                <field name="verified_by"/>
+                <field name="verified_date"/>
+                <field name="reject_by"/>
+                <field name="reject_date"/>
+                <field name="reject_reason"/>
+                <field name="cancel_by"/>
+                <field name="cancel_date"/>
+              </group>
+            </group>
+
+            <notebook>
+              <page string="Lines">
+                <field name="line_ids" mode="tree">
+                  <tree editable="false" create="false"
+                        string="Lines">
+                    <field name="product_id"/>
+                    <field name="product_qty"/>
+                    <field name="product_uom"/>
+                    <field name="price_unit"/>
+                    <field name="taxes_id" optional="show"/>
+                    <field name="price_subtotal" optional="show"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
           </sheet>
         </form>
       </field>
     </record>
 
-    
+    <record id="view_account_purchase_invoice_filter_qm" model="ir.ui.view">
+      <field name="name">qm.account.purchase.invoice.select</field>
+      <field name="model">account.purchase.invoice</field>
+      <field name="arch" type="xml">
+        <search string="Search Invoice">
+          <field name="name"/>
+          <field name="code"/>
+          <separator/>
+          <filter name="posted" string="Posted" domain="[('state','=','posted')]"/>
+          <filter name="approved" string="Approved" domain="[('state','=','approved')]"/>
+          <filter name="verified" string="Verified" domain="[('state','=','verified')]"/>
+          <filter name="reject" string="Reject" domain="[('state','=','reject')]"/>
+          <filter name="cancelled" string="Cancelled" domain="[('state','=','cancelled')]"/>
+          <separator/>
+          <filter string="Create Date" name="create_date" date="create_date"/>
+          <filter string="Posted Date" name="posted_date" date="posted_date"/>
+        </search>
+      </field>
+    </record>
 
+    <record id="action_account_purchase_invoice_qm" model="ir.actions.act_window">
+      <field name="name">Purchase Invoice</field>
+      <field name="res_model">account.purchase.invoice</field>
+      <field name="view_mode">tree,kanban,form</field>
+      <field name="view_id" ref="view_account_purchase_invoice_tree_qm"/>
+      <field name="search_view_id" ref="view_account_purchase_invoice_filter_qm"/>
+      <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a partner invoice
+          </p><p>
+            Create invoices
+          </p>        
+      </field>
+    </record>
 
+    <menuitem
+        id="menu_action_account_purchase_invoice_qm"
+        action="action_account_purchase_invoice_qm"
+        parent="account.menu_finance_payables"
+        sequence="3"/>
 </odoo>

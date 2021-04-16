@@ -1176,11 +1176,11 @@ msgstr "销售订单"
 #. module: qm
 #: model:ir.actions.act_window,name:qm.action_sale_payment_register
 #: model:ir.model,name:qm.model_sale_payment_register
+#: model:ir.ui.menu,name:qm.menu_action_account_sale_payment_register
 #: model:ir.ui.menu,name:qm.menu_action_sale_payment_register
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Sale Payment Register"
 msgstr "到款单"
-
 
 
 #. module: qm

@@ -177,7 +177,38 @@ class PurchaseInvoice(models.Model):
         default="draft",
     )
 
+    tax_rate = fields.Selection(
+        selection=[
+            ("1%", "1%"),
+            ("3%", "3%"),
+            ("6%", "6%"),
+            ("9%", "9%"),
+            ("13%", "13%"),
+        ],
+        string="Tax Rate",
+        default="13%",
+    )
     # partner_id computed自动计算
+    # 检查是不是同一个partner的采购单明细
+    partner_id = fields.Many2one("res.partner", readonly=True, index=True)
+    # compute类型的partner_order_ids
+    purchase_order_ids = fields.Many2many(
+        "purchase.order",
+        compute="_compute_purchase_order",
+        string="Purchase Orders",
+        copy=False,
+    )
+
+    # 明细
+    line_ids = fields.One2many(
+        "account.purchase.invoice.line", "invoice_id", string="Lines", readonly=True
+    )
+
+    @api.depends("line_ids.purchase_line_id")
+    def _compute_purchase_order(self):
+        for rec in self:
+            purchase_orders = rec.mapped("line_ids.purchase_line_id.order_id")
+            rec.purchase_order_ids = purchase_orders
 
 
 class PurchaseInvoiceLine(models.Model):

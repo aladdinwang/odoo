@@ -72,7 +72,7 @@
                 <field name="line_ids" mode="tree">
                   <tree editable="bottom"
                         string="Lines"
-                        default_order="sequence, date desc, id"
+                        default_order="sequence, create_date desc, id"
                         widget="section_and_note_one2many"
                         >
                     <control>
