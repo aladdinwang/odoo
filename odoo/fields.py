@@ -730,7 +730,7 @@ class Field(MetaField("DummyField", (object,), {})):
                     # recomputations of fields on transient models
                     break
                 print('*' * 100)
-                print(model, fname)
+                print(model, fname, dotnames)
                 field = field_model._fields[fname]
                 if field is self and index:
                     self.recursive = True
