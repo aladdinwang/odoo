@@ -318,7 +318,7 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    @api.depends("receipt_lines.invoice_id.state", "receipt_lines.quantity")
+    @api.depends("receipt_lines.invoice_id.state", "receipt_lines.product_qty")
     def _get_receipt_qty(self):
         for line in self:
             qty_receipt = 0.0
