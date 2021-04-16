@@ -157,7 +157,7 @@
 
               <group>
                 <field name="partner_id"/>
-                <field name="purchase_order_ids"/>
+                <field name="purchase_order_ids" widget="many2many_tags"/>
                 <field name="posted_by"/>
                 <field name="posted_date"/>
                 <field name="approved_by"/>
@@ -188,6 +188,11 @@
               </page>
             </notebook>
           </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="activity_ids" widget="mail_activity"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
         </form>
       </field>
     </record>
