@@ -132,8 +132,11 @@
         <form string="Invoices">
           <header>
             <button name="post" states="draft" type="object" class="btn-primary" string="Post"/>
-            <button name="action_cancel" states="" type="object" string="Cancel"/>
-            <button name="action_reject" states="" type="object" string="Reject"/>
+            <button name="action_cancel" attrs="{'invisible': [('state', '=', 'cancel')]}" type="object" string="Cancel"/>
+            <button name="action_reject" states="posted,approved" type="object" string="Reject"/>
+            <button name="action_approve" states="posted" type="object" string="Approve"/>
+            <button name="action_verify" states="approved" type="object" string="Verify"/>
+             <field name="state" widget="statusbar" statusbar_visible="draft,posted,approved,verified,cancelled,reject"/
           </header>
           <sheet>
             <div class="oe_title">
