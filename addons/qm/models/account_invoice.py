@@ -144,22 +144,22 @@ class PurchaseInvoice(models.Model):
     amount_untaxed = fields.Monetary(string="Untaxed Amount", default=0.0)
     amount_total = fields.Monetary(string="Total", default=0.0)
     # 开具日期
-    posted_date = fields.Date(string="Posted Date", index=True)
+    posted_date = fields.Date(string="Posted Date", index=True, readonly=True)
     # 开具人
-    posted_by = fields.Many2one("res.users", string="Posted by")
+    posted_by = fields.Many2one("res.users", string="Posted by", readonly=True)
 
-    cancel_date = fields.Date(string="Cancel Date", index=True)
-    cancel_by = fields.Many2one("res.users", string="Cancel by")
+    cancel_date = fields.Date(string="Cancel Date", index=True, readonly=True)
+    cancel_by = fields.Many2one("res.users", string="Cancel by", readonly=True)
 
-    reject_reason = fields.Text("Reject Reason")
-    reject_date = fields.Date(string="Reject Date", index=True)
-    reject_by = fields.Many2one("res.users", string="Reject by")
+    reject_reason = fields.Text("Reject Reason", readonly=True)
+    reject_date = fields.Date(string="Reject Date", index=True, readonly=True)
+    reject_by = fields.Many2one("res.users", string="Reject by", readonly=True)
 
-    approved_by = fields.Many2one("res.users", string="Approved by")
-    approved_date = fields.Date(string="Approved Date", index=True)
+    approved_by = fields.Many2one("res.users", string="Approved by", readonly=True)
+    approved_date = fields.Date(string="Approved Date", index=True, readonly=True)
 
-    verified_by = fields.Many2one("res.users", string="Verified by")
-    verified_date = fields.Date(string="Verified Date", index=True)
+    verified_by = fields.Many2one("res.users", string="Verified by", readonly=True)
+    verified_date = fields.Date(string="Verified Date", index=True, readonly=True)
 
     state = fields.Selection(
         selection=[
