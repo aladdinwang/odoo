@@ -228,7 +228,13 @@ class PurchaseInvoice(models.Model):
             if last_line and last_line.partner_id != line.partner_id:
                 raise UserError(_("Only one partner at most"))
             last_line = line
-
+            taxes = line.taxes_id.compute_all(
+                line.price_unit,
+                line.currency_id,
+                line.product_qty,
+                line.product_id,
+                line.partner_id,
+            )
             new_lines.append(
                 (
                     0,
@@ -238,12 +244,14 @@ class PurchaseInvoice(models.Model):
                         "product_qty": line.qty_to_receipt,
                         "product_id": line.product_id.id,
                         "taxes_id": line.taxes_id.ids,
+                        "price_unit": line.price_unit,
+                        "product_uom": line.product_uom.id,
+                        "price_total": taxes["total_included"],
                     },
                 )
             )
 
         new_vals = {"partner_id": last_line.partner_id.id, "line_ids": new_lines}
-        rec.update(new_vals)
         return rec
 
     @api.depends("line_ids", "line_ids.purchase_line_id")
@@ -292,7 +300,6 @@ class PurchaseInvoiceLine(models.Model):
 
     @api.depends("purchase_line_id")
     def _compute_amount(self):
-        print("*" * 100)
         for line in self:
             taxes = line.taxes_id.compute_all(
                 line.price_unit,
@@ -301,7 +308,6 @@ class PurchaseInvoiceLine(models.Model):
                 line.product_id,
                 line.partner_id,
             )
-            print(taxes)
             line.update(
                 {
                     "price_tax": sum(
