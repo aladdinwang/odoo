@@ -182,7 +182,6 @@
                     <field name="product_qty"/>
                     <field name="product_uom"/>
                     <field name="price_unit"/>
-                    <field name="taxes_id" optional="show"/>
                     <field name="price_subtotal" optional="show"/>
                   </tree>
                 </field>

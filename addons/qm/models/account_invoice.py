@@ -237,7 +237,7 @@ class PurchaseInvoice(models.Model):
         rec.update(new_vals)
         return rec
 
-    @api.depends("line_ids.purchase_line_id")
+    @api.depends("line_ids", "line_ids.purchase_line_id")
     def _compute_purchase_order(self):
         for rec in self:
             purchase_orders = rec.mapped("line_ids.purchase_line_id.order_id")
