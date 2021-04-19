@@ -252,6 +252,7 @@ class PurchaseInvoice(models.Model):
             )
 
         new_vals = {"partner_id": last_line.partner_id.id, "line_ids": new_lines}
+        rec.update(new_vals)
         return rec
 
     @api.depends("line_ids", "line_ids.purchase_line_id")
