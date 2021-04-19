@@ -269,7 +269,7 @@ class PurchaseInvoice(models.Model):
             "name": _("Create Purchase Invoice"),
             "res_model": "account.purchase.invoice",
             "view_mode": "form",
-            "view_id": self.env.ref("qm.view_account_purchase_invoice_form_qm"),
+            "view_id": self.env.ref("qm.view_account_purchase_invoice_form_qm").id,
             "context": self.env.context,
             "target": "new",
             "type": "ir.actions.act_window",
