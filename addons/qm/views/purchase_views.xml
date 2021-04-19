@@ -152,6 +152,7 @@
     <record id="view_purchase_order_line_tree_qm" model="ir.ui.view">
       <field name="name">purchase.order.line.tree.inherit</field>
       <field name="model">purchase.order.line</field>
+      <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
       <field name="arch" type="xml">
         <field name="date_planned" position="replace">
           <field name="qty_receipt"/>
