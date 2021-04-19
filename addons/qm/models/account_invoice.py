@@ -211,7 +211,7 @@ class PurchaseInvoice(models.Model):
         active_ids = self._context.get("active_ids") or self._context.get("active_id")
         active_model = self._context.get("active_model")
 
-        if not active_ids or active_model != "account.purchase.invoice":
+        if not active_ids or active_model != "purchase.order.line":
             return rec
 
         purchase_lines = (
