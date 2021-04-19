@@ -237,7 +237,7 @@ class PurchaseInvoice(models.Model):
                         "purchase_line_id": line.id,
                         "product_qty": line.qty_to_receipt,
                         "product_id": line.product_id.id,
-                        "taxes_id": line.taxes_id,
+                        "taxes_id": line.taxes_id.ids,
                     },
                 )
             )
