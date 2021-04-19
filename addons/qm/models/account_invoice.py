@@ -290,7 +290,6 @@ class PurchaseInvoiceLine(models.Model):
     _name = "account.purchase.invoice.line"
     _description = "Purchase Invoice line"
 
-    @api.multi
     @api.depends("purchase_line_id", "product_qty", "price_unit", "taxes_id")
     def _compute_amount(self):
         print("*" * 100)
@@ -302,6 +301,7 @@ class PurchaseInvoiceLine(models.Model):
                 line.product_id,
                 line.partner_id,
             )
+            print(taxes)
             line.update(
                 {
                     "price_tax": sum(
