@@ -230,7 +230,16 @@ class PurchaseInvoice(models.Model):
             last_line = line
 
             new_lines.append(
-                (0, 0, {"purchase_line_id": line.id, "product_qty": line.product_qty})
+                (
+                    0,
+                    0,
+                    {
+                        "purchase_line_id": line.id,
+                        "product_qty": line.qty_to_receipt,
+                        "product_id": line.product_id.id,
+                        "taxes_id": line.taxes_id,
+                    },
+                )
             )
 
         new_vals = {"partner_id": last_line.partner_id.id, "line_ids": new_lines}
@@ -337,19 +346,15 @@ class PurchaseInvoiceLine(models.Model):
         string="Quantity", digits="Product Unit of Measure", required=True
     )
     product_uom_qty = fields.Float(
-        string="Total Quantity", compute="_compute_product_uom_qty", store=True
+        string="Total Quantity", compute="_compute_product_uom_qty"
     )
     price_unit = fields.Float(
         "Unit Price", related="purchase_line_id.price_unit", readonly=True
     )
-    price_subtotal = fields.Monetary(
-        compute="_compute_amount", string="Subtotal", store=True
-    )
-    price_total = fields.Monetary(compute="_compute_amount", string="Total", store=True)
-    price_tax = fields.Float(compute="_compute_amount", string="Tax", store=True)
-    currency_id = fields.Many2one(
-        related="purchase_line_id.currency_id", store=True, readonly=True
-    )
+    price_subtotal = fields.Monetary(compute="_compute_amount", string="Subtotal")
+    price_total = fields.Monetary(compute="_compute_amount", string="Total")
+    price_tax = fields.Float(compute="_compute_amount", string="Tax")
+    currency_id = fields.Many2one(related="purchase_line_id.currency_id", readonly=True)
     partner_id = fields.Many2one(
-        "res.partner", related="purchase_line_id.partner_id", readonly=True, store=True
+        "res.partner", related="purchase_line_id.partner_id", readonly=True
     )
