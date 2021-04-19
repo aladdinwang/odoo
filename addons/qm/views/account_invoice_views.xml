@@ -132,6 +132,7 @@
         <form string="Invoices">
           <header>
             <button name="post" states="draft" type="object" class="btn-primary" string="Post"/>
+            <button name="action_draft" class="btn btn-secondary" attrs="{'invisible': [('state', '=', 'draft')]}" string="Reset To Draft" type="object"/>
             <button name="action_cancel" attrs="{'invisible': [('state', '=', 'cancel')]}" type="object" string="Cancel"/>
             <button name="action_reject" states="posted,approved" type="object" string="Reject"/>
             <button name="action_approve" states="posted" type="object" string="Approve"/>

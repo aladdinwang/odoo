@@ -145,8 +145,20 @@
         </field>
     </record>
     <menuitem action="purchase_request_action" id="menu_purchase_request_action"
-            parent="purchase.menu_procurement_management" sequence="0"/>
+              parent="purchase.menu_procurement_management" sequence="0"/>
 
+
+
+    <record id="view_purchase_order_line_tree_qm" model="ir.ui.view">
+      <field name="name">purchase.order.line.tree.inherit</field>
+      <field name="model">purchase.order.line</field>
+      <field name="arch" type="xml">
+        <field name="date_planned" position="replace">
+          <field name="qty_receipt"/>
+          <field name="qty_to_receipt"/>
+        </field>
+      </field>
+    </record>
 
     <record id="action_purchase_order_line" model="ir.actions.act_window">
         <field name="name">Purchase Lines</field>
@@ -160,6 +172,8 @@
         </field>
     </record>
 
+    <menuitem id="menu_purchase_invoice_management" name="Invoices" parent="menu_purchase_root" sequence="2" />
+    <menuitem action="action_purchase_order_line" id="menu_purchase_order_line_qm" parent="menu_purchase_invoice_management" sequence="0"/>
 
     <record id="action_create_purchase_order_from_list" model="ir.actions.server">
       <field name="name">Create Purchase Order</field>

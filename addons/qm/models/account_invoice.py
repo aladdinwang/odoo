@@ -210,6 +210,24 @@ class PurchaseInvoice(models.Model):
             purchase_orders = rec.mapped("line_ids.purchase_line_id.order_id")
             rec.purchase_order_ids = purchase_orders
 
+    def action_draft(self):
+        ...
+
+    def post(self):
+        ...
+
+    def action_cancel(self):
+        ...
+
+    def action_reject(self):
+        ...
+
+    def action_approve(self):
+        ...
+
+    def action_verify(self):
+        ...
+
 
 class PurchaseInvoiceLine(models.Model):
     _name = "account.purchase.invoice.line"
