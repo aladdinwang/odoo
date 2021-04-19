@@ -243,10 +243,11 @@ class PurchaseInvoice(models.Model):
                         "purchase_line_id": line.id,
                         "product_qty": line.qty_to_receipt,
                         "product_id": line.product_id.id,
-                        "taxes_id": line.taxes_id.ids,
+                        "taxes_id": [(6, 0, line.taxes_id.ids)],
                         "price_unit": line.price_unit,
                         "product_uom": line.product_uom.id,
                         "price_total": taxes["total_included"],
+                        "price_subtotal": taxes["total_excluded"],
                     },
                 )
             )
