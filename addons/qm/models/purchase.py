@@ -330,7 +330,7 @@ class PurchaseOrderLine(models.Model):
     @api.depends("qty_receipt", "product_uom_qty", "order_id.state")
     def _get_to_receipt_qty(self):
         for line in self:
-            if line.order_id.state not in ("draft", "cancel"):
+            if line.order_id.state not in ("draft", "cancel") or True:
                 line.qty_to_receipt = line.product_qty - line.qty_receipt
             else:
                 line.qty_to_receipt = 0
