@@ -1,4 +1,5 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
+from odoo.exceptions import UserError
 
 
 class AccountInvoice(models.Model):
@@ -204,6 +205,37 @@ class PurchaseInvoice(models.Model):
         "account.purchase.invoice.line", "invoice_id", string="Lines", readonly=True
     )
 
+    def default_get(self, default_fields):
+        rec = super().default_get(default_fields)
+        active_ids = self._context.get("active_ids") or self._context.get("active_id")
+        active_model = self._context.get("active_model")
+
+        if not active_ids or active_model != "account.purchase.invoice":
+            return rec
+
+        purchase_lines = (
+            self.env["purchase.order.line"]
+            .browse(active_ids)
+            .filtered(lambda x: x.state not in ("draft", "cancel"))
+        )
+        if not purchase_lines:
+            raise UserError(_("You can only select valid order lines"))
+
+        last_line = None
+        new_lines = []
+        for line in purchase_lines:
+            if last_line and last_line.partner_id != line.partner_id:
+                raise UserError(_("Only one partner at most"))
+            last_line = line
+
+            new_lines.append(
+                (0, 0, {"purchase_line_id": line.id, "product_qty": line.product_qty})
+            )
+
+        new_vals = {"partner_id": last_line.partner_id.id, "line_ids": new_lines}
+        rec.update(new_vals)
+        return rec
+
     @api.depends("line_ids.purchase_line_id")
     def _compute_purchase_order(self):
         for rec in self:
@@ -227,6 +259,21 @@ class PurchaseInvoice(models.Model):
 
     def action_verify(self):
         ...
+
+    def action_create_purchase_invoice(self):
+        active_ids = self.env.context.get("active_ids")
+        if not active_ids:
+            return ""
+
+        return {
+            "name": _("Create Purchase Invoice"),
+            "res_model": "account.purchase.invoice",
+            "view_mode": "form",
+            "view_id": self.env.ref("qm.view_account_purchase_invoice_form_qm"),
+            "context": self.env.context,
+            "target": "new",
+            "type": "ir.actions.act_window",
+        }
 
 
 class PurchaseInvoiceLine(models.Model):
