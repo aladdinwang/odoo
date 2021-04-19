@@ -205,6 +205,7 @@ class PurchaseInvoice(models.Model):
         "account.purchase.invoice.line", "invoice_id", string="Lines", readonly=True
     )
 
+    @api.model
     def default_get(self, default_fields):
         rec = super().default_get(default_fields)
         active_ids = self._context.get("active_ids") or self._context.get("active_id")
