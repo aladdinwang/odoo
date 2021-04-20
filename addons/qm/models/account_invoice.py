@@ -263,22 +263,52 @@ class PurchaseInvoice(models.Model):
             rec.purchase_order_ids = purchase_orders
 
     def action_draft(self):
-        ...
+        self.write({"state": "draft"})
 
     def post(self):
-        ...
+        self.filtered(lambda x: x.state == "draft").write(
+            {
+                "state": "posted",
+                "posted_by": self.env.user.id,
+                "posted_date": fields.Date.today(),
+            }
+        )
 
     def action_cancel(self):
-        ...
+        self.write(
+            {
+                "state": "cancelled",
+                "cancel_by": self.env.user.id,
+                "cancel_date": fields.Date.today(),
+            }
+        )
 
     def action_reject(self):
-        ...
+        self.write(
+            {
+                "state": "reject",
+                "reject_by": self.env.user.id,
+                "reject_date": fields.Date.today(),
+            }
+        )
 
     def action_approve(self):
-        ...
+        self.filtered(lambda x: x == "posted").write(
+            {
+                "state": "approved",
+                "approved_by": self.env.user.id,
+                "approved_date": fields.Date.today(),
+            }
+        )
 
     def action_verify(self):
-        ...
+        self.filtered(lambda x: x == "approved").write(
+            {
+                "state": "verified",
+                "verified_by": self.env.user.id,
+                "verified_date": fields.Date.today(),
+            }
+        )
 
     def action_create_purchase_invoice(self):
         active_ids = self.env.context.get("active_ids")
