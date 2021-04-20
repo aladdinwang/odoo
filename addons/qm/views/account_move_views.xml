@@ -34,6 +34,7 @@
                 <field name="receipt_state" optional="show"/>
                 <field name="invoice_payment_state" optional="show"/>
                 <field name="type" invisible="context.get('default_type', True)"/>
+                <field name="state" optional="show"/>
             </tree>
         </field>
     </record>
