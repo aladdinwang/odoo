@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-17 04:36+0000\n"
-"PO-Revision-Date: 2021-04-17 04:36+0000\n"
+"POT-Creation-Date: 2021-04-20 05:13+0000\n"
+"PO-Revision-Date: 2021-04-20 05:13+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -327,6 +327,13 @@ msgstr "物流公司"
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Create Date"
 msgstr "创建日期"
+
+#. module: qm
+#: code:addons/qm/models/account_invoice.py:0
+#: model:ir.actions.server,name:qm.action_create_purchase_invoice_from_purchase_line_list
+#, python-format
+msgid "Create Purchase Invoice"
+msgstr "创建采购发票"
 
 #. module: qm
 #: code:addons/qm/models/purchase.py:0
@@ -736,6 +743,7 @@ msgstr "已开票"
 #: model:ir.model.fields,field_description:qm.field_account_move__invoice_ids
 #: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
 #: model:ir.ui.menu,name:qm.menu_action_move_out_invoice_refund_type_qm
+#: model:ir.ui.menu,name:qm.menu_purchase_invoice_management
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
@@ -1014,7 +1022,7 @@ msgid "Only one delivery type at most"
 msgstr "自发代发只能二选一"
 
 #. module: qm
-#: code:addons/qm/models/sale.py:0
+#: code:addons/qm/models/account_invoice.py:0 code:addons/qm/models/sale.py:0
 #, python-format
 msgid "Only one partner at most"
 msgstr "供应商只能有一个"
@@ -1242,6 +1250,7 @@ msgstr "采购订单行"
 #. module: qm
 #: model:ir.actions.act_window,name:qm.action_purchase_order_line
 #: model:ir.model.fields,field_description:qm.field_purchase_request__purchase_line_ids
+#: model:ir.ui.menu,name:qm.menu_purchase_order_line_qm
 msgid "Purchase Lines"
 msgstr "采购订单行"
 
@@ -1409,6 +1418,7 @@ msgid "Rejected"
 msgstr "已驳回"
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Reset To Draft"
@@ -1915,6 +1925,12 @@ msgstr "你可以通过它的名字，TIN，EMail或内部参考找到一个客�
 #, python-format
 msgid "You can only select open request"
 msgstr "只能勾选打开状态的需求池"
+
+#. module: qm
+#: code:addons/qm/models/account_invoice.py:0
+#, python-format
+msgid "You can only select valid order lines"
+msgstr "只能选择有效的订单行"
 
 #. module: qm
 #: model_terms:ir.actions.act_window,help:qm.action_order_lines_to_receipt
