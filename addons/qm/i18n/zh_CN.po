@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 05:13+0000\n"
-"PO-Revision-Date: 2021-04-20 05:13+0000\n"
+"POT-Creation-Date: 2021-04-20 09:14+0000\n"
+"PO-Revision-Date: 2021-04-20 09:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -738,19 +738,26 @@ msgid "Invoiced"
 msgstr "已开票"
 
 #. module: qm
-#: model:ir.actions.act_window,name:qm.action_account_sale_invoice_qm
 #: model:ir.actions.act_window,name:qm.action_move_out_invoice_refund_type_qm
 #: model:ir.model.fields,field_description:qm.field_account_move__invoice_ids
-#: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
 #: model:ir.ui.menu,name:qm.menu_action_move_out_invoice_refund_type_qm
 #: model:ir.ui.menu,name:qm.menu_purchase_invoice_management
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_tree_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Invoices"
 msgstr "发票"
+
+
+#. module: qm
+#: model:ir.actions.act_window,name:qm.action_account_sale_invoice_qm
+#: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_tree_qm
+msgid "Invoices"
+msgstr "销售发票"
+
+
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_order__is_dropshipping
@@ -1233,6 +1240,7 @@ msgstr "产品规格值"
 #: model:ir.actions.act_window,name:qm.action_account_purchase_invoice_qm
 #: model:ir.model,name:qm.model_account_purchase_invoice
 #: model:ir.ui.menu,name:qm.menu_action_account_purchase_invoice_qm
+#: model:ir.ui.menu,name:qm.menu_purchase_purchase_invoice_qm
 msgid "Purchase Invoice"
 msgstr "采购发票"
 

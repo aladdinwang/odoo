@@ -20,11 +20,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-             <xpath expr="//button[@name='action_draft']" position="after">
-                 <button name="action_to_invoice" type="object" string="To Invoice" confirm="Are you sure"
-                         attrs="{'invisible': ['|', ('invoice_state', '!=', 'pending'), '|', ('state', 'not in', ['sale', 'done']), ('invoice_status', '=', 'to invoice')]}"/>
-             </xpath>
-
+          <xpath expr="//button[@string='Create Invoice']" position="attributes">
+            <attribute name="groups">qm.group_hidden_menu</attribute>
+          </xpath>
             <field name="partner_id" position="after">
                 <field name="is_dropshipping"/>
                 <field name="outer_name"/>
