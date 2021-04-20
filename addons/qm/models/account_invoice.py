@@ -293,7 +293,7 @@ class PurchaseInvoice(models.Model):
         )
 
     def action_approve(self):
-        self.filtered(lambda x: x == "posted").write(
+        self.filtered(lambda x: x.state == "posted").write(
             {
                 "state": "approved",
                 "approved_by": self.env.user.id,
@@ -302,7 +302,7 @@ class PurchaseInvoice(models.Model):
         )
 
     def action_verify(self):
-        self.filtered(lambda x: x == "approved").write(
+        self.filtered(lambda x: x.state == "approved").write(
             {
                 "state": "verified",
                 "verified_by": self.env.user.id,
