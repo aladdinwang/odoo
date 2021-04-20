@@ -20,7 +20,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-          <xpath expr="//button[@string='Create Invoice']" position="attributes">
+          <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="attributes">
             <attribute name="groups">qm.group_hidden_menu</attribute>
           </xpath>
             <field name="partner_id" position="after">
