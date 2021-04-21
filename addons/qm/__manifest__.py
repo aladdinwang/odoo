@@ -16,7 +16,7 @@
         "stock",
         "sale_stock",
         # "purchase_stock",
-        "backend_theme_v13",
+        # "backend_theme_v13",
         "login_page",
     ],
     "description": ("专为荃玟定制" "该模块和sale_purchase, purchase_stock, stock_dropshipping冲突"),
