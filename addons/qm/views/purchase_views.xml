@@ -13,7 +13,11 @@
                     <field name="payment_register_count" widget="statinfo" string="Payment Register Count" help="Click to review detail"/>
                     <field name="payment_register_ids" invisible="1"/>
                 </button>
-            </xpath>          
+            </xpath>
+
+            <field name="action_view_invoice" position="attributes">
+              <attribute name="groups">qm.group_hidden_menu</attribute>
+            </field>
           <field name="state" position="before">
             <button name="action_create_purchase_payment_register" string="Create Purchase Payment Register" type="object"/>
           </field>
