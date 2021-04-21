@@ -15,9 +15,9 @@
                 </button>
             </xpath>
 
-            <field name="action_view_invoice" position="attributes">
+            <xpath expr="//button[@name='action_view_invoice']" position="attributes">
               <attribute name="groups">qm.group_hidden_menu</attribute>
-            </field>
+            </xpath>
           <field name="state" position="before">
             <button name="action_create_purchase_payment_register" string="Create Purchase Payment Register" type="object"/>
           </field>
