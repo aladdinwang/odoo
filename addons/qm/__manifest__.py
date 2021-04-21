@@ -15,7 +15,7 @@
         "l10n_cn_standard",
         "stock",
         "sale_stock",
-        "purchase_stock",
+        # "purchase_stock",
     ],
     "description": ("专为荃玟定制" "该模块和sale_purchase, purchase_stock, stock_dropshipping冲突"),
     "data": [
