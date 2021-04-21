@@ -26,10 +26,14 @@
         <field name="model">account.sale.invoice</field>
         <field name="arch" type="xml">
             <form string="Invoices">
-                <header>
-                    <button name="action_done" states="cancel" type="object" class="btn-primary" string="Finish" groups="account.group_account_invoice"/>
-                    <button name="action_cancel" states="done" type="object" string="Cancel" groups="account.group_account_invoice"/>
-                    <field name="state" widget="statusbar"/>
+              <header>
+                <button name="post" states="draft" type="object" class="btn-primary" string="Post"/>
+                <button name="action_draft" class="btn btn-secondary" attrs="{'invisible': [('state', '=', 'draft')]}" string="Reset To Draft" type="object" groups="account.group_account_invoice"/>
+                <button name="action_send" states="posted" string="Send" type="object" groups="account.group_account_invoice"/>
+                <button name="action_return" states="sent" string="Return" type="object" groups="account.group_account_invoice"/>
+                <button name="action_take" states="posted" string="Take" type="object" groups="account.group_account_invoice"/>
+                <button name="action_cancel" attrs="{'invisible': [('state', '=', 'cancelled')]}" type="object" string="Cancel" groups="account.group_account_invoice"/>
+                <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <div class="oe_title">

@@ -100,8 +100,20 @@ class AccountInvoice(models.Model):
         default="13%",
     )
 
-    def action_done(self):
-        self.write({"state": "done"})
+    def action_draft(self):
+        self.write({"state": "draft"})
+
+    def post(self):
+        self.write({"state": "posted"})
+
+    def action_send(self):
+        self.write({"state": "sent"})
+
+    def action_return(self):
+        self.write({"state": "return"})
+
+    def action_take(self):
+        self.write({"state": "taken"})
 
     def action_cancel(self):
         self.write({"state": "cancel"})
