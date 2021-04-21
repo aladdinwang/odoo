@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 09:14+0000\n"
-"PO-Revision-Date: 2021-04-20 09:14+0000\n"
+"POT-Creation-Date: 2021-04-21 05:45+0000\n"
+"PO-Revision-Date: 2021-04-21 05:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -174,11 +174,6 @@ msgstr "审核日期"
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__approved_by
 msgid "Approved by"
 msgstr "审核人"
-
-#. module: qm
-#: model_terms:ir.ui.view,arch_db:qm.view_order_form_qm
-msgid "Are you sure"
-msgstr "是否确认开票?"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__message_attachment_count
@@ -556,11 +551,6 @@ msgid "Express Reference"
 msgstr "快递单号"
 
 #. module: qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
-msgid "Finish"
-msgstr "完成"
-
-#. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__message_follower_ids
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__message_follower_ids
 #: model:ir.model.fields,field_description:qm.field_payment_register__message_follower_ids
@@ -738,26 +728,19 @@ msgid "Invoiced"
 msgstr "已开票"
 
 #. module: qm
+#: model:ir.actions.act_window,name:qm.action_account_sale_invoice_qm
 #: model:ir.actions.act_window,name:qm.action_move_out_invoice_refund_type_qm
 #: model:ir.model.fields,field_description:qm.field_account_move__invoice_ids
+#: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
 #: model:ir.ui.menu,name:qm.menu_action_move_out_invoice_refund_type_qm
 #: model:ir.ui.menu,name:qm.menu_purchase_invoice_management
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
-msgid "Invoices"
-msgstr "发票"
-
-
-#. module: qm
-#: model:ir.actions.act_window,name:qm.action_account_sale_invoice_qm
-#: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_tree_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Invoices"
 msgstr "销售发票"
-
-
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_order__is_dropshipping
@@ -1168,6 +1151,7 @@ msgstr "门户访问网址"
 
 #. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 msgid "Post"
 msgstr "提交"
 
@@ -1427,6 +1411,7 @@ msgstr "已驳回"
 
 #. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Reset To Draft"
@@ -1444,6 +1429,7 @@ msgstr "责任用户"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__return
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 msgid "Return"
@@ -1587,6 +1573,11 @@ msgid "Self Pickup"
 msgstr "销售自提"
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
+msgid "Send"
+msgstr "寄送"
+
+#. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__payment_register__payment_type__outbound
 #: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__payment_type__outbound
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__payment_type__outbound
@@ -1677,6 +1668,11 @@ msgid "Supplier Type"
 msgstr "供应商类型"
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
+msgid "Take"
+msgstr "客户自取"
+
+#. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__taken
 msgid "Taken"
 msgstr "已自取"
@@ -1744,9 +1740,7 @@ msgid ""
 msgstr ""
 
 #. module: qm
-#: model:ir.actions.server,name:qm.model_sale_order_action_to_invoice
 #: model:ir.model.fields.selection,name:qm.selection__sale_order__invoice_state__to_invoice
-#: model_terms:ir.ui.view,arch_db:qm.view_order_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_sales_order_filter_qm
 msgid "To Invoice"
 msgstr "申请开票"
