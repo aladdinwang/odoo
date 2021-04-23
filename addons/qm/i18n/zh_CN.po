@@ -733,7 +733,6 @@ msgstr "已开票"
 #: model:ir.model.fields,field_description:qm.field_account_move__invoice_ids
 #: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
 #: model:ir.ui.menu,name:qm.menu_action_move_out_invoice_refund_type_qm
-#: model:ir.ui.menu,name:qm.menu_purchase_invoice_management
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
@@ -741,6 +740,13 @@ msgstr "已开票"
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Invoices"
 msgstr "销售发票"
+
+
+#. module: qm
+#: model:ir.ui.menu,name:qm.menu_purchase_invoice_management
+msgid "Invoices"
+msgstr "发票"
+
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_order__is_dropshipping
@@ -2079,3 +2085,9 @@ msgstr ""
 #: model:account.account.template,name:qm.account_7001
 msgid "销售发票"
 msgstr ""
+
+
+#. module: sale
+#: model:ir.ui.menu,name:sale.menu_sale_invoicing
+msgid "To Invoice"
+msgstr "发票"
