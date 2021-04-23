@@ -140,12 +140,12 @@ class SaleOrder(models.Model):
         )
         journal = (
             self.env["account.move"]
-            .with_context(default_type="in_receipt")
+            .with_context(default_type="out_receipt")
             ._get_default_journal()
         )
 
         receipt_vals = {
-            "type": "in_receipt",
+            "type": "out_receipt",
             "currency_id": self.pricelist_id.currency_id.id,
             "campaign_id": self.campaign_id.id,
             "invoice_user_id": self.env.user.id or self.user_id.id,
@@ -177,7 +177,7 @@ class SaleOrderLine(models.Model):
             qty_receipt = 0.0
             for invoice_line in line.invoice_lines:
                 if invoice_line.move_id.state != "cancel":
-                    if invoice_line.move_id.type == "in_receipt":
+                    if invoice_line.move_id.type == "out_receipt":
                         qty_receipt += invoice_line.product_uom_id._compute_quantity(
                             invoice_line.quantity, line.product_uom
                         )
