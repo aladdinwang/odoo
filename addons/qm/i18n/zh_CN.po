@@ -1314,7 +1314,7 @@ msgstr "已开票数量"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_order_line__receipt_lines
-#: model:ir.ui.menu,name:qm.menu_action_move_in_receipt_type_qm
+#: model:ir.ui.menu,name:qm.menu_action_move_out_receipt_type_qm
 msgid "Receipts"
 msgstr "开票申请"
 
