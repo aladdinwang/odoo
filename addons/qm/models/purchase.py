@@ -253,7 +253,6 @@ class PurchaseOrder(models.Model):
             ).property_supplier_payment_term_id.id,
             "fiscal_position_id": fpos,
             "date_order": datetime.datetime.now(),
-            "group_id": False,
             "order_line": new_order_lines,
             "sale_order_ids": [(6, 0, [x for x in sorted(sale_order_ids)])],
             "is_dropshipping": last_req.is_dropshipping,
