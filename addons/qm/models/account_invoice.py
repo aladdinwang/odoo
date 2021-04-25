@@ -214,7 +214,7 @@ class PurchaseInvoice(models.Model):
 
     # 明细
     line_ids = fields.One2many(
-        "account.purchase.invoice.line", "invoice_id", string="Lines", readonly=True
+        "account.purchase.invoice.line", "invoice_id", string="Lines"
     )
 
     @api.model
