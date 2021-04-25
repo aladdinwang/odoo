@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-25 07:26+0000\n"
-"PO-Revision-Date: 2021-04-25 07:26+0000\n"
+"POT-Creation-Date: 2021-04-25 09:54+0000\n"
+"PO-Revision-Date: 2021-04-25 09:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -739,21 +739,14 @@ msgstr "已开票"
 #: model:ir.model.fields,field_description:qm.field_account_move__invoice_ids
 #: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
 #: model:ir.ui.menu,name:qm.menu_action_move_out_invoice_refund_type_qm
+#: model:ir.ui.menu,name:qm.menu_purchase_invoice_management
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_tree_qm
-msgid "Invoices"
-msgstr "销售发票"
-
-
-
-#. module: qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
-#: model:ir.ui.menu,name:qm.menu_purchase_invoice_management
 msgid "Invoices"
 msgstr "发票"
-
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_order__is_dropshipping
@@ -1701,6 +1694,7 @@ msgid "Taken date"
 msgstr "自取日期"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__line_amount_tax
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__price_tax
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
@@ -1771,6 +1765,7 @@ msgstr "待开票数量"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__amount_total
+#: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__line_amount_total
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__price_total
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__amount_total
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
@@ -1837,6 +1832,7 @@ msgstr "不含税"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__amount_untaxed
+#: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__line_amount_untaxed
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__amount_untaxed
 msgid "Untaxed Amount"
 msgstr "未含税金额"
@@ -2028,7 +2024,7 @@ msgstr ""
 #: model:account.tax,description:qm.4_l10n_cn_latest_purchase_excluded_13
 #: model:account.tax,description:qm.4_l10n_cn_latest_sales_excluded_13
 #: model:account.tax.template,description:qm.l10n_cn_latest_purchase_excluded_13
-#: model:account.tax.template,description:qm.l10n_cn_latest_sales_excluded_13
+#: model:account.tax.template,description:qm.l10n_cn_latest_sales_cluded_13
 msgid "税收13％"
 msgstr ""
 
