@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-25 09:54+0000\n"
-"PO-Revision-Date: 2021-04-25 09:54+0000\n"
+"POT-Creation-Date: 2021-04-25 15:24+0000\n"
+"PO-Revision-Date: 2021-04-25 15:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -148,6 +148,7 @@ msgid "Amount is more than actual"
 msgstr "付款金额不得超过订单总金额"
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 msgid "Approve"
 msgstr "审核"
@@ -192,6 +193,7 @@ msgid "Attachment Count"
 msgstr "附件数量"
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
@@ -294,19 +296,19 @@ msgstr "完整编号"
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Confirm"
-msgstr "提交"
+msgstr "发布"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__confirm_date
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__confirm_date
 msgid "Confirm Date"
-msgstr "提交日期"
+msgstr "发布日期"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__confirm_by
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__confirm_by
 msgid "Confirm by"
-msgstr "提交人"
+msgstr "发布人"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__confirmed
@@ -734,25 +736,11 @@ msgid "Invoiced"
 msgstr "已开票"
 
 #. module: qm
-#: model:ir.actions.act_window,name:qm.action_move_out_invoice_refund_type_qm
 #: model:ir.model.fields,field_description:qm.field_account_move__invoice_ids
-#: model:ir.ui.menu,name:qm.menu_action_move_out_invoice_refund_type_qm
 #: model:ir.ui.menu,name:qm.menu_purchase_invoice_management
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_tree_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Invoices"
 msgstr "发票"
-
-
-#. module: qm
-#: model:ir.actions.act_window,name:qm.action_account_sale_invoice_qm
-#: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
-msgid "Invoices"
-msgstr "销售发票"
-
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_order__is_dropshipping
@@ -1165,7 +1153,7 @@ msgstr "门户访问网址"
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 msgid "Post"
-msgstr "提交"
+msgstr "发布"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_move__receipt_state__posted
@@ -1173,7 +1161,7 @@ msgstr "提交"
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__posted
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_filter_qm
 msgid "Posted"
-msgstr "已提交"
+msgstr "已发布"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_move__posted_date
@@ -1181,7 +1169,7 @@ msgstr "已提交"
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__posted_date
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_filter_qm
 msgid "Posted Date"
-msgstr "提交日期"
+msgstr "发布日期"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_move__posted_by
@@ -1244,6 +1232,11 @@ msgstr "采购发票"
 #: model:ir.model,name:qm.model_account_purchase_invoice_line
 msgid "Purchase Invoice line"
 msgstr "采购发票明细"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
+msgid "Purchase Invoices"
+msgstr "采购发票"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_request__purchase_line_count
@@ -1384,6 +1377,7 @@ msgstr "明细行"
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_purchase_invoice__state__reject
 #: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__reject
+#: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_filter_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
@@ -1488,6 +1482,21 @@ msgstr "短信发送错误"
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Sale Confirm"
 msgstr "销售确认"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
+msgid "Sale Invoice Request"
+msgstr ""
+
+#. module: qm
+#: model:ir.actions.act_window,name:qm.action_account_sale_invoice_qm
+#: model:ir.actions.act_window,name:qm.action_move_out_invoice_refund_type_qm
+#: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
+#: model:ir.ui.menu,name:qm.menu_action_move_out_invoice_refund_type_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_tree_qm
+msgid "Sale Invoices"
+msgstr "销售发票"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__sale_order_id
@@ -1700,12 +1709,16 @@ msgid "Taken date"
 msgstr "自取日期"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__line_amount_tax
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__price_tax
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Tax"
 msgstr "税"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__line_amount_tax
+msgid "Tax Amount"
+msgstr ""
 
 #. module: qm
 #: model:ir.actions.act_window,name:qm.action_tax_classification_form
@@ -2030,7 +2043,7 @@ msgstr ""
 #: model:account.tax,description:qm.4_l10n_cn_latest_purchase_excluded_13
 #: model:account.tax,description:qm.4_l10n_cn_latest_sales_excluded_13
 #: model:account.tax.template,description:qm.l10n_cn_latest_purchase_excluded_13
-#: model:account.tax.template,description:qm.l10n_cn_latest_sales_cluded_13
+#: model:account.tax.template,description:qm.l10n_cn_latest_sales_excluded_13
 msgid "税收13％"
 msgstr ""
 
@@ -2079,3 +2092,4 @@ msgstr ""
 #: model:account.account.template,name:qm.account_7001
 msgid "销售发票"
 msgstr ""
+
