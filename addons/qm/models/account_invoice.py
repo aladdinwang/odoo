@@ -345,8 +345,8 @@ class PurchaseInvoiceLine(models.Model):
     @api.depends("product_qty")
     def _compute_amount(self):
         for line in self:
-            print('*' * 100)
-            print(line.purchase_line_id.id)
+            if line.product_qty > line.purchase_line_id.product_qty:
+                raise UserError(_("At most %s") % line.purchase_line_id.product_qty)
 
             taxes = line.taxes_id.compute_all(
                 line.price_unit,
