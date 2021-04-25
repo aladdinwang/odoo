@@ -55,6 +55,7 @@
               <attribute name="attrs">{'invisible': ['|', '|', ('state', '!=', 'posted'), ('invoice_payment_state', '!=', 'not_paid'), ('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}</attribute>
           </xpath>
           <field name="state" position="replace">
+            <field name="state" invisible="1"/>
             <field name="receipt_state" widget="statusbar" statusbar_visible="draft,posted,approved,reject,cancel"/>
           </field>
 
