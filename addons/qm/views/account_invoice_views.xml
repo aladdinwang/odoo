@@ -252,7 +252,7 @@
     <record id="action_account_purchase_invoice_qm" model="ir.actions.act_window">
       <field name="name">Purchase Invoice</field>
       <field name="res_model">account.purchase.invoice</field>
-      <field name="view_mode">tree,kanban,form</field>
+      <field name="view_mode">tree,form</field>
       <field name="view_id" ref="view_account_purchase_invoice_tree_qm"/>
       <field name="search_view_id" ref="view_account_purchase_invoice_filter_qm"/>
       <field name="help" type="html">
