@@ -44,7 +44,7 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
-          <xpath expr="button[@name='button_cancel']" position="replace">
+          <xpath expr="//button[@name='button_cancel']" position="replace">
             <button name="action_cancel" string="Cancel" type="object" attrs="{'invisible' : ['|', ('id', '=', False), ('receipt_state', '!=', 'draft')]}"/>
             <button name="action_approve" string="Approve" type="object" class="oe_highlight" attrs="{'invisible': [('receipt_state', '!=', 'posted')]}"/>
             <button name="action_reject" string="Reject" type="object" class="oe_highlight" attrs="{'invisible': [('receipt_state', 'in', ('draft', 'reject', 'cancel'))]}"/>
