@@ -739,14 +739,21 @@ msgstr "已开票"
 #: model:ir.model.fields,field_description:qm.field_account_move__invoice_ids
 #: model:ir.ui.menu,name:qm.menu_action_account_sale_invoice_qm
 #: model:ir.ui.menu,name:qm.menu_action_move_out_invoice_refund_type_qm
-#: model:ir.ui.menu,name:qm.menu_purchase_invoice_management
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_tree_qm
-#: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Invoices"
 msgstr "销售发票"
+
+
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
+#: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
+#: model:ir.ui.menu,name:qm.menu_purchase_invoice_management
+msgid "Invoices"
+msgstr "发票"
+
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_order__is_dropshipping
@@ -1273,7 +1280,7 @@ msgstr "采购订单"
 #: model:ir.ui.menu,name:qm.menu_action_purchase_payment_register
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 msgid "Purchase Payment Register"
-msgstr "采购请款单"
+msgstr "请款单"
 
 #. module: qm
 #: model:ir.model,name:qm.model_purchase_payment_register
@@ -1368,7 +1375,7 @@ msgstr "编号"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__register_id
 msgid "Register"
-msgstr "销售到款单"
+msgstr "到款单"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__line_ids

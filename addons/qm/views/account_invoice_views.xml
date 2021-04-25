@@ -186,9 +186,18 @@
                     <field name="product_uom"/>
                     <field name="price_unit"/>
                     <field name="taxes_id" widget="many2many_tags" optional="show"/>
+                    <field name="price_tax" optional="show"/>
                     <field name="price_subtotal" optional="show"/>
                   </tree>
                 </field>
+                <group class="oe_subtotal_footer">
+                  <field name="line_amount_untaxed"/>
+                  <field name="line_amount_tax"/>
+                  <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                    <label for="line_amount_total" />
+                  </div>
+                  <field name="line_amount_total" nolable="1" class="oe_subtotal_footer_separator"/>
+                </group>
               </page>
             </notebook>
           </sheet>

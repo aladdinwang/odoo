@@ -133,6 +133,21 @@ class PurchaseInvoice(models.Model):
         )
         return currency_id
 
+    @api.depends("line_ids.product_qty")
+    def _compute_amount(self):
+        for rec in self:
+            amount_untaxed = amount_tax = 0.0
+            for line in rec.line_ids:
+                amount_untaxed += line.price_subtotal
+                amount_tax += line.price_tax
+            rec.update(
+                {
+                    "line_amount_untaxed": amount_untaxed,
+                    "line_amount_tax": amount_tax,
+                    "line_amount_total": amount_untaxed + amount_tax,
+                }
+            )
+
     name = fields.Char(
         string="Invoice Reference", required=True, copy=False, index=True
     )
@@ -215,6 +230,15 @@ class PurchaseInvoice(models.Model):
     # 明细
     line_ids = fields.One2many(
         "account.purchase.invoice.line", "invoice_id", string="Lines"
+    )
+    line_amount_untaxed = fields.Monetary(
+        string="Untaxed Amount", store=True, readonly=True, compute="_compute_amount"
+    )
+    line_amount_tax = fields.Monetary(
+        string="Tax", store=True, readonly=True, compute="_compute_amount"
+    )
+    line_amount_total = fields.Monetary(
+        string="Total", store=True, readonly=True, compute="_compute_amount"
     )
 
     @api.model
