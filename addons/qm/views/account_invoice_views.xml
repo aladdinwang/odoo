@@ -215,7 +215,7 @@
                 <field name="product_id"/>
                 <field name="product_qty"/>
                 <field name="product_uom"/>
-                <field name="product_unit"/>
+                <field name="price_unit"/>
                 <field name="taxes_id" widget="many2many_tags"/>
               </group>
               <group>
