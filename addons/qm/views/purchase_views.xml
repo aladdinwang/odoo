@@ -13,7 +13,11 @@
                     <field name="payment_register_count" widget="statinfo" string="Payment Register Count" help="Click to review detail"/>
                     <field name="payment_register_ids" invisible="1"/>
                 </button>
-            </xpath>          
+            </xpath>
+
+            <xpath expr="//button[@name='action_view_invoice']" position="attributes">
+              <attribute name="groups">qm.group_hidden_menu</attribute>
+            </xpath>
           <field name="state" position="before">
             <button name="action_create_purchase_payment_register" string="Create Purchase Payment Register" type="object"/>
           </field>
@@ -170,6 +174,17 @@
       </field>
     </record>
 
+    <record id="view_purchase_order_line_form_qm" model="ir.ui.view">
+      <field name="name">purchase.order.line.form2.inherit</field>
+      <field name="model">purchase.order.line</field>
+      <field name="inherit_id" ref="purchase.purchase_order_line_form2"/>
+      <field name="arch" type="xml">
+        <field name="product_id" position="before">
+          <field name="order_id"/>
+        </field>
+      </field>
+    </record>
+
     <record id="action_purchase_order_line" model="ir.actions.act_window">
         <field name="name">Purchase Lines</field>
         <field name="res_model">purchase.order.line</field>
@@ -182,8 +197,11 @@
         </field>
     </record>
 
+
     <menuitem id="menu_purchase_invoice_management" name="Invoices" parent="purchase.menu_purchase_root" sequence="2" />
     <menuitem action="action_purchase_order_line" id="menu_purchase_order_line_qm" parent="menu_purchase_invoice_management" sequence="0"/>
+
+    <menuitem action="action_account_purchase_invoice_qm" id="menu_purchase_purchase_invoice_qm" parent="menu_purchase_invoice_management" sequence="2"/>
 
     <record id="action_create_purchase_order_from_list" model="ir.actions.server">
       <field name="name">Create Purchase Order</field>

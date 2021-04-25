@@ -243,7 +243,7 @@ class PurchaseOrder(models.Model):
         order_vals = {
             "partner_id": partner_id.id,
             "user_id": self.env.user.id or False,
-            "picking_type_id": picking_type_id.id,
+            # "picking_type_id": picking_type_id.id,
             "company_id": self.env.company.id,
             "currency_id": currency_id.id,
             "dest_address_id": picking_type_id.default_location_dest_id.id,
@@ -253,7 +253,6 @@ class PurchaseOrder(models.Model):
             ).property_supplier_payment_term_id.id,
             "fiscal_position_id": fpos,
             "date_order": datetime.datetime.now(),
-            "group_id": False,
             "order_line": new_order_lines,
             "sale_order_ids": [(6, 0, [x for x in sorted(sale_order_ids)])],
             "is_dropshipping": last_req.is_dropshipping,

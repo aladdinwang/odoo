@@ -20,11 +20,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-             <xpath expr="//button[@name='action_draft']" position="after">
-                 <button name="action_to_invoice" type="object" string="To Invoice" confirm="Are you sure"
-                         attrs="{'invisible': ['|', ('invoice_state', '!=', 'pending'), '|', ('state', 'not in', ['sale', 'done']), ('invoice_status', '=', 'to invoice')]}"/>
-             </xpath>
-
+          <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="attributes">
+            <attribute name="groups">qm.group_hidden_menu</attribute>
+          </xpath>
             <field name="partner_id" position="after">
                 <field name="is_dropshipping"/>
                 <field name="outer_name"/>
@@ -51,15 +49,16 @@
         </field>
     </record>
 
-    <record id="model_sale_order_action_to_invoice" model="ir.actions.server">
-        <field name="name">To Invoice</field>
-        <field name="model_id" ref="sale.model_sale_order"/>
-        <field name="binding_model_id" ref="sale.model_sale_order"/>
-        <field name="binding_view_types">form,list</field>
-        <field name="state">code</field>
-        <field name="code">action = records.action_to_invoice()</field>
-    </record>
+    <!-- <record id="model_sale_order_action_to_invoice" model="ir.actions.server"> -->
+    <!--     <field name="name">To Invoice</field> -->
+    <!--     <field name="model_id" ref="sale.model_sale_order"/> -->
+    <!--     <field name="binding_model_id" ref="sale.model_sale_order"/> -->
+    <!--     <field name="binding_view_types">form,list</field> -->
+    <!--     <field name="state">code</field> -->
+    <!--     <field name="code">action = records.action_to_invoice()</field> -->
+    <!-- </record> -->
 
+    
 
     <record id="view_order_line_tree_qm" model="ir.ui.view">
       <field name="name">sale.order.line.tree.inherit</field>
@@ -130,8 +129,8 @@
               parent="sale.menu_sale_invoicing"
               sequence="0" active="True"/>
 
-    <menuitem id="menu_action_move_in_receipt_type_qm"
-              action="account.action_move_in_receipt_type"
+    <menuitem id="menu_action_move_out_receipt_type_qm"
+              action="account.action_move_out_receipt_type"
               parent="sale.menu_sale_invoicing" sequence="1"/>
 
     <record id="sale.menu_sale_order_invoice" model="ir.ui.menu">
@@ -146,13 +145,16 @@
       <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
     </record>
 
-    <!-- 后续隐藏 -->
+    <record id="sale.action_view_sale_advance_payment_inv" model="ir.actions.act_window">
+      <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
+    </record>
+
     <!-- <record id="sale.model_sale_order_action_quotation_sent" model="ir.actions.server"> -->
     <!--   <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/> -->
     <!-- </record> -->
     
-    <data noupdate="1">
-        <delete model="ir.actions.server" search="[('id','=',ref('sale.model_sale_order_action_quotation_sent'))]"/>
-    </data>
+    <!-- <data noupdate="1"> -->
+    <!--     <delete model="ir.actions.server" search="[('id','=',ref('sale.model_sale_order_action_quotation_sent'))]"/> -->
+    <!-- </data> -->
 
 </odoo>

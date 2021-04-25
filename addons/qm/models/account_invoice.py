@@ -100,8 +100,20 @@ class AccountInvoice(models.Model):
         default="13%",
     )
 
-    def action_done(self):
-        self.write({"state": "done"})
+    def action_draft(self):
+        self.write({"state": "draft"})
+
+    def post(self):
+        self.write({"state": "posted"})
+
+    def action_send(self):
+        self.write({"state": "sent"})
+
+    def action_return(self):
+        self.write({"state": "return"})
+
+    def action_take(self):
+        self.write({"state": "taken"})
 
     def action_cancel(self):
         self.write({"state": "cancel"})
@@ -120,6 +132,21 @@ class PurchaseInvoice(models.Model):
             "base", "CNY"
         )
         return currency_id
+
+    @api.depends("line_ids.product_qty")
+    def _compute_amount(self):
+        for rec in self:
+            amount_untaxed = amount_tax = 0.0
+            for line in rec.line_ids:
+                amount_untaxed += line.price_subtotal
+                amount_tax += line.price_tax
+            rec.update(
+                {
+                    "line_amount_untaxed": amount_untaxed,
+                    "line_amount_tax": amount_tax,
+                    "line_amount_total": amount_untaxed + amount_tax,
+                }
+            )
 
     name = fields.Char(
         string="Invoice Reference", required=True, copy=False, index=True
@@ -166,10 +193,10 @@ class PurchaseInvoice(models.Model):
         selection=[
             ("draft", "Draft"),
             ("posted", "Posted"),  # 已录票
-            ("cancelled", "Cancelled"),  # 已撤销
-            ("reject", "Reject"),  # 已驳回
             ("approved", "Approved"),  # 已审核
             ("verified", "Verified"),  # 已认证
+            ("cancelled", "Cancelled"),  # 已撤销
+            ("reject", "Reject"),  # 已驳回
         ],
         string="Status",
         required=True,
@@ -202,7 +229,16 @@ class PurchaseInvoice(models.Model):
 
     # 明细
     line_ids = fields.One2many(
-        "account.purchase.invoice.line", "invoice_id", string="Lines", readonly=True
+        "account.purchase.invoice.line", "invoice_id", string="Lines"
+    )
+    line_amount_untaxed = fields.Monetary(
+        string="Untaxed Amount", store=True, readonly=True, compute="_compute_amount"
+    )
+    line_amount_tax = fields.Monetary(
+        string="Tax", store=True, readonly=True, compute="_compute_amount"
+    )
+    line_amount_total = fields.Monetary(
+        string="Total", store=True, readonly=True, compute="_compute_amount"
     )
 
     @api.model
@@ -263,22 +299,52 @@ class PurchaseInvoice(models.Model):
             rec.purchase_order_ids = purchase_orders
 
     def action_draft(self):
-        ...
+        self.write({"state": "draft"})
 
     def post(self):
-        ...
+        self.filtered(lambda x: x.state == "draft").write(
+            {
+                "state": "posted",
+                "posted_by": self.env.user.id,
+                "posted_date": fields.Date.today(),
+            }
+        )
 
     def action_cancel(self):
-        ...
+        self.write(
+            {
+                "state": "cancelled",
+                "cancel_by": self.env.user.id,
+                "cancel_date": fields.Date.today(),
+            }
+        )
 
     def action_reject(self):
-        ...
+        self.write(
+            {
+                "state": "reject",
+                "reject_by": self.env.user.id,
+                "reject_date": fields.Date.today(),
+            }
+        )
 
     def action_approve(self):
-        ...
+        self.filtered(lambda x: x.state == "posted").write(
+            {
+                "state": "approved",
+                "approved_by": self.env.user.id,
+                "approved_date": fields.Date.today(),
+            }
+        )
 
     def action_verify(self):
-        ...
+        self.filtered(lambda x: x.state == "approved").write(
+            {
+                "state": "verified",
+                "verified_by": self.env.user.id,
+                "verified_date": fields.Date.today(),
+            }
+        )
 
     def action_create_purchase_invoice(self):
         active_ids = self.env.context.get("active_ids")
@@ -300,9 +366,12 @@ class PurchaseInvoiceLine(models.Model):
     _name = "account.purchase.invoice.line"
     _description = "Purchase Invoice line"
 
-    @api.depends("purchase_line_id")
+    @api.depends("product_qty")
     def _compute_amount(self):
         for line in self:
+            if line.product_qty > line.purchase_line_id.product_qty:
+                raise UserError(_("At most %s") % line.purchase_line_id.product_qty)
+
             taxes = line.taxes_id.compute_all(
                 line.price_unit,
                 line.currency_id,
@@ -320,7 +389,7 @@ class PurchaseInvoiceLine(models.Model):
                 }
             )
 
-    @api.depends("product_uom", "product_qty", "product_id.uom_id")
+    @api.depends("product_qty")
     def _compute_product_uom_qty(self):
         for line in self:
             if line.product_id and line.product_id.uom_id != line.product_uom:

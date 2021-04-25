@@ -34,6 +34,7 @@
                 <field name="receipt_state" optional="show"/>
                 <field name="invoice_payment_state" optional="show"/>
                 <field name="type" invisible="context.get('default_type', True)"/>
+                <field name="state" optional="show"/>
             </tree>
         </field>
     </record>
@@ -123,9 +124,35 @@
       <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
     </record>
 
+    <record id="account.menu_action_move_in_invoice_type" model="ir.ui.menu">
+      <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
+    </record>
+
+    <record id="account.menu_action_move_in_refund_type" model="ir.ui.menu">
+      <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
+    </record>
+
+    <record id="account.menu_action_account_payments_payable" model="ir.ui.menu">
+      <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
+    </record>
+
+    <record id="account.menu_action_move_in_receipt_type" model="ir.ui.menu">
+      <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
+    </record>
+
+    
+    <!-- <record id="account.menu_action_move_out_invoice_type" model="ir.ui.menu"> -->
+    <!--   <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/> -->
+    <!-- </record> -->
+
+    <!-- <record id="account.menu_action_move_out_refund_type" model="ir.ui.menu"> -->
+    <!--   <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/> -->
+    <!-- </record> -->
+
+
     <!-- 应该是隐藏掉 -->
-    <data noupdate="1">
-        <delete model="ir.ui.menu" search="[('id','=',ref('account.menu_action_move_out_invoice_type'))]"/>
-        <delete model="ir.ui.menu" search="[('id','=',ref('account.menu_action_move_out_refund_type'))]"/>
-    </data>
+    <!-- <data noupdate="1"> -->
+    <!--     <delete model="ir.ui.menu" search="[('id','=',ref('account.menu_action_move_out_invoice_type'))]"/> -->
+    <!--     <delete model="ir.ui.menu" search="[('id','=',ref('account.menu_action_move_out_refund_type'))]"/> -->
+    <!-- </data> -->
 </odoo>

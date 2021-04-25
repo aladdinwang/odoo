@@ -128,7 +128,7 @@ class ResCompany(models.Model):
         company_has_dropship_rule = (
             self.env["stock.rule"]
             .search([("route_id", "=", purchase_request_route.id)])
-            .mapped("compay_id")
+            .mapped("company_id")
         )
         company_todo_rule = company_ids - company_has_dropship_rule
         company_todo_rule = company_ids
