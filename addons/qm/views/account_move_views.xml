@@ -53,7 +53,10 @@
 
           <xpath expr="//button[@name='action_invoice_register_payment']" position="attributes">
               <attribute name="attrs">{'invisible': ['|', '|', ('state', '!=', 'posted'), ('invoice_payment_state', '!=', 'not_paid'), ('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}</attribute>
-            </xpath>
+          </xpath>
+          <field name="state" position="replace">
+            <field name="receipt_state" widget="statusbar" statusbar_visible="draft,posted,approved,reject,cancel"/>
+          </field>
 
             <field name="ref" position="replace">
                 <field name="receipt_state"/>
