@@ -235,7 +235,7 @@ class PurchaseInvoice(models.Model):
         string="Untaxed Amount", store=True, readonly=True, compute="_compute_amount"
     )
     line_amount_tax = fields.Monetary(
-        string="Tax", store=True, readonly=True, compute="_compute_amount"
+        string="Tax Amount", store=True, readonly=True, compute="_compute_amount"
     )
     line_amount_total = fields.Monetary(
         string="Total", store=True, readonly=True, compute="_compute_amount"
