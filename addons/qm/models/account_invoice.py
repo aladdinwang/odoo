@@ -178,10 +178,10 @@ class PurchaseInvoice(models.Model):
         selection=[
             ("draft", "Draft"),
             ("posted", "Posted"),  # 已录票
-            ("cancelled", "Cancelled"),  # 已撤销
-            ("reject", "Reject"),  # 已驳回
             ("approved", "Approved"),  # 已审核
             ("verified", "Verified"),  # 已认证
+            ("cancelled", "Cancelled"),  # 已撤销
+            ("reject", "Reject"),  # 已驳回
         ],
         string="Status",
         required=True,

@@ -1368,7 +1368,7 @@ msgstr "编号"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__register_id
 msgid "Register"
-msgstr "到款单"
+msgstr "销售到款单"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__line_ids
