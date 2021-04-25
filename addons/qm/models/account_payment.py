@@ -362,3 +362,12 @@ class PurchasePaymentRegister(models.Model):
                 "reject_date": fields.Date.today(),
             }
         )
+
+    def action_reconcile(self):
+        self.filtered(lambda x: x.state == "waiting").write(
+            {
+                "state": "reconciled",
+                "reconciled_by": self.env.user.id,
+                "reconciled_date": fields.Date.today(),
+            }
+        )
