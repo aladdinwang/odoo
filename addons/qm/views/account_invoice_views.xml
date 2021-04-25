@@ -202,6 +202,35 @@
       </field>
     </record>
 
+
+    <record id="view_account_purchase_invoice_line_form" model="ir.ui.view">
+      <field name="name">qm.account.purchase.invoice.line.form</field>
+      <field name="model">account.purchase.invoice.line</field>
+      <field name="arch" type="xml">
+        <form create="false">
+          <sheet>
+            <group>
+              <group>
+                <field name="purchase_line_id"/>
+                <field name="product_id"/>
+                <field name="product_qty"/>
+                <field name="product_uom"/>
+                <field name="product_unit"/>
+                <field name="taxes_id" widget="many2many_tags"/>
+              </group>
+              <group>
+                <field name="partner_id"/>
+                <field name="price_subtotal"/>
+                <field name="price_total"/>
+                <field name="price_tax"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
     <record id="view_account_purchase_invoice_filter_qm" model="ir.ui.view">
       <field name="name">qm.account.purchase.invoice.select</field>
       <field name="model">account.purchase.invoice</field>
