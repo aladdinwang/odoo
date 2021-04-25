@@ -342,7 +342,7 @@ class PurchaseInvoiceLine(models.Model):
     _name = "account.purchase.invoice.line"
     _description = "Purchase Invoice line"
 
-    @api.depends("purchase_line_id")
+    @api.depends("product_qty")
     def _compute_amount(self):
         for line in self:
             taxes = line.taxes_id.compute_all(
@@ -362,7 +362,7 @@ class PurchaseInvoiceLine(models.Model):
                 }
             )
 
-    @api.depends("product_uom", "product_qty", "product_id.uom_id")
+    @api.depends("product_qty")
     def _compute_product_uom_qty(self):
         for line in self:
             if line.product_id and line.product_id.uom_id != line.product_uom:
