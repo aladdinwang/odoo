@@ -180,7 +180,7 @@
             <notebook>
               <page string="Lines">
                 <field name="line_ids" mode="tree">
-                  <tree editable="false" create="false"
+                  <tree editable="bottom" create="false"
                         string="Lines">
                     <field name="product_id"/>
                     <field name="product_qty"/>
@@ -218,6 +218,7 @@
                 <field name="taxes_id" widget="many2many_tags"/>
               </group>
               <group>
+                <field name="partner_id"/>
                 <field name="price_subtotal"/>
                 <field name="price_total"/>
                 <field name="price_tax"/>
