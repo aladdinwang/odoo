@@ -2107,6 +2107,6 @@ msgstr "更新库存"
 #: model:ir.actions.act_window,name:account.action_move_out_receipt_type
 #: model:ir.ui.menu,name:account.menu_action_move_out_receipt_type
 msgid "Sale Receipts"
-msgstr "入库"
+msgstr "开票申请"
 
 
