@@ -2107,7 +2107,7 @@ msgstr "更新库存"
 #. module: qm
 #: model:ir.actions.act_window,name:account.action_move_out_receipt_type
 #: model:ir.ui.menu,name:account.menu_action_move_out_receipt_type
-msgid "Sale Receipts"
+msgid "Receipts"
 msgstr "开票申请"
 
 
