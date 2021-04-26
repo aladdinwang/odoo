@@ -601,7 +601,7 @@ msgstr ""
 #. module: qm
 #: model:res.groups,name:qm.group_hidden_menu
 msgid "Hidden Menu"
-msgstr "隐藏菜单"
+msgstr "显示隐藏菜单"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__id
@@ -2102,6 +2102,7 @@ msgstr ""
 #, python-format
 msgid "Update Quantity"
 msgstr "更新库存"
+
 
 #. module: qm
 #: model:ir.actions.act_window,name:account.action_move_out_receipt_type
