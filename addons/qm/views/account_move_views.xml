@@ -124,6 +124,12 @@
         parent="account.menu_finance_receivables"
         sequence="0" groups="qm.group_hidden_menu"/>
 
+
+    <record id="account.action_move_out_receipt_type" model="ir.actions.act_window">
+      <field name="name">Sale Receipts</field>
+    </record>
+
+
     <record id="account.menu_action_move_out_receipt_type" model="ir.ui.menu">
       <field name="name">Sale Receipts</field>
     </record>
