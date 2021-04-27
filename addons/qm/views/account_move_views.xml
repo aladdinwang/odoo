@@ -32,9 +32,7 @@
                 <field name="currency_id" invisible="1"/>
                 <field name="company_currency_id" invisible="1"/>
                 <field name="receipt_state" optional="show"/>
-                <field name="invoice_payment_state" optional="show"/>
                 <field name="type" invisible="context.get('default_type', True)"/>
-                <field name="state" optional="show"/>
             </tree>
         </field>
     </record>
@@ -123,6 +121,10 @@
         parent="account.menu_finance_receivables"
         sequence="0" groups="qm.group_hidden_menu"/>
 
+
+    <record id="account.action_move_out_receipt_type" model="ir.actions.act_window">
+       <field name="view_id" ref="view_invoice_tree_qm"/>
+    </record>
 
     <record id="account.menu_action_account_payments_receivable" model="ir.ui.menu">
       <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
