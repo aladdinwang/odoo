@@ -329,6 +329,6 @@ class AccountMove(models.Model):
     def _get_sequence(self):
         seq = super()._get_sequence()
         if self.type == "out_receipt":
-            return self.env.ref("qm.account.move.out.receipt")
+            return self.env.ref("qm.seq_account_move_out_receipt")
         else:
             return seq
