@@ -2111,4 +2111,8 @@ msgid "Receipts"
 msgstr "开票申请"
 
 
-
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_move__sale_line_count
+#: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
+msgid "Sale Line Count"
+msgstr "待开票明细"
