@@ -12,6 +12,15 @@
                 <field name="invoice_state" optional="show"/>
                 <field name="payment_state" optional="show"/>
             </field>
+            <field name="invoice_status" position="attributes">
+              <attribute name="groups">qm.group_hidden_menu</attribute>
+            </field>
+            <field name="invoice_state" position="attributes">
+              <attribute name="groups">qm.group_hidden_menu</attribute>
+            </field>
+            <field name="payment_state" position="attributes">
+              <attribute name="groups">qm.group_hidden_menu</attribute>
+            </field>
         </field>
     </record>
 
