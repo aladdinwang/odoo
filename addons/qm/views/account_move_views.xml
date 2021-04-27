@@ -11,6 +11,7 @@
                   decoration-muted="receipt_state == 'cancel'"
                   banner_route="/account/account_invoice_onboarding"
                   js_class="account_tree">
+                <field name="state" invisible="1"/>
                 <field name="name"/>
                 <field name="type" optional="show"/>
                 <field name="partner_id" invisible="1"/>
