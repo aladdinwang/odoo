@@ -97,6 +97,14 @@ class AccountMove(models.Model):
         copy=False,
     )
 
+    sale_line_count = fields.Integer(
+        compute="_compute_sale_line_count",
+        string="Sale Line Count",
+        copy=False,
+        default=0,
+        store=True,
+    )
+
     # @api.depends("amount_total_signed", "payment_ids")
     # def _compute_payment_amount(self):
     #     not_paid_moves = self.filtered(lambda m: m.invoice_payment_state == "not_paid")
@@ -332,3 +340,16 @@ class AccountMove(models.Model):
             return self.env.ref("qm.seq_account_move_out_receipt")
         else:
             return seq
+
+    def action_view_sale_lines(self):
+        self.ensure_one()
+        action = self.env.ref("qm.action_order_lines_to_receipt").read()[0]
+        action["domain"] = [
+            ("id", "in", self.mapped("invoice_line_ids.sale_line_ids").ids)
+        ]
+        return action
+
+    @api.depends("invoice_line_ids.sale_line_ids")
+    def _compute_sale_line_count(self):
+        for move in self:
+            move.sale_line_count = len(move.invoice_line_ids.sale_line_ids.ids)

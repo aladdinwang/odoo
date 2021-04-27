@@ -65,6 +65,12 @@
               <attribute name="attrs">{'invisible': ['|', '|', ('state', '!=', 'posted'), ('invoice_payment_state', '!=', 'not_paid'), ('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}</attribute>
             </xpath>
 
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+              <button type="object" class="oe_stat_button" icon="fa-paper-plane-o" attrs="{'invisible':[('sale_line_count','=', 0)]}">
+                <field name="sale_line_count" widget="statinfo" string="Sale Line Count"/>
+              </button>
+            </xpath>
+
             <xpath expr="//page[@id='invoice_tab']" position="after">
                 <page id="account_invoices_tab" string="Invoices"
                       attrs="{'invisible': [('type', 'not in', ('out_receipt', 'in_receipt'))]}"
