@@ -115,6 +115,7 @@ class ResCompany(models.Model):
                     "route_id": purchase_request_route.id,
                     "picking_type_id": receipt_picking_type.id,
                     "company_id": company.id,
+                    "warehouse_id": warehouse.id,
                 }
             )
         if dropship_vals:
@@ -131,7 +132,6 @@ class ResCompany(models.Model):
             .mapped("company_id")
         )
         company_todo_rule = company_ids - company_has_dropship_rule
-        company_todo_rule = company_ids
         company_todo_rule._create_purchase_request_rule()
 
     def _create_per_company_rules(self):
