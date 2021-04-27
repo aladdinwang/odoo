@@ -66,7 +66,7 @@
             </xpath>
 
             <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
-              <button type="object" class="oe_stat_button" icon="fa-paper-plane-o" attrs="{'invisible':[('sale_line_count','=', 0)]}">
+              <button name="action_view_sale_lines" type="object" class="oe_stat_button" icon="fa-paper-plane-o" attrs="{'invisible':[('sale_line_count','=', 0)]}">
                 <field name="sale_line_count" widget="statinfo" string="Sale Line Count"/>
               </button>
             </xpath>
