@@ -288,3 +288,40 @@ class AccountMove(models.Model):
             "target": "new",
             "type": "ir.actions.act_window",
         }
+
+    def action_post(self):
+        res = super().action_post()
+        self.filtered(lambda x: x.receipt_state == "draft").write(
+            {
+                "receipt_state": "posted",
+                "posted_by": self.env.user.id,
+                "posted_date": fields.Date.today(),
+            }
+        )
+        return res
+
+    def action_approve(self):
+        self.filtered(lambda x: x.receipt_state == "posted").write(
+            {
+                "receipt_state": "approved",
+                "approve_by": self.env.user.id,
+                "approve_date": fields.Date.today(),
+            }
+        )
+
+    def action_reject(self):
+        self.filtered(lambda x: x.receipt_state == "posted").write(
+            {
+                "receipt_state": "reject",
+                "reject_by": self.env.user.id,
+                "reject_date": fields.Date.today(),
+            }
+        )
+
+    def button_draft(self):
+        super().button_draft()
+        self.write({"receipt_state": "draft"})
+
+    def action_cancel(self):
+        self.button_cancel()
+        self.write({"receipt_state": "cancel"})
