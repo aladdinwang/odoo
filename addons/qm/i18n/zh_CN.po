@@ -2095,23 +2095,6 @@ msgstr ""
 
 
 #. module: qm
-#: code:addons/stock/models/stock_quant.py:0
-#: model_terms:ir.ui.view,arch_db:stock.product_form_view_procurement_button
-#: model_terms:ir.ui.view,arch_db:stock.product_product_view_form_easy_inherit_stock
-#: model_terms:ir.ui.view,arch_db:stock.product_template_form_view_procurement_button
-#, python-format
-msgid "Update Quantity"
-msgstr "更新库存"
-
-
-#. module: account
-#: model:ir.actions.act_window,name:account.action_move_out_receipt_type
-#: model:ir.ui.menu,name:account.menu_action_move_out_receipt_type
-msgid "Receipts"
-msgstr "开票申请"
-
-
-#. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_move__sale_line_count
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 msgid "Sale Line Count"
