@@ -325,3 +325,10 @@ class AccountMove(models.Model):
     def action_cancel(self):
         self.button_cancel()
         self.write({"receipt_state": "cancel"})
+
+    def _get_sequence(self):
+        seq = super()._get_sequence()
+        if self.type == "out_receipt":
+            return self.env.ref("qm.account.move.out.receipt")
+        else:
+            return seq

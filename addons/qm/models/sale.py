@@ -171,12 +171,12 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    @api.depends("invoice_lines.move_id.state", "invoice_lines.quantity")
+    @api.depends("invoice_lines.move_id.receipt_state", "invoice_lines.quantity")
     def _get_receipt_qty(self):
         for line in self:
             qty_receipt = 0.0
             for invoice_line in line.invoice_lines:
-                if invoice_line.move_id.state != "cancel":
+                if invoice_line.move_id.receipt_state not in ("cancel", "reject"):
                     if invoice_line.move_id.type == "out_receipt":
                         qty_receipt += invoice_line.product_uom_id._compute_quantity(
                             invoice_line.quantity, line.product_uom
