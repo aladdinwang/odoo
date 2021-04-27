@@ -59,7 +59,7 @@
           </field>
 
             <field name="ref" position="replace">
-                <field name="receipt_state"/>
+                <!-- <field name="receipt_state"/> -->
             </field>
 
             <xpath expr="//button[@name='action_invoice_register_payment']" position="attributes">
