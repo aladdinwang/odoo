@@ -49,6 +49,9 @@
           <field name="state" position="after">
             <field name="payment_state"/>
           </field>
+          <field name="invoice_status" position="attributes">
+            <attribute name="groups">qm.group_hidden_menu</attribute>
+          </field>
         </field>
     </record>
 

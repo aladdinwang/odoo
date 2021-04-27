@@ -59,16 +59,19 @@ class PurchaseOrder(models.Model):
         store=True,
     )
 
-    @api.depends("invoice_ids", "invoice_ids.state", "invoice_ids.amount_residual")
+    @api.depends("payment_register_ids", "payment_register_ids.amount")
     def _compute_payment_state(self):
         for order in self:
             paid_amount = 0.0
-            invoices = self.invoice_ids.filtered(lambda x: x.state == "posted")
-            for invoice in invoices:
-                paid_amount += invoice.amount_total - invoice.amount_residual
+            payments = self.payment_register_ids.filtered(
+                lambda x: x.state == "reconciled"
+            )
+            for pay in payments:
+                paid_amount += pay.amount
+
             if (
                 float_compare(paid_amount, order.amount_total, precision_rounding=0.01)
-                == 0
+                >= 0
             ):
                 order.payment_state = "paid"
             elif float_compare(paid_amount, 0, precision_rounding=0.01) > 0:
