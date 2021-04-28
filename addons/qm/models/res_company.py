@@ -73,7 +73,7 @@ class ResCompany(models.Model):
         company_ids = self.env["res.company"].search([])
         company_has_dropship_picking_type = (
             self.env["stock.picking.type"]
-            .search([("name", "=", "Dropship")])
+            .search([("sequence_code", "=", "DS")])
             .mapped("company_id")
         )
         company_todo_picking_type = company_ids - company_has_dropship_picking_type
@@ -97,13 +97,8 @@ class ResCompany(models.Model):
                 [("company_id", "=", company.id)], limit=1
             )
             location_src_id = warehouse.lot_stock_id
-            receipt_picking_type = self.env["stock.picking.type"].search(
-                [
-                    ("code", "=", "outgoing"),
-                    ("warehouse_id", "=", warehouse.id),
-                    ("default_location_src_id", "=", location_src_id.id),
-                ],
-                limit=1,
+            picking_type = self.env["stock.picking.type"].search(
+                [("sequence_code", "=", "DS"), ("company_id", "=", company.id)], limit=1
             )
             dropship_vals.append(
                 {
@@ -113,7 +108,7 @@ class ResCompany(models.Model):
                     "location_src_id": location_src_id.id,
                     "procure_method": "mts_else_mto",
                     "route_id": purchase_request_route.id,
-                    "picking_type_id": receipt_picking_type.id,
+                    "picking_type_id": picking_type.id,
                     "company_id": company.id,
                     "warehouse_id": warehouse.id,
                 }
