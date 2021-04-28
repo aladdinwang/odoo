@@ -93,10 +93,6 @@ class ResCompany(models.Model):
 
         dropship_vals = []
         for company in self:
-            warehouse = self.env["stock.warehouse"].search(
-                [("company_id", "=", company.id)], limit=1
-            )
-            location_src_id = warehouse.lot_stock_id
             picking_type = self.env["stock.picking.type"].search(
                 [("sequence_code", "=", "DS"), ("company_id", "=", company.id)], limit=1
             )
@@ -105,12 +101,11 @@ class ResCompany(models.Model):
                     "name": "%s → %s" % ("Purchase request", customer_location.name),
                     "action": "request",
                     "location_id": customer_location.id,
-                    "location_src_id": location_src_id.id,
+                    "location_src_id": supplier_location.id,
                     "procure_method": "mts_else_mto",
                     "route_id": purchase_request_route.id,
                     "picking_type_id": picking_type.id,
                     "company_id": company.id,
-                    "warehouse_id": warehouse.id,
                 }
             )
         if dropship_vals:
