@@ -150,11 +150,6 @@
       <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
     </record>
 
-    <!-- 报价单 -->
-    <!-- <record id="sale.menu_sale_quotations" model="ir.ui.menu"> -->
-    <!--   <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/> -->
-    <!-- </record> -->
-
     <record id="sale.action_view_sale_advance_payment_inv" model="ir.actions.act_window">
       <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
     </record>

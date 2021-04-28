@@ -81,7 +81,7 @@ class StockRule(models.Model):
                     precision_rounding=procurement.product_id.uom_id.rounding,
                 )
                 <= 0
-                and sale_line.order_id.picking_policy != "dropship"
+                and not sale_line.order_id.is_dropshipping
             ):
                 forecasted_qties_by_loc[rule.location_src_id][
                     procurement.product_id.id
