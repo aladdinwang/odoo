@@ -691,7 +691,7 @@ class SaleOrderLine(models.Model):
                 continue
             qty = line._get_qty_procurement(previous_product_uom_qty)
             print("*" * 100)
-            print(qty)
+            print(qty, line.product_id.free_qty)
             if (
                 float_compare(qty, line.product_uom_qty, precision_digits=precision)
                 >= 0
