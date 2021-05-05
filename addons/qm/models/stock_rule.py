@@ -143,7 +143,7 @@ class StockRule(models.Model):
                 or float_compare(
                     qty_available,
                     0,
-                    precision_rouding=procurement.product_id.uom_id.rounding,
+                    precision_rounding=procurement.product_id.uom_id.rounding,
                 )
                 > 0
             ):
@@ -165,7 +165,7 @@ class StockRule(models.Model):
                     float_compare(
                         qty_available,
                         0,
-                        precision_rouding=procurement.product_id.uom_id.rounding,
+                        precision_rounding=procurement.product_id.uom_id.rounding,
                     )
                     < 0
                 ):
