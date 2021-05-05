@@ -174,7 +174,7 @@ class StockRule(models.Model):
                     )
                     new_procurement = procurement._replace(product_qty=new_product_qty)
                     _update_procurment_values(new_procurement)
-                    procurements_by_pr_domain[domain].append((procurement, rule))
+                    procurements_by_pr_domain[domain].append((new_procurement, rule))
             else:
                 _update_procurement_values(procurement)
                 procurements_by_pr_domain[domain].append((procurement, rule))
