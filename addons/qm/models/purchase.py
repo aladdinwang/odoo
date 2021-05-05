@@ -421,12 +421,17 @@ class PurchaseRequest(models.Model):
     product_id = fields.Many2one(
         "product.product", related="sale_line_id.product_id", readonly=True, index=True
     )
+    product_qty = fields.Float(
+        "Real Quantity",
+        digits=0.0,
+        required=True,
+        states={"done": {"readonly": True}, "cancel": {"readonly": True}},
+    )
     product_uom_qty = fields.Float(
         string="Quantity",
         digits="Product Unit of Measure",
-        related="sale_line_id.product_uom_qty",
-        readonly=True,
-        tracking=True,
+        compute="_compute_product_uom_qty",
+        store=True,
     )
     product_uom = fields.Many2one(
         "uom.uom", related="sale_line_id.product_uom", readonly=True
