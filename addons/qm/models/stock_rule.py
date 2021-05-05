@@ -152,7 +152,7 @@ class StockRule(models.Model):
                     procurement.product_id.id
                 ] -= qty_needed
                 move_values = rule._get_stock_move_values(*procurement)
-                move_values.update(self._get_warehouse_move_values(**procurement))
+                move_values.update(self._get_warehouse_move_values(*procurement))
 
                 move_values["procure_method"] = "make_to_stock"
                 moves_values_by_company[procurement.company_id.id].append(move_values)
