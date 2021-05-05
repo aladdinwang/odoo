@@ -47,6 +47,35 @@ class StockRule(models.Model):
             "partner_id": seller.name.id,
         }
 
+    # 生成交货单
+    def _get_warehouse_move_values(
+        self,
+        product_id,
+        product_qty,
+        product_uom,
+        locaiton_id,
+        name,
+        origin,
+        company_id,
+        values,
+    ):
+        warehouse = self.env["stock.warehouse"].search(
+            [("company_id", "=", company_id.id)], limit=1
+        )
+        picking_type = self.env["stock.picking.type"].search(
+            [
+                ("code", "=", "outgoing"),
+                ("warehouse_id", "=", warehouse.id),
+                ("default_location_src_id", "=", warehouse.lot_stock_id.id),
+            ],
+            limit=1,
+        )
+        return {
+            "src_location_id": warehouse.lot_stock_id.id,
+            "warehouse_id": warehouse.id,
+            "picking_type_id": picking_type.id,
+        }
+
     @api.model
     def _run_request(self, procurements):
         # 重新_run_buy生成purchase.request
@@ -62,6 +91,8 @@ class StockRule(models.Model):
                 product_id.id
             ] = product_id.free_qty
 
+        # 如果可用库存是负数, 则直接生成需求池
+        # 如果可用库存是正数，则计算差额生成需求池
         procurements_by_pr_domain = defaultdict(list)
         moves_values_by_company = defaultdict(list)
         for procurement, rule in procurements:
@@ -74,51 +105,78 @@ class StockRule(models.Model):
             sale_line = self.env["sale.order.line"].browse(
                 procurement.values["sale_line_id"]
             )
-            if (
-                float_compare(
-                    qty_needed,
-                    qty_available,
-                    precision_rounding=procurement.product_id.uom_id.rounding,
-                )
-                <= 0
-                and not sale_line.order_id.is_dropshipping
-            ):
-                forecasted_qties_by_loc[rule.location_src_id][
-                    procurement.product_id.id
-                ] -= qty_needed
-                move_values = rule._get_stock_move_values(*procurement)
-                move_values["procure_method"] = "make_to_stock"
-                moves_values_by_company[procurement.company_id.id].append(move_values)
-            else:
-                procurement_date_planned = fields.Datetime.from_string(
-                    procurement.values["date_planned"]
-                )
-                schedule_date = procurement_date_planned - relativedelta(
-                    days=procurement.company_id.po_lead
-                )
 
-                supplier = procurement.product_id._select_seller(
-                    partner_id=procurement.values.get("supplier_id"),
-                    quantity=procurement.product_qty,
-                    date=schedule_date.date(),
-                    uom_id=procurement.product_uom,
-                )
-                if not supplier:
-                    msg = _(
-                        "There is no matching vendor price to generate the purchase order for product %s (no vendor defined, minimum quantity not reached, dates not valid, ...). Go on the product form and complete the list of vendors."
-                    ) % (procurement.product_id.display_name)
-                    raise UserError(msg)
+            # 需求池需要的属性
+            procurement_date_planned = fields.Datetime.from_string(
+                procurement.values["date_planned"]
+            )
+            schedule_date = procurement_date_planned - relativedelta(
+                days=procurement.company_id.po_lead
+            )
 
-                partner = supplier.name
+            supplier = procurement.product_id._select_seller(
+                partner_id=procurement.values.get("supplier_id"),
+                quantity=procurement.product_qty,
+                date=schedule_date.date(),
+                uom_id=procurement.product_uom,
+            )
+            if not supplier:
+                msg = _(
+                    "There is no matching vendor price to generate the purchase order for product %s (no vendor defined, minimum quantity not reached, dates not valid, ...). Go on the product form and complete the list of vendors."
+                ) % (procurement.product_id.display_name)
+                raise UserError(msg)
+            partner = supplier.name
+            domain = rule._make_pr_get_domain(
+                procurement.company_id, procurement.values, partner
+            )
+
+            def _update_procurment_values(procurement):
                 procurement.values["supplier"] = supplier
                 procurement.values["propagate_date"] = rule.propagate_date
                 procurement.values[
                     "propagate_date_minimum_delta"
                 ] = rule.propagate_date_minimum_delta
                 procurement.values["propagate_cancel"] = rule.propagate_cancel
-                domain = rule._make_pr_get_domain(
-                    procurement.company_id, procurement.values, partner
+
+            if (
+                not sale_line.order_id.is_dropshipping
+                or float_compare(
+                    qty_available,
+                    0,
+                    precision_rouding=procurement.product_id.uom_id.rounding,
                 )
+                > 0
+            ):
+                qty_available -= qty_needed
+                forecasted_qties_by_loc[rule.location_src_id][
+                    procurement.product_id.id
+                ] -= qty_needed
+                move_values = rule._get_stock_move_values(*procurement)
+                move_values.update(self._get_warehouse_move_values(**procurement))
+
+                move_values["procure_method"] = "make_to_stock"
+                moves_values_by_company[procurement.company_id.id].append(move_values)
+
+                # recheck qty_available
+                forecasted_qties_by_loc[rule.location_src_id][
+                    procurement.product_id.id
+                ] = qty_available
+                if (
+                    float_compare(
+                        qty_available,
+                        0,
+                        precision_rouding=procurement.product_id.uom_id.rounding,
+                    )
+                    < 0
+                ):
+                    new_product_qty = procurement.product_id.uom_id._compute_quantity(
+                        abs(qty_available, procurement.product_uom)
+                    )
+                    new_procurement = procurement._replace(product_qty=new_product_qty)
+                    _update_procurment_values(new_procurement)
+                    procurement_by_pr_domain[domain].append((procurement, rule))
+            else:
+                _update_procurement_values(procurement)
                 procurements_by_pr_domain[domain].append((procurement, rule))
 
         # 创建出库单
