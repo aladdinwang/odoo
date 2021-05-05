@@ -690,8 +690,6 @@ class SaleOrderLine(models.Model):
             if line.state != "sale" or not line.product_id.type in ("consu", "product"):
                 continue
             qty = line._get_qty_procurement(previous_product_uom_qty)
-            print("*" * 100)
-            print(qty, line.product_id.free_qty)
             if (
                 float_compare(qty, line.product_uom_qty, precision_digits=precision)
                 >= 0
