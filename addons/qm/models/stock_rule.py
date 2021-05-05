@@ -71,7 +71,7 @@ class StockRule(models.Model):
             limit=1,
         )
         return {
-            "src_location_id": warehouse.lot_stock_id.id,
+            "location_id": warehouse.lot_stock_id.id,
             "warehouse_id": warehouse.id,
             "picking_type_id": picking_type.id,
         }
