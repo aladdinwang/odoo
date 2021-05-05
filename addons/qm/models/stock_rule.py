@@ -170,7 +170,7 @@ class StockRule(models.Model):
                     < 0
                 ):
                     new_product_qty = procurement.product_id.uom_id._compute_quantity(
-                        abs(qty_available, procurement.product_uom)
+                        abs(qty_available), procurement.product_uom
                     )
                     new_procurement = procurement._replace(product_qty=new_product_qty)
                     _update_procurment_values(new_procurement)
