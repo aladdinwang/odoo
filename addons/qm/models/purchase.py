@@ -246,7 +246,7 @@ class PurchaseOrder(models.Model):
         order_vals = {
             "partner_id": partner_id.id,
             "user_id": self.env.user.id or False,
-            # "picking_type_id": picking_type_id.id,
+            "picking_type_id": picking_type_id.id,
             "company_id": self.env.company.id,
             "currency_id": currency_id.id,
             "dest_address_id": picking_type_id.default_location_dest_id.id,
