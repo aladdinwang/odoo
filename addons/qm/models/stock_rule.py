@@ -24,15 +24,12 @@ class StockRule(models.Model):
         self, product_id, product_qty, product_uom, company_id, values
     ):
         partner = values["supplier"].name
-        procurement_uom_pr_qty = product_uom._compute_quantity(
-            product_qty, product_id.uom_po_id
-        )
         sale_line = self.env["sale.order.line"].browse(values["sale_line_id"])
         seller = product_id.with_context(force_company=company_id.id)._select_seller(
             partner_id=partner,
-            quantity=procurement_uom_pr_qty,
+            quantity=product_qty,
             date=sale_line.order_id.date_order.date(),
-            uom_id=product_id.uom_po_id,
+            uom_id=product_uom,
         )
 
         # move_dest_ids该怎么处理
@@ -40,9 +37,9 @@ class StockRule(models.Model):
         # 不记录move_dest_ids，在生成采购单的时候再去取
         # 通过sale_order_line.move_ids来去获取
         return {
-            "product_uom_qty": procurement_uom_pr_qty,
             "product_id": product_id.id,
-            "product_uom": product_id.uom_po_id.id,
+            "product_uom": product_uom.id,
+            "product_qty": product_qty,
             "sale_line_id": values["sale_line_id"],
             "partner_id": seller.name.id,
         }
@@ -130,7 +127,7 @@ class StockRule(models.Model):
                 procurement.company_id, procurement.values, partner
             )
 
-            def _update_procurment_values(procurement):
+            def _update_procurement_values(procurement):
                 procurement.values["supplier"] = supplier
                 procurement.values["propagate_date"] = rule.propagate_date
                 procurement.values[
@@ -173,7 +170,7 @@ class StockRule(models.Model):
                         abs(qty_available), procurement.product_uom
                     )
                     new_procurement = procurement._replace(product_qty=new_product_qty)
-                    _update_procurment_values(new_procurement)
+                    _update_procurement_values(new_procurement)
                     procurements_by_pr_domain[domain].append((new_procurement, rule))
             else:
                 _update_procurement_values(procurement)
