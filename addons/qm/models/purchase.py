@@ -425,7 +425,7 @@ class PurchaseRequest(models.Model):
         "Real Quantity",
         digits=0.0,
         required=True,
-        states={"done": {"readonly": True}, "cancel": {"readonly": True}},
+        states={"done": [("readonly", True)], "cancel": [("readonly", True)]},
     )
     product_uom = fields.Many2one("uom.uom", readonly=True)
     qty_purchased = fields.Float(
