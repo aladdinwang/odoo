@@ -178,7 +178,7 @@ class PurchaseOrder(models.Model):
             origins.add(req.sale_order_id.name)
             product_id = req.product_id
             uom_po_qty = req.product_uom._compute_quantity(
-                req.product_uom_qty, product_id.uom_po_id
+                req.product_qty, product_id.uom_po_id
             )
             seller = product_id.with_context(
                 force_company=self.env.company.id
@@ -462,7 +462,7 @@ class PurchaseRequest(models.Model):
             rec.purchase_line_count = len(line_ids)
             qty_purchased = sum(x.product_qty for x in line_ids if x != "cancel")
             rec.qty_purchased = qty_purchased
-            rec.qty_to_purchase = rec.product_uom_qty - qty_purchased
+            rec.qty_to_purchase = rec.product_qty - qty_purchased
 
             if rec.state == "open" and rec.qty_to_purchase <= 0:
                 rec.state = "done"
