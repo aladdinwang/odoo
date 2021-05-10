@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="product_attribute_view_form_qm" model="ir.ui.view">
+    <field name="name">product.attribute.form.qm</field>
+    <field name="model">product.attribute</field>
+    <field name="inherit_id" ref="sale.product_attribute_view_form"/>
+    <field name="arch" type="xml">
+      <field name="display_type" position="before">
+        <field name="comment"/>
+      </field>
+    </field>
+  </record>
+</odoo>
