@@ -129,6 +129,9 @@ class PurchaseOrder(models.Model):
         if len(partner_ids) > 1:
             raise UserError(_("Only one supplier at most"))
 
+        if not all(partner_ids):
+            raise UserError(_("Missing partner"))
+
         if last_req.is_dropshipping:
             if len(customer_partner_id_tuples) > 1:
                 raise UserError(_("Only one customer at most"))

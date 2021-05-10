@@ -23,14 +23,21 @@ class StockRule(models.Model):
     def _prepare_purchase_request(
         self, product_id, product_qty, product_uom, company_id, values
     ):
-        partner = values["supplier"].name
-        sale_line = self.env["sale.order.line"].browse(values["sale_line_id"])
-        seller = product_id.with_context(force_company=company_id.id)._select_seller(
-            partner_id=partner,
-            quantity=product_qty,
-            date=sale_line.order_id.date_order.date(),
-            uom_id=product_uom,
-        )
+        # 支持supplier为空的情况
+        if values.get("supplier"):
+            partner = values["supplier"].name
+            sale_line = self.env["sale.order.line"].browse(values["sale_line_id"])
+            seller = product_id.with_context(
+                force_company=company_id.id
+            )._select_seller(
+                partner_id=partner,
+                quantity=product_qty,
+                date=sale_line.order_id.date_order.date(),
+                uom_id=product_uom,
+            )
+            partner_id = seller.name.id
+        else:
+            partner_id = False
 
         # move_dest_ids该怎么处理
         # move_dest_ids在
@@ -41,7 +48,7 @@ class StockRule(models.Model):
             "product_uom": product_uom.id,
             "product_qty": product_qty,
             "sale_line_id": values["sale_line_id"],
-            "partner_id": seller.name.id,
+            "partner_id": partner_id,
         }
 
     # 生成交货单
@@ -121,11 +128,13 @@ class StockRule(models.Model):
                 uom_id=procurement.product_id.uom_po_id,
             )
             if not supplier:
-                msg = _(
-                    "There is no matching vendor price to generate the purchase order for product %s (no vendor defined, minimum quantity not reached, dates not valid, ...). Go on the product form and complete the list of vendors."
-                ) % (procurement.product_id.display_name)
-                raise UserError(msg)
-            partner = supplier.name
+                # msg = _(
+                #     "There is no matching vendor price to generate the purchase order for product %s (no vendor defined, minimum quantity not reached, dates not valid, ...). Go on the product form and complete the list of vendors."
+                # ) % (procurement.product_id.display_name)
+                # raise UserError(msg)
+                partner = False
+            else:
+                partner = supplier.name
             domain = rule._make_pr_get_domain(
                 procurement.company_id, procurement.values, partner
             )
