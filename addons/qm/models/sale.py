@@ -61,6 +61,9 @@ class SaleOrder(models.Model):
     # picking_policy = fields.Selection(selection_add=[("dropship", "DropShip")])
 
     is_dropshipping = fields.Boolean("Is Dropshipping")
+    payment_register_lines = fields.One2many(
+        "sale.payment.register.line", "sale_order_id", readonly=True, copy=False
+    )
 
     # @api.depends("invoice_ids.state")
     # def _compute_invoice_state(self):
@@ -117,19 +120,18 @@ class SaleOrder(models.Model):
         invoice_vals["partner_id"] = self.partner_id.id
         return invoice_vals
 
-    @api.depends("invoice_ids", "invoice_ids.state")
+    @api.depends("payment_register_lines", "payment_register_lines.state")
     def _compute_payment_state(self):
         for order in self:
-            register_lines = self.env["sale.payment.register.line"].search(
-                [("sale_order_id", "=", order.id)]
-            )
             paid_amount = sum(
                 x.amount
-                for x in register_lines.filtered(lambda x: x.state == "reconciled")
+                for x in self.payment_register_lines.filtered(
+                    lambda x: x.state == "reconciled"
+                )
             )
             total_amount = sum(
                 x.amount
-                for x in register_lines.filtered(
+                for x in self.payment_register_lines.filtered(
                     lambda x: x.state not in ("cancelled",)
                 )
             )
