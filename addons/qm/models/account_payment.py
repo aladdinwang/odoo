@@ -172,6 +172,14 @@ class SalePaymentRegister(models.Model):
         copy=False,
         string="Status",
     )
+    partner_id = fields.Many2one(
+        "res.partner",
+        string="Customer",
+        tracking=True,
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+    )
     line_ids = fields.One2many(
         "sale.payment.register.line", "register_id", string="Register Lines"
     )

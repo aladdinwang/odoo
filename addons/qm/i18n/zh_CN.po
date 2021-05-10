@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-25 15:24+0000\n"
-"PO-Revision-Date: 2021-04-25 15:24+0000\n"
+"POT-Creation-Date: 2021-05-10 06:28+0000\n"
+"PO-Revision-Date: 2021-05-10 06:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -121,6 +121,11 @@ msgstr "活动状态"
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Add a line"
 msgstr "添加明细行"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_product_attribute__comment
+msgid "Additional Information"
+msgstr ""
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__res_partner__supplier_type__agent
@@ -816,6 +821,14 @@ msgid "Lines"
 msgstr "明细行"
 
 #. module: qm
+#: model:account.account,name:qm.1_l10n_chart_china_latest_liquidity_transfer
+#: model:account.account,name:qm.2_l10n_chart_china_latest_liquidity_transfer
+#: model:account.account,name:qm.5_l10n_chart_china_latest_liquidity_transfer
+#: model:account.account.template,name:qm.l10n_chart_china_latest_liquidity_transfer
+msgid "Liquidity Transfer"
+msgstr ""
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__message_main_attachment_id
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__message_main_attachment_id
 #: model:ir.model.fields,field_description:qm.field_payment_register__message_main_attachment_id
@@ -863,6 +876,12 @@ msgstr "消息传递错误"
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_ids
 msgid "Messages"
 msgstr "消息"
+
+#. module: qm
+#: code:addons/qm/models/purchase.py:0
+#, python-format
+msgid "Missing partner"
+msgstr "某行需求池缺少供应商, 请至对应产品详情页配置供应商以及采购价"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_payment_register__name
@@ -1221,6 +1240,11 @@ msgid "Product Template Attribute Value"
 msgstr "产品规格值"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__product_uom
+msgid "Product Uom"
+msgstr ""
+
+#. module: qm
 #: model:ir.actions.act_window,name:qm.action_account_purchase_invoice_qm
 #: model:ir.model,name:qm.model_account_purchase_invoice
 #: model:ir.ui.menu,name:qm.menu_action_account_purchase_invoice_qm
@@ -1301,9 +1325,13 @@ msgstr "已采购数量"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__product_qty
-#: model:ir.model.fields,field_description:qm.field_purchase_request__product_uom_qty
 msgid "Quantity"
 msgstr "数量"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_request__product_qty
+msgid "Real Quantity"
+msgstr ""
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_order_line__qty_receipt
@@ -1313,7 +1341,6 @@ msgstr "已开票数量"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_order_line__receipt_lines
-#: model:ir.ui.menu,name:qm.menu_action_move_out_receipt_type_qm
 msgid "Receipts"
 msgstr "开票申请"
 
@@ -1499,6 +1526,12 @@ msgid "Sale Invoices"
 msgstr "销售发票"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_account_move__sale_line_count
+#: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
+msgid "Sale Line Count"
+msgstr "销售单明细"
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__sale_order_id
 msgid "Sale Order"
 msgstr "销售订单"
@@ -1526,6 +1559,11 @@ msgstr "到款单"
 #: model:ir.model,name:qm.model_sale_payment_register_line
 msgid "Sale Payment Register Line"
 msgstr "到款单明细"
+
+#. module: qm
+#: model:ir.ui.menu,name:qm.menu_action_move_out_receipt_type_qm
+msgid "Sale Receipts"
+msgstr "开票申请"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_payment__sale_register_id
@@ -1757,15 +1795,6 @@ msgid ""
 msgstr ""
 
 #. module: qm
-#: code:addons/qm/models/stock_rule.py:0
-#, python-format
-msgid ""
-"There is no matching vendor price to generate the purchase order for product"
-" %s (no vendor defined, minimum quantity not reached, dates not valid, ...)."
-" Go on the product form and complete the list of vendors."
-msgstr ""
-
-#. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__sale_order__invoice_state__to_invoice
 #: model_terms:ir.ui.view,arch_db:qm.view_sales_order_filter_qm
 msgid "To Invoice"
@@ -1820,7 +1849,6 @@ msgstr "单价"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__product_uom
-#: model:ir.model.fields,field_description:qm.field_purchase_request__product_uom
 msgid "Unit of Measure"
 msgstr "计量单位"
 
@@ -1985,34 +2013,41 @@ msgid "中国会计科目表 （财会[2020] 《企业会计准则》"
 msgstr ""
 
 #. module: qm
-#: model:account.account,name:qm.4_account_6401
-#: model:account.account,name:qm.7_account_6401
+#: model:account.account,name:qm.1_account_6401
+#: model:account.account,name:qm.2_account_6401
+#: model:account.account,name:qm.5_account_6401
 #: model:account.account.template,name:qm.account_6401
 msgid "主营业务成本"
 msgstr ""
 
 #. module: qm
-#: model:account.account,name:qm.4_account_6001
-#: model:account.account,name:qm.7_account_6001
+#: model:account.account,name:qm.1_account_6001
+#: model:account.account,name:qm.2_account_6001
+#: model:account.account,name:qm.5_account_6001
 #: model:account.account.template,name:qm.account_6001
 msgid "主营业务收入"
 msgstr ""
 
 #. module: qm
-#: model:account.account,name:qm.4_account_2202
-#: model:account.account,name:qm.7_account_2202
+#: model:account.account,name:qm.1_account_2202
+#: model:account.account,name:qm.2_account_2202
+#: model:account.account,name:qm.5_account_2202
 #: model:account.account.template,name:qm.account_2202
 msgid "应付账款"
 msgstr ""
 
 #. module: qm
-#: model:account.account,name:qm.4_account_1122
-#: model:account.account,name:qm.7_account_1122
+#: model:account.account,name:qm.1_account_1122
+#: model:account.account,name:qm.2_account_1122
+#: model:account.account,name:qm.5_account_1122
 #: model:account.account.template,name:qm.account_1122
 msgid "应收账款"
 msgstr ""
 
 #. module: qm
+#: model:account.account,name:qm.1_account_1124
+#: model:account.account,name:qm.2_account_1124
+#: model:account.account,name:qm.5_account_1124
 #: model:account.account.template,name:qm.account_1124
 msgid "应收账款 (PoS)"
 msgstr ""
@@ -2024,52 +2059,56 @@ msgid "明细金额超出总金额"
 msgstr ""
 
 #. module: qm
-#: model:account.account,name:qm.4_account_6061
-#: model:account.account,name:qm.7_account_6061
+#: model:account.account,name:qm.1_account_6061
+#: model:account.account,name:qm.2_account_6061
+#: model:account.account,name:qm.5_account_6061
 #: model:account.account.template,name:qm.account_6061
 msgid "汇兑损益"
 msgstr ""
 
 #. module: qm
-#: model:account.account,name:qm.3_l10n_chart_china_latest_liquidity_transfer
-#: model:account.account,name:qm.4_l10n_chart_china_latest_liquidity_transfer
-#: model:account.account.template,name:qm.l10n_chart_china_latest_liquidity_transfer
-msgid "流动性转移"
-msgstr ""
-
-#. module: qm
-#: model:account.tax,description:qm.3_l10n_cn_latest_purchase_excluded_13
-#: model:account.tax,description:qm.3_l10n_cn_latest_sales_excluded_13
-#: model:account.tax,description:qm.4_l10n_cn_latest_purchase_excluded_13
-#: model:account.tax,description:qm.4_l10n_cn_latest_sales_excluded_13
+#: model:account.tax,description:qm.1_l10n_cn_latest_purchase_excluded_13
+#: model:account.tax,description:qm.1_l10n_cn_latest_sales_excluded_13
+#: model:account.tax,description:qm.2_l10n_cn_latest_purchase_excluded_13
+#: model:account.tax,description:qm.2_l10n_cn_latest_sales_excluded_13
+#: model:account.tax,description:qm.5_l10n_cn_latest_purchase_excluded_13
+#: model:account.tax,description:qm.5_l10n_cn_latest_sales_excluded_13
 #: model:account.tax.template,description:qm.l10n_cn_latest_purchase_excluded_13
 #: model:account.tax.template,description:qm.l10n_cn_latest_sales_excluded_13
 msgid "税收13％"
 msgstr ""
 
 #. module: qm
-#: model:account.tax,name:qm.3_l10n_cn_latest_purchase_excluded_13
-#: model:account.tax,name:qm.3_l10n_cn_latest_sales_excluded_13
-#: model:account.tax,name:qm.4_l10n_cn_latest_purchase_excluded_13
-#: model:account.tax,name:qm.4_l10n_cn_latest_sales_excluded_13
+#: model:account.tax,name:qm.1_l10n_cn_latest_purchase_excluded_13
+#: model:account.tax,name:qm.1_l10n_cn_latest_sales_excluded_13
+#: model:account.tax,name:qm.2_l10n_cn_latest_purchase_excluded_13
+#: model:account.tax,name:qm.2_l10n_cn_latest_sales_excluded_13
+#: model:account.tax,name:qm.5_l10n_cn_latest_purchase_excluded_13
+#: model:account.tax,name:qm.5_l10n_cn_latest_sales_excluded_13
 #: model:account.tax.template,name:qm.l10n_cn_latest_purchase_excluded_13
 #: model:account.tax.template,name:qm.l10n_cn_latest_sales_excluded_13
 msgid "税收13％ - 中国会计科目表-企业会计准则"
 msgstr ""
 
 #. module: qm
-#: model:account.tax,description:qm.3_l10n_cn_latest_purchase_excluded_6
-#: model:account.tax,description:qm.3_l10n_cn_latest_sales_excluded_6
-#: model:account.tax,description:qm.4_l10n_cn_latest_sales_excluded_6
+#: model:account.tax,description:qm.1_l10n_cn_latest_purchase_excluded_6
+#: model:account.tax,description:qm.1_l10n_cn_latest_sales_excluded_6
+#: model:account.tax,description:qm.2_l10n_cn_latest_purchase_excluded_6
+#: model:account.tax,description:qm.2_l10n_cn_latest_sales_excluded_6
+#: model:account.tax,description:qm.5_l10n_cn_latest_purchase_excluded_6
+#: model:account.tax,description:qm.5_l10n_cn_latest_sales_excluded_6
 #: model:account.tax.template,description:qm.l10n_cn_latest_purchase_excluded_6
 #: model:account.tax.template,description:qm.l10n_cn_latest_sales_excluded_6
 msgid "税收6％"
 msgstr ""
 
 #. module: qm
-#: model:account.tax,name:qm.3_l10n_cn_latest_purchase_excluded_6
-#: model:account.tax,name:qm.3_l10n_cn_latest_sales_excluded_6
-#: model:account.tax,name:qm.4_l10n_cn_latest_sales_excluded_6
+#: model:account.tax,name:qm.1_l10n_cn_latest_purchase_excluded_6
+#: model:account.tax,name:qm.1_l10n_cn_latest_sales_excluded_6
+#: model:account.tax,name:qm.2_l10n_cn_latest_purchase_excluded_6
+#: model:account.tax,name:qm.2_l10n_cn_latest_sales_excluded_6
+#: model:account.tax,name:qm.5_l10n_cn_latest_purchase_excluded_6
+#: model:account.tax,name:qm.5_l10n_cn_latest_sales_excluded_6
 #: model:account.tax.template,name:qm.l10n_cn_latest_purchase_excluded_6
 #: model:account.tax.template,name:qm.l10n_cn_latest_sales_excluded_6
 msgid "税收6％ - 中国会计科目表-企业会计准则"
@@ -2082,20 +2121,17 @@ msgid "警告"
 msgstr ""
 
 #. module: qm
+#: model:account.account,name:qm.1_account_7002
+#: model:account.account,name:qm.2_account_7002
+#: model:account.account,name:qm.5_account_7002
 #: model:account.account.template,name:qm.account_7002
 msgid "采购发票"
 msgstr ""
 
 #. module: qm
-#: model:account.account,name:qm.4_account_7001
-#: model:account.account,name:qm.7_account_7001
+#: model:account.account,name:qm.1_account_7001
+#: model:account.account,name:qm.2_account_7001
+#: model:account.account,name:qm.5_account_7001
 #: model:account.account.template,name:qm.account_7001
 msgid "销售发票"
 msgstr ""
-
-
-#. module: qm
-#: model:ir.model.fields,field_description:qm.field_account_move__sale_line_count
-#: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
-msgid "Sale Line Count"
-msgstr "待开票明细"
