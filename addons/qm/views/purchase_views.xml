@@ -151,10 +151,13 @@
           </p>
         </field>
     </record>
+    <record id="purchase.menu_purchase_rfq" model="ir.ui.menu">
+      <field name="sequence" eval="1"/>
+    </record>
     <menuitem action="purchase_request_action" id="menu_purchase_request_action"
               parent="purchase.menu_procurement_management" sequence="0"/>
 
-
+    
 
     <record id="view_purchase_order_line_tree_qm" model="ir.ui.view">
       <field name="name">purchase.order.line.tree.inherit</field>

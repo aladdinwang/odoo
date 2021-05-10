@@ -248,6 +248,7 @@ class SalePaymentRegisterLine(models.Model):
     # invoice_id = fields.Many2one("account.move", index=True, required=True)
     # 关联销售单
     sale_order_id = fields.Many2one("sale.order", index=True, required=True)
+    state = fields.Selection(related="register_id.state", store=True, readonly=True)
     amount = fields.Monetary(string="Amount", required=True, tracking=True)
     currency_id = fields.Many2one(
         "res.currency",
