@@ -40,6 +40,7 @@
         "views/account_move_views.xml",
         "views/sale_views.xml",
         "views/account_payment_views.xml",
+        "views/product_attribute_views.xml",
     ],
     "demo": [],
     "installable": True,
