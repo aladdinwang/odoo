@@ -332,7 +332,7 @@ class PurchasePaymentRegister(models.Model):
                 lambda x: x.state not in ("reject", "cancelled")
             )
         )
-        rec["amount"] = max([order.amount_total - in_payment_amount, 0])
+        rec["amount"] = max([purchase_order.amount_total - in_payment_amount, 0])
         rec["payment_type"] = "outbound"
         rec["partner_type"] = "supplier"
         rec["journal_id"] = journal_id.id
