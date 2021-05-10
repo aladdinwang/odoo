@@ -326,6 +326,13 @@ class PurchasePaymentRegister(models.Model):
         if default_payment_method_id:
             payment_method_ids.append(default_payment_method_id)
 
+        in_payment_amount = sum(
+            x.amount
+            for x in purchase_order.payment_register_ids.filtered(
+                lambda x: x.state not in ("reject", "cancelled")
+            )
+        )
+        rec["amount"] = max([order.amount_total - in_payment_amount, 0])
         rec["payment_type"] = "outbound"
         rec["partner_type"] = "supplier"
         rec["journal_id"] = journal_id.id

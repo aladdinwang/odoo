@@ -120,7 +120,11 @@ class SaleOrder(models.Model):
         invoice_vals["partner_id"] = self.partner_id.id
         return invoice_vals
 
-    @api.depends("payment_register_lines", "payment_register_lines.state")
+    @api.depends(
+        "payment_register_lines",
+        "payment_register_lines.state",
+        "payment_register_lines.amount",
+    )
     def _compute_payment_state(self):
         for order in self:
             paid_amount = sum(
