@@ -191,6 +191,10 @@ class SalePaymentRegister(models.Model):
         string="Confirm Date", index=True, readonly=True, tracking=True
     )
 
+    amount_difference = fields.Monetary(
+        string="Amount", compute="_compute_amount_difference", readonly=True, store=True
+    )
+
     @api.model
     def default_get(self, default_fields):
         rec = super(SalePaymentRegister, self).default_get(default_fields)
@@ -223,11 +227,17 @@ class SalePaymentRegister(models.Model):
     def name_get(self):
         return [(x.id, x.name or _("Draft Payment Register")) for x in self]
 
-    @api.onchange("amount", "line_ids", "line_ids.amount")
-    def _onchange_amount(self):
-        total_amount = sum(x.amount for x in self.line_ids)
-        if self.amount < total_amount:
-            return {"warning": {"title": _("警告"), "message": _("明细金额超出总金额")}}
+    @api.depends("amount", "line_ids", "line_ids.amount")
+    def _compute_amount_difference(self):
+        for pay in self:
+            total_amount = sum(x.amount for x in pay.line_ids)
+            pay.amount_difference = pay.amount - total_amount
+
+    # @api.onchange("amount", "line_ids", "line_ids.amount")
+    # def _onchange_amount(self):
+    #     total_amount = sum(x.amount for x in self.line_ids)
+    #     if self.amount < total_amount:
+    #         return {"warning": {"title": _("警告"), "message": _("明细金额超出总金额")}}
 
     def action_confirm(self):
         recs = self.filtered(lambda x: x.state == "waiting")
