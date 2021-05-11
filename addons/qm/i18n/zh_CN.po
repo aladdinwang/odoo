@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-11 04:43+0000\n"
-"PO-Revision-Date: 2021-05-11 04:43+0000\n"
+"POT-Creation-Date: 2021-05-11 06:08+0000\n"
+"PO-Revision-Date: 2021-05-11 06:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -139,6 +139,13 @@ msgstr "代理商"
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__amount
 msgid "Amount"
 msgstr "金额"
+
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_payment_register__amount_difference
+msgid "Amount Difference"
+msgstr "金额"
+
 
 #. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
@@ -2040,12 +2047,6 @@ msgid "应收账款 (PoS)"
 msgstr ""
 
 #. module: qm
-#: code:addons/qm/models/account_payment.py:0
-#, python-format
-msgid "明细金额超出总金额"
-msgstr ""
-
-#. module: qm
 #: model:account.account,name:qm.1_account_6061
 #: model:account.account,name:qm.2_account_6061
 #: model:account.account,name:qm.5_account_6061
@@ -2099,12 +2100,6 @@ msgstr ""
 #: model:account.tax.template,name:qm.l10n_cn_latest_purchase_excluded_6
 #: model:account.tax.template,name:qm.l10n_cn_latest_sales_excluded_6
 msgid "税收6％ - 中国会计科目表-企业会计准则"
-msgstr ""
-
-#. module: qm
-#: code:addons/qm/models/account_payment.py:0
-#, python-format
-msgid "警告"
 msgstr ""
 
 #. module: qm

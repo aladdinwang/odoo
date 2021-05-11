@@ -192,7 +192,10 @@ class SalePaymentRegister(models.Model):
     )
 
     amount_difference = fields.Monetary(
-        string="Amount", compute="_compute_amount_difference", readonly=True, store=True
+        string="Amount Difference",
+        compute="_compute_amount_difference",
+        readonly=True,
+        store=True,
     )
 
     @api.model
