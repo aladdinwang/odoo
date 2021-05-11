@@ -10,4 +10,16 @@
       </field>
     </field>
   </record>
+
+  <record id="product_attribute_tree_qm" model="ir.ui.view">
+    <field name="name">product.attribute.tree.qm</field>
+    <field name="model">product.attribute</field>
+    <field name="inherit_id" ref="product.attribute_tree_view"/>
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="comment"/>
+      </field>
+    </field>
+  </record>
+
 </odoo>
