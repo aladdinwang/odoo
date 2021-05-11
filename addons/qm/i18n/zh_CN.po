@@ -144,7 +144,7 @@ msgstr "金额"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__amount_difference
 msgid "Amount Difference"
-msgstr "金额"
+msgstr "差异金额"
 
 
 #. module: qm
