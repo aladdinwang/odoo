@@ -256,6 +256,7 @@ class SalePaymentRegister(models.Model):
 class SalePaymentRegisterLine(models.Model):
     _name = "sale.payment.register.line"
     _description = "Sale Payment Register Line"
+    _order = "id desc"
 
     register_id = fields.Many2one("sale.payment.register", index=True, required=True)
     # invoice_id = fields.Many2one("account.move", index=True, required=True)
@@ -275,6 +276,7 @@ class SalePaymentRegisterLine(models.Model):
 class PurchasePaymentRegister(models.Model):
     _name = "purchase.payment.register"
     _inherit = "payment.register"
+    _order = "id desc"
 
     _description = "Purchase Payment Register Line"
 
