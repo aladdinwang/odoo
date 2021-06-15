@@ -54,9 +54,9 @@ class Order(models.Model):
     total_shipping_cost = fields.Monetary(
         "Total Shipping Cost", currency_field="logistics_currency_id"
     )
-    weight = fields.Float("Weight")
-    volume_weight = fields.Float("Volume Weight")
-    cost_weight = fields.Float("Cost Weight")
+    weight = fields.Float("Weight", digits=(10, 3))
+    volume_weight = fields.Float("Volume Weight", digits=(10, 3))
+    cost_weight = fields.Float("Cost Weight", digits=(10, 3))
     time_online = fields.Datetime("Time Online")
     state = fields.Selection(
         [("draft", "Draft"), ("waiting", "Waiting"), ("done", "Done")],
