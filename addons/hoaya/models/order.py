@@ -73,6 +73,7 @@ class Order(models.Model):
         records = self.browse(result["ids"])
 
         for record in records:
-            print(record.get_external_id())
+            external_id = record.get_external_id()
+            record.write({"name": external_id.split(".")[1]})
 
         return result
