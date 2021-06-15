@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_hoaya_order_tree" model="ir.ui.view">
+    <field name="name">hoaya.order.tree</field>
+    <field name="model">hoaya.order</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="brand" optional="show"/>
+        <field name="date_order" optional="show"/>
+        <field name="amount_total" sum="Total Amount" widget="monetary" optional="show"/>
+        <field name="amount_tax" widget="monetary" optional="show"/>
+        <field name="amount_payment" sum="Total Payment" widget="monetary" optional="show"/>
+        <field name="courier_tracking_number" optional="show"/>
+        <field name="total_shipping_cost" sum="Total Shipping Cost" widget="monetary" optional="show"/>
+        <field name="weight" optional="show"/>
+        <field name="volume_weight" optional="show"/>
+        <field name="cost_weight" optional="show"/>
+        <field name="time_online" optional="show"/>
+        <field name="state"/>
+	<field name="platform_currency_id" invisible="1"/>
+	<field name="logistics_currency_id" invisible="1"/>
+      </tree>
+    </field>
+  </record>
+
+
+  <record id="view_hoaya_order_form" model="ir.ui.view">
+    <field name="name">hoaya.order.form</field>
+    <field name="model">hoaya.order</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <form string="Hoaya Order" class="o_hoaya_order">
+        <header>
+          <field name="state" widget="statusbar"/>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <h1>
+              <field name="name" readonly="1"/>
+            </h1>
+          </div>
+          <group>
+            <group>
+              <field name="brand"/>
+              <field name="date_order"/>
+              <field name="order_reference"/>
+              <field name="platform_currency_id" invisible="1"/>
+              <field name="amount_total" class="oe_inline" widget="monetary" options="{'currency_field': 'platform_currency_id', 'field_digits': True}"/>
+              <field name="amount_tax" class="oe_inline" widget="monetary" options="{'currency_field': 'platform_currency_id', 'field_digits': True}"/>
+              <field name="amount_payment" class="oe_inline" widget="monetary" options="{'currency_field': 'platform_currency_id', 'field_digits': True}"/>
+            </group>
+            <group>
+              <field name="logistics_currency_id" invisible="1"/>
+              <field name="tracking_number"/>
+              <field name="courier_tracking_number"/>
+              <field name="total_shipping_cost" class="oe_inline" widget="monetary" options="{'currency_field': 'logistics_currency_id', 'field_digits': True}"/>
+              <field name="weight"/>
+              <field name="volume_weight"/>
+              <field name="cost_weight"/>
+              <field name="time_online"/>
+            </group>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+
+  <record id="view_hoaya_order_search" model="ir.ui.view">
+    <field name="name">hoaya.order.search</field>
+    <field name="model">hoaya.order</field>
+    <field name="arch" type="xml">
+      <search string="Search Hoaya Order">
+        <field name="name"/>
+        <field name="tracking_number"/>
+        <field name="courier_tracking_number"/>
+        <field name="brand"/>
+        <field name="state"/>
+        <separator/>
+        <filter string="Date Order" name="date_order" date="date_order"/>
+        <filter string="Time Online" name="time_online" date="time_online"/>
+      </search>
+    </field>
+  </record>
+
+
+  <record id="action_hoaya_order" model="ir.actions.act_window">
+    <field name="name">Hoaya Order</field>
+    <field name="res_model">hoaya.order</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="view_hoaya_order_tree"/>
+    <field name="search_view_id" ref="view_hoaya_order_search"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Create Hoaya Orders
+      </p>
+    </field>
+  </record>
+
+
+  <menuitem id="hoaya_menu_root"
+            name="HOAYA"
+            active="True"
+	    web_icon="hoaya,static/description/icon.png"
+            sequence="0"/>
+  
+  <menuitem id="hoaya_order_menu"
+            name="Orders"
+            parent="hoaya_menu_root"
+	    action="hoaya.action_hoaya_order"
+            sequence="0"/>
+
+</odoo>
