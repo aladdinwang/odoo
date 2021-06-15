@@ -31,19 +31,29 @@ class Order(models.Model):
         "res.currency", "Currency", default=_get_default_logistics_currency_id
     )
 
-    amount_total = fields.Monetary("Amount Total", currency_field='platform_currency_id')
-    amount_tax = fields.Monetary("Amount Tax", currency_field='platform_currency_id')
-    amount_payment = fields.Monetary("Amount Payment", currency_field='platform_currency_id')
+    amount_total = fields.Monetary(
+        "Amount Total", currency_field="platform_currency_id"
+    )
+    amount_tax = fields.Monetary("Amount Tax", currency_field="platform_currency_id")
+    amount_payment = fields.Monetary(
+        "Amount Payment", currency_field="platform_currency_id"
+    )
 
     order_reference = fields.Char()
     tracking_number = fields.Char("Tracking Number", index=True)
     courier_tracking_number = fields.Char("Courier Tracking Number", index=True)
 
     # 挂号费
-    register_fee = fields.Monetary("Register Fee", currency_field='logistics_currency_id')
+    register_fee = fields.Monetary(
+        "Register Fee", currency_field="logistics_currency_id"
+    )
     # 运费
-    shipping_cost = fields.Monetary("Shipping Cost", currency_field='logistics_currency_id')
-    total_shipping_cost = fields.Monetary("Total Shipping Cost", currency_field='logistics_currency_id')
+    shipping_cost = fields.Monetary(
+        "Shipping Cost", currency_field="logistics_currency_id"
+    )
+    total_shipping_cost = fields.Monetary(
+        "Total Shipping Cost", currency_field="logistics_currency_id"
+    )
     weight = fields.Float("Weight")
     volume_weight = fields.Float("Volume Weight")
     cost_weight = fields.Float("Cost Weight")
@@ -56,3 +66,13 @@ class Order(models.Model):
         index=True,
         string="Status",
     )
+
+    @api.model
+    def load(self, fields, data):
+        result = super().load(fields, data)
+        records = self.browse(result["ids"])
+
+        for record in records:
+            print(record.get_external_id())
+
+        return result
