@@ -1,0 +1,35 @@
+version: '3'
+services:
+  postgresql:
+    image: "postgres:9.6.18"
+    hostname: postgresql
+    container_name: postgresql
+    restart: always
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: hoaya
+      POSTGRES_DB: hoaya
+      POSTGRES_PASSWORD: hoaya
+    ports:
+      - "5432:5432"
+
+  odoo:
+    container_name: odoo
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgresql
+    ports:
+      - "8069:8069"
+      - "8702:8702"
+    volumes:
+      - .:/code
+    command: bash -c "python odoo-bin -c odoo.conf"
+volumes:
+  pg_data
+
+
+
