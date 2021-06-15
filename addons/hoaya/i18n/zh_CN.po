@@ -1,0 +1,389 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hoaya
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-15 06:53+0000\n"
+"PO-Revision-Date: 2021-06-15 06:53+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__access_warning
+msgid "Access warning"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__amount_payment
+msgid "Amount Payment"
+msgstr "实付金额"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__amount_tax
+msgid "Amount Tax"
+msgstr "佣金"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__amount_total
+msgid "Amount Total"
+msgstr "总金额"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_attachment_count
+msgid "Attachment Count"
+msgstr "附件数量"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__brand
+msgid "Brand"
+msgstr "品牌"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__cost_weight
+msgid "Cost Weight"
+msgstr "计费重"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__courier_tracking_number
+msgid "Courier Tracking Number"
+msgstr "服务商单号"
+
+#. module: hoaya
+#: model_terms:ir.actions.act_window,help:hoaya.action_hoaya_order
+msgid "Create Hoaya Orders"
+msgstr "手动创建订单"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__logistics_currency_id
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__platform_currency_id
+msgid "Currency"
+msgstr "汇率"
+
+#. module: hoaya
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__access_url
+msgid "Customer Portal URL"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__date_order
+#: model_terms:ir.ui.view,arch_db:hoaya.view_hoaya_order_search
+msgid "Date Order"
+msgstr "下单时间"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__display_name
+msgid "Display Name"
+msgstr "平台单号"
+
+#. module: hoaya
+#: model:ir.model.fields.selection,name:hoaya.selection__hoaya_order__state__done
+msgid "Done"
+msgstr "已完成"
+
+#. module: hoaya
+#: model:ir.model.fields.selection,name:hoaya.selection__hoaya_order__state__draft
+msgid "Draft"
+msgstr "草稿"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.ui.menu,name:hoaya.hoaya_menu_root
+msgid "HOAYA"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.actions.act_window,name:hoaya.action_hoaya_order
+#: model:ir.model,name:hoaya.model_hoaya_order
+#: model_terms:ir.ui.view,arch_db:hoaya.view_hoaya_order_form
+msgid "Hoaya Order"
+msgstr "订单"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__id
+msgid "ID"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__message_needaction
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__message_has_error
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order____last_update
+msgid "Last Modified on"
+msgstr "最后修改时间"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__write_uid
+msgid "Last Updated by"
+msgstr "最后修改人"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__write_date
+msgid "Last Updated on"
+msgstr "最后修改时间"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__name
+msgid "Name"
+msgstr "平台单号"
+
+#. module: hoaya
+#: code:addons/hoaya/models/order.py:0
+#, python-format
+msgid "New"
+msgstr "新建"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__order_reference
+msgid "Order Reference"
+msgstr "参考"
+
+#. module: hoaya
+#: model:ir.ui.menu,name:hoaya.hoaya_order_menu
+msgid "Orders"
+msgstr "订单"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__access_url
+msgid "Portal Access URL"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__register_fee
+msgid "Register Fee"
+msgstr "挂号费"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: hoaya
+#: model_terms:ir.ui.view,arch_db:hoaya.view_hoaya_order_search
+msgid "Search Hoaya Order"
+msgstr "搜索订单"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__access_token
+msgid "Security Token"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__shipping_cost
+msgid "Shipping Cost"
+msgstr "运费金额"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__state
+msgid "Status"
+msgstr "状态"
+
+#. module: hoaya
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__time_online
+#: model_terms:ir.ui.view,arch_db:hoaya.view_hoaya_order_search
+msgid "Time Online"
+msgstr "签入时间"
+
+#. module: hoaya
+#: model_terms:ir.ui.view,arch_db:hoaya.view_hoaya_order_tree
+msgid "Total Amount"
+msgstr "总金额"
+
+#. module: hoaya
+#: model_terms:ir.ui.view,arch_db:hoaya.view_hoaya_order_tree
+msgid "Total Payment"
+msgstr "实付金额"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__total_shipping_cost
+#: model_terms:ir.ui.view,arch_db:hoaya.view_hoaya_order_tree
+msgid "Total Shipping Cost"
+msgstr "运费"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__tracking_number
+msgid "Tracking Number"
+msgstr "运单号"
+
+#. module: hoaya
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__volume_weight
+msgid "Volume Weight"
+msgstr "体积重"
+
+#. module: hoaya
+#: model:ir.model.fields.selection,name:hoaya.selection__hoaya_order__state__waiting
+msgid "Waiting"
+msgstr "待处理"
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,help:hoaya.field_hoaya_order__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: hoaya
+#: model:ir.model.fields,field_description:hoaya.field_hoaya_order__weight
+msgid "Weight"
+msgstr "实重"
