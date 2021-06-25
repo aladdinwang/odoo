@@ -28,8 +28,10 @@ services:
     volumes:
       - .:/code
     command: bash -c "python odoo-bin -c odoo.conf"
+
+
 volumes:
-  pg_data
+  pg_data:
 
 
 
