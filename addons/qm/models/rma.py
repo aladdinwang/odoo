@@ -30,7 +30,7 @@ class Rma(models.Model):
     return_amount = fields.Monetary("Return Amount")
     exchange_amount = fields.Monetary("Exchange Amount")
     exchange_line_ids = fields.One2many("sale.rma.exchange_line", "rma_id")
-    exchange_diff = fields.Monetray("Exchange diff")
+    exchange_diff = fields.Monetary("Exchange diff")
     # 备注
     comment = fields.Text("Comment")
 
