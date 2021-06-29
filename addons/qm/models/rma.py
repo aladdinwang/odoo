@@ -107,4 +107,4 @@ class RmaExchangeLine(models.Model):
     price_subtotal = fields.Monetary(
         compute="_compute_amount", string="Subtotal", readonly=True, store=True
     )
-    currency_id = fields.Many2one("res.currency", related="ram_id.currency_id")
+    currency_id = fields.Many2one("res.currency", related="rma_id.currency_id")
