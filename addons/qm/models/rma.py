@@ -54,7 +54,7 @@ class RmaReturnLine(models.Model):
     _name = "sale.rma.return_line"
     _inherit = ["portal.mixin", "mail.thread", "mail.activity.mixin"]
     _description = "Sale Rma Return Line"
-    _order = "create_date desc, name desc, id desc"
+    _order = "id desc"
 
     rma_id = fields.Many2one("sale.rma", index=True)
     sale_line_id = fields.Many2one("sale.order.line", required=True)
@@ -85,7 +85,7 @@ class RmaExchangeLine(models.Model):
     _name = "sale.rma.exchange_line"
     _inherit = ["portal.mixin", "mail.thread", "mail.activity.mixin"]
     _description = "Sale Rma Exchange Line"
-    _order = "create_date desc, name desc, id desc"
+    _order = "id desc"
 
     rma_id = fields.Many2one("sale.rma", index=True)
     product_id = fields.Many2one("product.product", index=True)
