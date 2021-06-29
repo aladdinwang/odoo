@@ -22,7 +22,7 @@ class Rma(models.Model):
         "sale.order", string="Sale Order", index=True, required=True
     )
     partner_id = fields.Many2one(
-        "sale.order", related="sale_order_id.partner_id", index=True, store=True
+        "res.partner", related="sale_order_id.partner_id", index=True, store=True
     )
     is_dropshipping = fields.Boolean(related="sale_order_id.is_dropshipping")
 
