@@ -70,7 +70,7 @@
                                     <field name="product_subtotal"/>
                                 </tree>
                             </field>
-                        </page
+                        </page>
                         <page string="Others">
                             <field name="comment"/>
                         </page>
