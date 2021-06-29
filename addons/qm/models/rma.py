@@ -1,6 +1,6 @@
 # coding: utf-8
 from odoo import fields, models, api, _
-from oddo.exceptions import UserError
+from odoo.exceptions import UserError
 
 
 class Rma(models.Model):
@@ -8,6 +8,9 @@ class Rma(models.Model):
     _inherit = ["portal.mixin", "mail.thread", "mail.activity.mixin"]
     _description = "Sale Rma"
     _order = "create_date desc, name desc, id desc"
+
+    def _get_default_currency_id(self):
+        return self.env.company.currency_id.id
 
     name = fields.Char(
         states={"draft": [("readonly", False)]},
@@ -42,6 +45,10 @@ class Rma(models.Model):
         tracking=True,
     )
 
+    currency_id = fields.Many2one(
+        "res.currency", default=_get_default_currency_id, required=True
+    )
+
 
 class RmaReturnLine(models.Model):
     _name = "sale.rma.return_line"
@@ -71,6 +78,7 @@ class RmaReturnLine(models.Model):
         string="Unit of Measure",
         domain="[('category_id', '=', product_uom_category_id)]",
     )
+    currency_id = fields.Many2one("res.currency", related="rma_id.currency_id")
 
 
 class RmaExchangeLine(models.Model):
@@ -99,3 +107,4 @@ class RmaExchangeLine(models.Model):
     price_subtotal = fields.Monetary(
         compute="_compute_amount", string="Subtotal", readonly=True, store=True
     )
+    currency_id = fields.Many2one("res.currency", related="ram_id.currency_id")
