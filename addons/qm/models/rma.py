@@ -56,7 +56,7 @@ class RmaReturnLine(models.Model):
     _description = "Sale Rma Return Line"
     _order = "create_date desc, name desc, id desc"
 
-    rma_id = fields.Many2one("sale.rma")
+    rma_id = fields.Many2one("sale.rma", index=True)
     sale_line_id = fields.Many2one("sale.order.line", required=True)
     product_id = fields.Many2one(
         "product.product", related="sale_line_id.product_id", index=True, store=True
@@ -87,7 +87,7 @@ class RmaExchangeLine(models.Model):
     _description = "Sale Rma Exchange Line"
     _order = "create_date desc, name desc, id desc"
 
-    rma_id = fields.Many2one("sale.rma")
+    rma_id = fields.Many2one("sale.rma", index=True)
     product_id = fields.Many2one("product.product", index=True)
     product_uom_category_id = fields.Many2one(
         "uom.category", compute="_compute_product_uom_category_id"
