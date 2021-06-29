@@ -59,10 +59,10 @@ class RmaReturnLine(models.Model):
     rma_id = fields.Many2one("sale.rma")
     sale_line_id = fields.Many2one("sale.order.line", required=True)
     product_id = fields.Many2one(
-        "product.product", related="line_id.product_id", index=True, store=True
+        "product.product", related="sale_line_id.product_id", index=True, store=True
     )
     product_uom_category_id = fields.Many2one(
-        related="line_id.product_id.uom_id.category_id", readonly=True
+        related="sale_line_id.product_id.uom_id.category_id", readonly=True
     )
     price_unit = fields.Float(
         "Unit Price", required=True, digit="Product Price", default=0.0
