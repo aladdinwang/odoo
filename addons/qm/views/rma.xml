@@ -44,7 +44,7 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Return & Exchange Lines">
+                        <page string="Return Exchange Lines">
                             <group>
                                 <group>
                                     <field name="exchange_diff" attrs="{'invisible': [('type', '!=', 'exchange')]}"/>
