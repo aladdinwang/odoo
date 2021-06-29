@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_rma_form" model="ir.ui.view">
+        <field name="name">sale.rma.form</field>
+        <field name="model">sale.rma</field>
+    </record>
+</odoo>
