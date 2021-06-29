@@ -3,7 +3,6 @@
     <record id="sale_rma_tree" model="ir.ui.view">
         <field name="name">sale.rma.form</field>
         <field name="model">sale.rma</field>
-        <field name="mode">primary</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
