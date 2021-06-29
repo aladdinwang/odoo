@@ -1,110 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="sale_rma_tree" model="ir.ui.view">
-        <field name="name">sale.rma.form</field>
-        <field name="model">sale.rma</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="type"/>
-                <field name="sale_order_id"/>
-                <field name="partner_id"/>
-                <field name="create_date"/>
-                <field name="create_uid"/>
-                <field name="state"/>
-            </tree>
-        </field>
-    </record>
+    <data>
+        <record id="sale_rma_tree" model="ir.ui.view">
+            <field name="name">sale.rma.form</field>
+            <field name="model">sale.rma</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="sale_order_id"/>
+                    <field name="partner_id"/>
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
 
-    <record id="sale_rma_form" model="ir.ui.view">
-        <field name="name">sale.rma.form</field>
-        <field name="model">sale.rma</field>
-        <field name="arch" type="xml">
-            <form>
-                <header>
-                    <field name="state" widget="statusbar"/>
-                </header>
-                <sheet>
-                    <div class="oe_title">
-                        <h1>
-                            <field name="name" readonly="1"/>
-                        </h1>
-                    </div>
-                    <group>
+        <record id="sale_rma_form" model="ir.ui.view">
+            <field name="name">sale.rma.form</field>
+            <field name="model">sale.rma</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
                         <group>
-                            <field name="sale_order_id"/>
-                            <field name="is_dropshipping"/>
-                            <field name="partner_id"/>
-                            <field name="type"/>
-                        </group>
-                        <group>
-                            <field name="create_date"/>
-                            <field name="create_uid"/>
-                        </group>
-                    </group>
-                    <notebook>
-                        <page string="Return Exchange Lines">
                             <group>
-                                <group>
-                                    <field name="exchange_diff" attrs="{'invisible': [('type', '!=', 'exchange')]}"/>
-                                    <field name="return_amount" attrs="{'invisible': [('type', '!=', 'return')]}"/>
-                                </group>
+                                <field name="sale_order_id"/>
+                                <field name="is_dropshipping"/>
+                                <field name="partner_id"/>
+                                <field name="type"/>
                             </group>
-                            <field name="return_line_ids" string="Return Lines" attrs="{'readonly': [('state', '!=', 'draft')]}">
-                                <tree>
-                                    <field name="sale_line_id"/>
-                                    <field name="product_id"/>
-                                    <field name="product_qty"/>
-                                    <field name="product_uom"/>
-                                    <field name="price_unit"/>
-                                    <field name="price_subtotal"/>
-                                </tree>
-                            </field>
-                            <field name="exchange_line_ids" string="Exchange with" attrs="{'readonly': [('state', '!=', 'draft')]}">
-                                <tree>
-                                    <field name="product_id"/>
-                                    <field name="product_qty"/>
-                                    <field name="product_uom"/>
-                                    <field name="price_unit"/>
-                                    <field name="price_subtotal"/>
-                                </tree>
-                            </field>
-                        </page>
-                        <page string="Others">
-                            <field name="comment"/>
-                        </page>
-                    </notebook>
-                </sheet>
-            </form>
-        </field>
-    </record>
+                            <group>
+                                <field name="create_date"/>
+                                <field name="create_uid"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Return Exchange Lines">
+                                <group>
+                                    <group>
+                                        <field name="exchange_diff"
+                                               attrs="{'invisible': [('type', '!=', 'exchange')]}"/>
+                                        <field name="return_amount" attrs="{'invisible': [('type', '!=', 'return')]}"/>
+                                    </group>
+                                </group>
+                                <field name="return_line_ids" string="Return Lines"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                    <tree>
+                                        <field name="sale_line_id"/>
+                                        <field name="product_id"/>
+                                        <field name="product_qty"/>
+                                        <field name="product_uom"/>
+                                        <field name="price_unit"/>
+                                        <field name="price_subtotal"/>
+                                    </tree>
+                                </field>
+                                <field name="exchange_line_ids" string="Exchange with"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                    <tree>
+                                        <field name="product_id"/>
+                                        <field name="product_qty"/>
+                                        <field name="product_uom"/>
+                                        <field name="price_unit"/>
+                                        <field name="price_subtotal"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Others">
+                                <field name="comment"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
 
-    <record id="view_sale_rma_search" model="ir.ui.view">
-        <field name="name">sale.rma.search</field>
-        <field name="model">sale.rma</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="name"/>
-                <field name="sale_order_id"/>
-                <field name="partner_id"/>
-            </search>
-        </field>
-    </record>
+        <record id="view_sale_rma_search" model="ir.ui.view">
+            <field name="name">sale.rma.search</field>
+            <field name="model">sale.rma</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="sale_order_id"/>
+                    <field name="partner_id"/>
+                </search>
+            </field>
+        </record>
 
 
-    <record id="sale_rma_action" model="ir.actions.act_window">
-        <field name="name">Sale Rma</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">sale.rma</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-          <p class="o_view_nocontent_smiling_face">
-          </p>
-        </field>
-    </record>
+        <record id="sale_rma_action" model="ir.actions.act_window">
+            <field name="name">Sale Rma</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.rma</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                </p>
+            </field>
+        </record>
 
-    <record id="menu_sale_rma" action="sale_rma_action" parent="sale.menu_sale_orders" sequence="10"/>
+        <record id="menu_sale_rma" action="sale_rma_action" parent="sale.menu_sale_orders" sequence="10"/>
 
-
+    </data>
 </odoo>
