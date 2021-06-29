@@ -9,3 +9,4 @@ from . import account_invoice
 from . import account_payment
 from . import stock_rule
 from . import res_company
+from . import rma

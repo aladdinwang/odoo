@@ -21,14 +21,26 @@ class Rma(models.Model):
     partner_id = fields.Many2one(
         "sale.order", related="sale_order_id.partner_id", index=True, store=True
     )
+    is_dropshipping = fields.Boolean(related="sale_order_id.is_dropshipping")
 
     return_line_ids = fields.One2many("sale.rma.return_line", "rma_id")
-    return_amount = fields.Monetary("Return Amount", required=True)
-    exchange_amount = fields.Monetary("Exchange Amount", required=True)
+    return_amount = fields.Monetary("Return Amount")
+    exchange_amount = fields.Monetary("Exchange Amount")
     exchange_line_ids = fields.One2many("sale.rma.exchange_line", "rma_id")
-
+    exchange_diff = fields.Monetray("Exchange diff")
     # 备注
     comment = fields.Text("Comment")
+
+    state = fields.Selection(
+        [
+            ("draft", "Draft"),
+            ("posted", "Posted"),
+            ("done", "Done"),
+            ("cancel", "Cancel"),
+        ],
+        string="Status",
+        tracking=True,
+    )
 
 
 class RmaReturnLine(models.Model):
@@ -38,7 +50,7 @@ class RmaReturnLine(models.Model):
     _order = "create_date desc, name desc, id desc"
 
     rma_id = fields.Many2one("sale.rma")
-    line_id = fields.Many2one("sale.order.line", required=True)
+    sale_line_id = fields.Many2one("sale.order.line", required=True)
     product_id = fields.Many2one(
         "product.product", related="line_id.product_id", index=True, store=True
     )
@@ -85,6 +97,5 @@ class RmaExchangeLine(models.Model):
         "Unit Price", required=True, digit="Product Price", default=0.0
     )
     price_subtotal = fields.Monetary(
-        compute="_compute_amount", string="Subtotal", readonly=True, store=True)
-
-
+        compute="_compute_amount", string="Subtotal", readonly=True, store=True
+    )
