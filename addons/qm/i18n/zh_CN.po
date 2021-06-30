@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-11 06:08+0000\n"
-"PO-Revision-Date: 2021-05-11 06:08+0000\n"
+"POT-Creation-Date: 2021-06-29 16:07+0000\n"
+"PO-Revision-Date: 2021-06-29 16:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__access_warning
 #: model:ir.model.fields,field_description:qm.field_purchase_request__access_warning
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__access_warning
+#: model:ir.model.fields,field_description:qm.field_sale_rma__access_warning
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__access_warning
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__access_warning
 msgid "Access warning"
 msgstr "访问警告"
 
@@ -84,6 +87,9 @@ msgstr "动作"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_needaction
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_needaction
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_needaction
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_needaction
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_needaction
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_needaction
 msgid "Action Needed"
 msgstr "需要采取操作"
 
@@ -94,6 +100,9 @@ msgstr "需要采取操作"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__activity_ids
 #: model:ir.model.fields,field_description:qm.field_purchase_request__activity_ids
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__activity_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma__activity_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__activity_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__activity_ids
 msgid "Activities"
 msgstr "活动"
 
@@ -104,6 +113,9 @@ msgstr "活动"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__activity_exception_decoration
 #: model:ir.model.fields,field_description:qm.field_purchase_request__activity_exception_decoration
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__activity_exception_decoration
+#: model:ir.model.fields,field_description:qm.field_sale_rma__activity_exception_decoration
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__activity_exception_decoration
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__activity_exception_decoration
 msgid "Activity Exception Decoration"
 msgstr "活动例外勋章"
 
@@ -114,6 +126,9 @@ msgstr "活动例外勋章"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__activity_state
 #: model:ir.model.fields,field_description:qm.field_purchase_request__activity_state
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__activity_state
+#: model:ir.model.fields,field_description:qm.field_sale_rma__activity_state
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__activity_state
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__activity_state
 msgid "Activity State"
 msgstr "活动状态"
 
@@ -140,12 +155,10 @@ msgstr "代理商"
 msgid "Amount"
 msgstr "金额"
 
-
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__amount_difference
 msgid "Amount Difference"
 msgstr "差异金额"
-
 
 #. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
@@ -201,10 +214,14 @@ msgstr "数量不能超过%s"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_attachment_count
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_attachment_count
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_attachment_count
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_attachment_count
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_attachment_count
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_attachment_count
 msgid "Attachment Count"
 msgstr "附件数量"
 
 #. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_rma__state__cancel
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
@@ -262,6 +279,11 @@ msgid "Cancelled by"
 msgstr "取消人"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__product_uom_category_id
+msgid "Category"
+msgstr "类别"
+
+#. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_order_form_qm
 msgid "Click to review detail"
 msgstr "点击查看详情"
@@ -278,6 +300,11 @@ msgstr "编号"
 #: model:ir.model.fields,field_description:qm.field_tax_classification__code18
 msgid "Code18"
 msgstr "18位编号"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__comment
+msgid "Comment"
+msgstr "备注"
 
 #. module: qm
 #: model:ir.model,name:qm.model_res_company
@@ -331,6 +358,13 @@ msgstr "待财务确认"
 #: model:ir.model,name:qm.model_res_partner
 msgid "Contact"
 msgstr "联系人"
+
+#. module: qm
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__product_uom_category_id
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
+msgstr ""
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__courier
@@ -418,6 +452,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:qm.field_purchase_request__create_uid
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__create_uid
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__create_uid
+#: model:ir.model.fields,field_description:qm.field_sale_rma__create_uid
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__create_uid
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__create_uid
 #: model:ir.model.fields,field_description:qm.field_tax_classification__create_uid
 msgid "Created by"
 msgstr "创建者"
@@ -430,6 +467,9 @@ msgstr "创建者"
 #: model:ir.model.fields,field_description:qm.field_purchase_request__create_date
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__create_date
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__create_date
+#: model:ir.model.fields,field_description:qm.field_sale_rma__create_date
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__create_date
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__create_date
 #: model:ir.model.fields,field_description:qm.field_tax_classification__create_date
 msgid "Created on"
 msgstr "创建时间"
@@ -442,6 +482,9 @@ msgstr "创建时间"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__currency_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__currency_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__currency_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma__currency_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__currency_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__currency_id
 msgid "Currency"
 msgstr "货币"
 
@@ -449,6 +492,7 @@ msgstr "货币"
 #: model:ir.model.fields,field_description:qm.field_purchase_request__customer_id
 #: model:ir.model.fields,field_description:qm.field_sale_order__partner_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__partner_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma__partner_id
 #: model:ir.model.fields.selection,name:qm.selection__payment_register__partner_type__customer
 #: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__partner_type__customer
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__partner_type__customer
@@ -464,6 +508,9 @@ msgstr "客户"
 #: model:ir.model.fields,help:qm.field_purchase_payment_register__access_url
 #: model:ir.model.fields,help:qm.field_purchase_request__access_url
 #: model:ir.model.fields,help:qm.field_sale_payment_register__access_url
+#: model:ir.model.fields,help:qm.field_sale_rma__access_url
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__access_url
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__access_url
 msgid "Customer Portal URL"
 msgstr "客户门户网址"
 
@@ -513,12 +560,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:qm.field_purchase_request__display_name
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__display_name
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__display_name
+#: model:ir.model.fields,field_description:qm.field_sale_rma__display_name
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__display_name
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__display_name
 #: model:ir.model.fields,field_description:qm.field_tax_classification__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__purchase_request__state__done
+#: model:ir.model.fields.selection,name:qm.selection__sale_rma__state__done
 msgid "Done"
 msgstr "完成"
 
@@ -533,6 +584,7 @@ msgstr "发票导出"
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__draft
 #: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__draft
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__draft
+#: model:ir.model.fields.selection,name:qm.selection__sale_rma__state__draft
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
 msgid "Draft"
@@ -561,6 +613,36 @@ msgid "Endpoint"
 msgstr "终端"
 
 #. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__sale_rma__type__exchange
+msgid "Exchange"
+msgstr "换货"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__exchange_amount
+msgid "Exchange Amount"
+msgstr "换货金额"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__exchange_line_ids
+msgid "Exchange Line"
+msgstr "换货明细"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.sale_rma_form
+msgid "Exchange With"
+msgstr "换货为"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__exchange_diff
+msgid "Exchange diff"
+msgstr "换货差异金额"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.sale_rma_form
+msgid "Exchange with"
+msgstr "换货为"
+
+#. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__sent_type__express
 msgid "Express"
 msgstr "财务寄送"
@@ -578,6 +660,9 @@ msgstr "快递单号"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_follower_ids
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_follower_ids
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_follower_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_follower_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_follower_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_follower_ids
 msgid "Followers"
 msgstr "关注者"
 
@@ -588,6 +673,9 @@ msgstr "关注者"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_channel_ids
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_channel_ids
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_channel_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_channel_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_channel_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_channel_ids
 msgid "Followers (Channels)"
 msgstr "关注者(渠道)"
 
@@ -598,6 +686,9 @@ msgstr "关注者(渠道)"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_partner_ids
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_partner_ids
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_partner_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_partner_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_partner_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "关注者(业务伙伴)"
 
@@ -625,6 +716,9 @@ msgstr "显示隐藏菜单"
 #: model:ir.model.fields,field_description:qm.field_purchase_request__id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__id
+#: model:ir.model.fields,field_description:qm.field_sale_rma__id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__id
 #: model:ir.model.fields,field_description:qm.field_tax_classification__id
 msgid "ID"
 msgstr ""
@@ -636,6 +730,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__activity_exception_icon
 #: model:ir.model.fields,field_description:qm.field_purchase_request__activity_exception_icon
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__activity_exception_icon
+#: model:ir.model.fields,field_description:qm.field_sale_rma__activity_exception_icon
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__activity_exception_icon
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__activity_exception_icon
 msgid "Icon"
 msgstr "图标"
 
@@ -646,6 +743,9 @@ msgstr "图标"
 #: model:ir.model.fields,help:qm.field_purchase_payment_register__activity_exception_icon
 #: model:ir.model.fields,help:qm.field_purchase_request__activity_exception_icon
 #: model:ir.model.fields,help:qm.field_sale_payment_register__activity_exception_icon
+#: model:ir.model.fields,help:qm.field_sale_rma__activity_exception_icon
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__activity_exception_icon
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__activity_exception_icon
 msgid "Icon to indicate an exception activity."
 msgstr "表示一个例外活动的图标。"
 
@@ -662,6 +762,12 @@ msgstr "表示一个例外活动的图标。"
 #: model:ir.model.fields,help:qm.field_purchase_request__message_unread
 #: model:ir.model.fields,help:qm.field_sale_payment_register__message_needaction
 #: model:ir.model.fields,help:qm.field_sale_payment_register__message_unread
+#: model:ir.model.fields,help:qm.field_sale_rma__message_needaction
+#: model:ir.model.fields,help:qm.field_sale_rma__message_unread
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__message_needaction
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__message_unread
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__message_needaction
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__message_unread
 msgid "If checked, new messages require your attention."
 msgstr "确认后, 出现提示消息."
 
@@ -678,6 +784,12 @@ msgstr "确认后, 出现提示消息."
 #: model:ir.model.fields,help:qm.field_purchase_request__message_has_sms_error
 #: model:ir.model.fields,help:qm.field_sale_payment_register__message_has_error
 #: model:ir.model.fields,help:qm.field_sale_payment_register__message_has_sms_error
+#: model:ir.model.fields,help:qm.field_sale_rma__message_has_error
+#: model:ir.model.fields,help:qm.field_sale_rma__message_has_sms_error
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__message_has_error
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__message_has_sms_error
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__message_has_error
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "如果勾选此项， 某些消息将会产生传递错误。"
 
@@ -753,6 +865,7 @@ msgstr "发票"
 #: model:ir.model.fields,field_description:qm.field_purchase_order__is_dropshipping
 #: model:ir.model.fields,field_description:qm.field_purchase_request__is_dropshipping
 #: model:ir.model.fields,field_description:qm.field_sale_order__is_dropshipping
+#: model:ir.model.fields,field_description:qm.field_sale_rma__is_dropshipping
 msgid "Is Dropshipping"
 msgstr "是否代发货"
 
@@ -763,6 +876,9 @@ msgstr "是否代发货"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_is_follower
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_is_follower
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_is_follower
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_is_follower
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_is_follower
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_is_follower
 msgid "Is Follower"
 msgstr "关注者"
 
@@ -787,6 +903,9 @@ msgstr "日记账分录"
 #: model:ir.model.fields,field_description:qm.field_purchase_request____last_update
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register____last_update
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line____last_update
+#: model:ir.model.fields,field_description:qm.field_sale_rma____last_update
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line____last_update
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line____last_update
 #: model:ir.model.fields,field_description:qm.field_tax_classification____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
@@ -799,6 +918,9 @@ msgstr "最后更改日"
 #: model:ir.model.fields,field_description:qm.field_purchase_request__write_uid
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__write_uid
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__write_uid
+#: model:ir.model.fields,field_description:qm.field_sale_rma__write_uid
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__write_uid
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__write_uid
 #: model:ir.model.fields,field_description:qm.field_tax_classification__write_uid
 msgid "Last Updated by"
 msgstr "最后更新者"
@@ -811,6 +933,9 @@ msgstr "最后更新者"
 #: model:ir.model.fields,field_description:qm.field_purchase_request__write_date
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__write_date
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__write_date
+#: model:ir.model.fields,field_description:qm.field_sale_rma__write_date
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__write_date
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__write_date
 #: model:ir.model.fields,field_description:qm.field_tax_classification__write_date
 msgid "Last Updated on"
 msgstr "更新时间"
@@ -837,6 +962,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_main_attachment_id
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_main_attachment_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_main_attachment_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_main_attachment_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_main_attachment_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_main_attachment_id
 msgid "Main Attachment"
 msgstr "附件"
 
@@ -866,6 +994,9 @@ msgstr "备注"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_has_error
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_has_error
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_has_error
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_has_error
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_has_error
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_has_error
 msgid "Message Delivery error"
 msgstr "消息传递错误"
 
@@ -876,6 +1007,9 @@ msgstr "消息传递错误"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_ids
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_ids
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_ids
 msgid "Messages"
 msgstr "消息"
 
@@ -890,6 +1024,7 @@ msgstr "某行需求池缺少供应商, 请至对应产品详情页配置供应�
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__name
 #: model:ir.model.fields,field_description:qm.field_purchase_request__name
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__name
+#: model:ir.model.fields,field_description:qm.field_sale_rma__name
 #: model:ir.model.fields,field_description:qm.field_tax_classification__name
 msgid "Name"
 msgstr "号码"
@@ -901,7 +1036,7 @@ msgstr "从不"
 
 #. module: qm
 #: code:addons/qm/models/purchase.py:0 code:addons/qm/models/purchase.py:0
-#: code:addons/qm/models/purchase.py:0
+#: code:addons/qm/models/purchase.py:0 code:addons/qm/models/rma.py:0
 #, python-format
 msgid "New"
 msgstr "新建"
@@ -913,6 +1048,9 @@ msgstr "新建"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__activity_date_deadline
 #: model:ir.model.fields,field_description:qm.field_purchase_request__activity_date_deadline
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__activity_date_deadline
+#: model:ir.model.fields,field_description:qm.field_sale_rma__activity_date_deadline
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__activity_date_deadline
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "下一活动截止日期"
 
@@ -923,6 +1061,9 @@ msgstr "下一活动截止日期"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__activity_summary
 #: model:ir.model.fields,field_description:qm.field_purchase_request__activity_summary
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__activity_summary
+#: model:ir.model.fields,field_description:qm.field_sale_rma__activity_summary
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__activity_summary
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__activity_summary
 msgid "Next Activity Summary"
 msgstr "下一活动摘要"
 
@@ -933,6 +1074,9 @@ msgstr "下一活动摘要"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__activity_type_id
 #: model:ir.model.fields,field_description:qm.field_purchase_request__activity_type_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__activity_type_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma__activity_type_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__activity_type_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__activity_type_id
 msgid "Next Activity Type"
 msgstr "下一活动类型"
 
@@ -971,6 +1115,9 @@ msgstr "Sku序号"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_needaction_counter
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_needaction_counter
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_needaction_counter
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_needaction_counter
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_needaction_counter
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_needaction_counter
 msgid "Number of Actions"
 msgstr "操作次数"
 
@@ -981,6 +1128,9 @@ msgstr "操作次数"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_has_error_counter
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_has_error_counter
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_has_error_counter
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_has_error_counter
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_has_error_counter
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_has_error_counter
 msgid "Number of errors"
 msgstr "错误数"
 
@@ -991,6 +1141,9 @@ msgstr "错误数"
 #: model:ir.model.fields,help:qm.field_purchase_payment_register__message_needaction_counter
 #: model:ir.model.fields,help:qm.field_purchase_request__message_needaction_counter
 #: model:ir.model.fields,help:qm.field_sale_payment_register__message_needaction_counter
+#: model:ir.model.fields,help:qm.field_sale_rma__message_needaction_counter
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__message_needaction_counter
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__message_needaction_counter
 msgid "Number of messages which requires an action"
 msgstr "需要操作消息数量"
 
@@ -1001,6 +1154,9 @@ msgstr "需要操作消息数量"
 #: model:ir.model.fields,help:qm.field_purchase_payment_register__message_has_error_counter
 #: model:ir.model.fields,help:qm.field_purchase_request__message_has_error_counter
 #: model:ir.model.fields,help:qm.field_sale_payment_register__message_has_error_counter
+#: model:ir.model.fields,help:qm.field_sale_rma__message_has_error_counter
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__message_has_error_counter
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr "递送错误消息数量"
 
@@ -1011,6 +1167,9 @@ msgstr "递送错误消息数量"
 #: model:ir.model.fields,help:qm.field_purchase_payment_register__message_unread_counter
 #: model:ir.model.fields,help:qm.field_purchase_request__message_unread_counter
 #: model:ir.model.fields,help:qm.field_sale_payment_register__message_unread_counter
+#: model:ir.model.fields,help:qm.field_sale_rma__message_unread_counter
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__message_unread_counter
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__message_unread_counter
 msgid "Number of unread messages"
 msgstr "未读消息数量"
 
@@ -1059,6 +1218,11 @@ msgstr "待开票明细"
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__purchase_line_id
 msgid "Original purchase order line"
 msgstr ""
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.sale_rma_form
+msgid "Others"
+msgstr "其他"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_order__outer_name
@@ -1170,6 +1334,9 @@ msgstr "平台"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__access_url
 #: model:ir.model.fields,field_description:qm.field_purchase_request__access_url
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__access_url
+#: model:ir.model.fields,field_description:qm.field_sale_rma__access_url
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__access_url
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__access_url
 msgid "Portal Access URL"
 msgstr "门户访问网址"
 
@@ -1183,6 +1350,7 @@ msgstr "发布"
 #: model:ir.model.fields.selection,name:qm.selection__account_move__receipt_state__posted
 #: model:ir.model.fields.selection,name:qm.selection__account_purchase_invoice__state__posted
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__posted
+#: model:ir.model.fields.selection,name:qm.selection__sale_rma__state__posted
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_filter_qm
 msgid "Posted"
 msgstr "已发布"
@@ -1216,6 +1384,8 @@ msgstr "生产商"
 #: model:ir.model,name:qm.model_product_product
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__product_id
 #: model:ir.model.fields,field_description:qm.field_purchase_request__product_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__product_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__product_id
 msgid "Product"
 msgstr "产品"
 
@@ -1247,7 +1417,12 @@ msgstr "产品规格值"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_request__product_uom
 msgid "Product Uom"
-msgstr ""
+msgstr "单位"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__product_uom_category_id
+msgid "Product Uom Category"
+msgstr "类别"
 
 #. module: qm
 #: model:ir.actions.act_window,name:qm.action_account_purchase_invoice_qm
@@ -1330,6 +1505,8 @@ msgstr "已采购数量"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__product_qty
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__product_qty
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__product_qty
 msgid "Quantity"
 msgstr "数量"
 
@@ -1457,11 +1634,15 @@ msgstr "重置为草稿"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__activity_user_id
 #: model:ir.model.fields,field_description:qm.field_purchase_request__activity_user_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__activity_user_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma__activity_user_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__activity_user_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__activity_user_id
 msgid "Responsible User"
 msgstr "责任用户"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__return
+#: model:ir.model.fields.selection,name:qm.selection__sale_rma__type__return
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
@@ -1469,9 +1650,29 @@ msgid "Return"
 msgstr "已退回"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__return_amount
+msgid "Return Amount"
+msgstr "退货金额"
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__return_date
 msgid "Return Date"
 msgstr "退回日期"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.sale_rma_form
+msgid "Return Exchange Lines"
+msgstr "换货明细"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__return_line_ids
+msgid "Return Line"
+msgstr "退货明细"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.sale_rma_form
+msgid "Return Lines"
+msgstr "退货明细"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__return_by
@@ -1483,6 +1684,12 @@ msgstr "退回人"
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__return_date
 msgid "Return date"
 msgstr "退回日期"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__rma_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__rma_id
+msgid "Rma"
+msgstr "退换货"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_product_product__route_ids
@@ -1497,6 +1704,9 @@ msgstr "路线"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_has_sms_error
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_has_sms_error
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_has_sms_error
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_has_sms_error
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_has_sms_error
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr "短信发送错误"
 
@@ -1521,6 +1731,11 @@ msgid "Sale Invoices"
 msgstr "销售发票"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__sale_line_id
+msgid "Sale Line"
+msgstr "原销售订单明细"
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_move__sale_line_count
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 msgid "Sale Line Count"
@@ -1528,6 +1743,7 @@ msgstr "销售单明细"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__sale_order_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma__sale_order_id
 msgid "Sale Order"
 msgstr "销售订单"
 
@@ -1564,6 +1780,23 @@ msgstr "开票申请"
 #: model:ir.model.fields,field_description:qm.field_account_payment__sale_register_id
 msgid "Sale Register"
 msgstr "到款单"
+
+#. module: qm
+#: model:ir.actions.act_window,name:qm.sale_rma_action
+#: model:ir.model,name:qm.model_sale_rma
+#: model:ir.ui.menu,name:qm.menu_sale_rma
+msgid "Sale Rma"
+msgstr "退换货"
+
+#. module: qm
+#: model:ir.model,name:qm.model_sale_rma_exchange_line
+msgid "Sale Rma Exchange Line"
+msgstr "换货明细"
+
+#. module: qm
+#: model:ir.model,name:qm.model_sale_rma_return_line
+msgid "Sale Rma Return Line"
+msgstr "退货明细"
 
 #. module: qm
 #: model:ir.model,name:qm.model_sale_advance_payment_inv
@@ -1618,6 +1851,9 @@ msgstr "搜索税收分类编号"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__access_token
 #: model:ir.model.fields,field_description:qm.field_purchase_request__access_token
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__access_token
+#: model:ir.model.fields,field_description:qm.field_sale_rma__access_token
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__access_token
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__access_token
 msgid "Security Token"
 msgstr "安全令牌"
 
@@ -1684,6 +1920,7 @@ msgstr "专用"
 #: model:ir.model.fields,field_description:qm.field_purchase_request__state
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__state
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register_line__state
+#: model:ir.model.fields,field_description:qm.field_sale_rma__state
 msgid "Status"
 msgstr "状态"
 
@@ -1694,6 +1931,9 @@ msgstr "状态"
 #: model:ir.model.fields,help:qm.field_purchase_payment_register__activity_state
 #: model:ir.model.fields,help:qm.field_purchase_request__activity_state
 #: model:ir.model.fields,help:qm.field_sale_payment_register__activity_state
+#: model:ir.model.fields,help:qm.field_sale_rma__activity_state
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__activity_state
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__activity_state
 msgid ""
 "Status based on activities\n"
 "Overdue: Due date is already passed\n"
@@ -1712,6 +1952,8 @@ msgstr "库存规则"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__price_subtotal
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__price_subtotal
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__price_subtotal
 msgid "Subtotal"
 msgstr "小计"
 
@@ -1823,6 +2065,7 @@ msgstr "数量总计"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__type
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__type
+#: model:ir.model.fields,field_description:qm.field_sale_rma__type
 msgid "Type"
 msgstr "类型"
 
@@ -1833,16 +2076,23 @@ msgstr "类型"
 #: model:ir.model.fields,help:qm.field_purchase_payment_register__activity_exception_decoration
 #: model:ir.model.fields,help:qm.field_purchase_request__activity_exception_decoration
 #: model:ir.model.fields,help:qm.field_sale_payment_register__activity_exception_decoration
+#: model:ir.model.fields,help:qm.field_sale_rma__activity_exception_decoration
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__activity_exception_decoration
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr "记录的例外活动类型。"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__price_unit
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__price_unit
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__price_unit
 msgid "Unit Price"
 msgstr "单价"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__product_uom
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__product_uom
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__product_uom
 msgid "Unit of Measure"
 msgstr "计量单位"
 
@@ -1853,6 +2103,9 @@ msgstr "计量单位"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_unread
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_unread
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_unread
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_unread
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_unread
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_unread
 msgid "Unread Messages"
 msgstr "未读消息"
 
@@ -1863,6 +2116,9 @@ msgstr "未读消息"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__message_unread_counter
 #: model:ir.model.fields,field_description:qm.field_purchase_request__message_unread_counter
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__message_unread_counter
+#: model:ir.model.fields,field_description:qm.field_sale_rma__message_unread_counter
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__message_unread_counter
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr "未读消息计数器"
 
@@ -1933,6 +2189,9 @@ msgstr "待财务付款"
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__website_message_ids
 #: model:ir.model.fields,field_description:qm.field_purchase_request__website_message_ids
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__website_message_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma__website_message_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__website_message_ids
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__website_message_ids
 msgid "Website Messages"
 msgstr "网站消息"
 
@@ -1943,6 +2202,9 @@ msgstr "网站消息"
 #: model:ir.model.fields,help:qm.field_purchase_payment_register__website_message_ids
 #: model:ir.model.fields,help:qm.field_purchase_request__website_message_ids
 #: model:ir.model.fields,help:qm.field_sale_payment_register__website_message_ids
+#: model:ir.model.fields,help:qm.field_sale_rma__website_message_ids
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__website_message_ids
+#: model:ir.model.fields,help:qm.field_sale_rma_return_line__website_message_ids
 msgid "Website communication history"
 msgstr "网上沟通记录"
 
