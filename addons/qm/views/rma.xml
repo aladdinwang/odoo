@@ -52,6 +52,7 @@
                                         <field name="return_amount" attrs="{'invisible': [('type', '!=', 'return')]}"/>
                                     </group>
                                 </group>
+                                <h2><label for="return_line_ids" string="Return Lines"/></h2>
                                 <field name="return_line_ids" string="Return Lines"
                                        attrs="{'readonly': [('state', '!=', 'draft')]}">
                                     <tree>
@@ -63,6 +64,7 @@
                                         <field name="price_subtotal"/>
                                     </tree>
                                 </field>
+                                <h2><label for="exchange_line_ids" string="Exchange With"/></h2>
                                 <field name="exchange_line_ids" string="Exchange with"
                                        attrs="{'readonly': [('state', '!=', 'draft')]}">
                                     <tree>
@@ -75,7 +77,9 @@
                                 </field>
                             </page>
                             <page string="Others">
-                                <field name="comment"/>
+                                <group>
+                                    <field name="comment"/>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>
