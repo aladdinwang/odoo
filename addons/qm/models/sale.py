@@ -116,15 +116,12 @@ class SaleOrder(models.Model):
             order.write({"invoice_ids": new_invoice_ids})
 
     def action_create_rma(self):
-        active_id = self._context.get("active_id")
-        if not active_id:
-            return
-
+        self.ensure_one()
         return {
             "name": _("Create Sale RMA"),
             "res_model": "sale.rma",
             "view_mode": "form",
-            "view_id": self.env.ref("qm.view_sale_rma_form"),
+            "view_id": self.env.ref("qm.sale_rma_form").id,
             "context": self.env.context,
             "target": "new",
             "type": "ir.actions.act_window",

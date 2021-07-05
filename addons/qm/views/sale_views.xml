@@ -29,7 +29,7 @@
             <attribute name="groups">qm.group_hidden_menu</attribute>
         </xpath>
         <xpath expr="//button[@name='action_draft']" position="after">
-            <button name="action_create_sale_rma" states="sent,sale,done" type="object" string="Create RMA"/>
+            <button name="action_create_rma" states="sent,sale,done" type="object" string="Create RMA"/>
         </xpath>
             <field name="partner_id" position="after">
                 <field name="is_dropshipping"/>

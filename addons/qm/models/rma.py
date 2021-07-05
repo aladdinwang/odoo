@@ -137,6 +137,9 @@ class RmaReturnLine(models.Model):
     price_subtotal = fields.Monetary(
         compute="_compute_amount", string="Subtotal", store=True
     )
+    price_tax = fields.Monetary(
+        compute='_compute_amount', string='Taxes', store=True
+    )
     price_total = fields.Monetary(compute="_compute_amount", string="Total", store=True)
     product_qty = fields.Float(
         string="Quantity", digits="Product Unit Of Measure", required=True, default=1.0
@@ -192,6 +195,9 @@ class RmaExchangeLine(models.Model):
     )
     price_subtotal = fields.Monetary(
         compute="_compute_amount", string="Subtotal", store=True
+    )
+    price_tax = fields.Monetary(
+        compute='_compute_amount', string='Taxes', store=True
     )
 
     price_total = fields.Monetary(compute="_compute_amount", string="Total", store=True)
