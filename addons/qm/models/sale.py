@@ -115,6 +115,21 @@ class SaleOrder(models.Model):
                     new_invoice_ids.append((1, move.id, {"state": "to_invoice"}))
             order.write({"invoice_ids": new_invoice_ids})
 
+    def action_create_rma(self):
+        active_id = self._context.get("active_id")
+        if not active_id:
+            return
+
+        return {
+            "name": _("Create Sale RMA"),
+            "res_model": "sale.rma",
+            "view_mode": "form",
+            "view_id": self.env.ref("qm.view_sale_rma_form"),
+            "context": self.env.context,
+            "target": "new",
+            "type": "ir.actions.act_window",
+        }
+
     def _prepare_invoice(self):
         invoice_vals = super()._prepare_invoice()
         invoice_vals["partner_id"] = self.partner_id.id
