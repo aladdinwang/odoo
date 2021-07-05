@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-29 16:07+0000\n"
-"PO-Revision-Date: 2021-06-29 16:07+0000\n"
+"POT-Creation-Date: 2021-07-05 09:36+0000\n"
+"PO-Revision-Date: 2021-07-05 09:36+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -279,6 +279,7 @@ msgid "Cancelled by"
 msgstr "取消人"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__product_uom_category_id
 #: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__product_uom_category_id
 msgid "Category"
 msgstr "类别"
@@ -360,6 +361,7 @@ msgid "Contact"
 msgstr "联系人"
 
 #. module: qm
+#: model:ir.model.fields,help:qm.field_sale_rma_exchange_line__product_uom_category_id
 #: model:ir.model.fields,help:qm.field_sale_rma_return_line__product_uom_category_id
 msgid ""
 "Conversion between Units of Measure can only occur if they belong to the "
@@ -1420,11 +1422,6 @@ msgid "Product Uom"
 msgstr "单位"
 
 #. module: qm
-#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__product_uom_category_id
-msgid "Product Uom Category"
-msgstr "类别"
-
-#. module: qm
 #: model:ir.actions.act_window,name:qm.action_account_purchase_invoice_qm
 #: model:ir.model,name:qm.model_account_purchase_invoice
 #: model:ir.ui.menu,name:qm.menu_action_account_purchase_invoice_qm
@@ -2020,6 +2017,8 @@ msgstr "税率"
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__amount_tax
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__taxes_id
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__amount_tax
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__tax_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__tax_id
 msgid "Taxes"
 msgstr "税"
 
@@ -2052,6 +2051,8 @@ msgstr "待开票数量"
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__line_amount_total
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__price_total
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__amount_total
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__price_total
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__price_total
 #: model_terms:ir.ui.view,arch_db:qm.view_account_move_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_invoice_tree_qm
 msgid "Total"
