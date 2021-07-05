@@ -70,7 +70,6 @@ class Rma(models.Model):
 
         rma = {"sale_order_id": sale_order.id, "type": "return"}
 
-        return_amount = 0.0
         return_lines = []
         for line in sale_order.order_line:
             return_lines.append(
@@ -85,14 +84,12 @@ class Rma(models.Model):
                     },
                 )
             )
-            return_amount += line.price_unit * lime.product_uom_qty
 
-        rma["return_amount"] = return_amount
         rma["return_line_ids"] = return_lines
         rec.update(rma)
         return rec
 
-    @api.depends("return_line_ids.price_total", "exchange_line_ids.price_total")
+    @api.depends("return_line_ids.price_total")
     def _compute_amount(self):
         ...
 
