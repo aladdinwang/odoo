@@ -12,13 +12,13 @@ class Rma(models.Model):
     def _get_default_currency_id(self):
         return self.env.company.currency_id.id
 
-    @api.depends("return_line_ids.price_total")
+    @api.depends("return_line_ids.price_total", "exchange_line_ids.price_total")
     def _compute_amount(self):
-        ...
+        for rec in self:
+            rec.return_amount = 0
+            rec.exchange_amount = 0
 
-    @api.depends("return_line_ids.price_total")
-    def _compute_amount(self):
-        ...
+            rec.exchange_diff = rec.return_amount - rec.exchange_amount
 
     name = fields.Char(
         states={"draft": [("readonly", False)]},
