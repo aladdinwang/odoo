@@ -12,6 +12,14 @@ class Rma(models.Model):
     def _get_default_currency_id(self):
         return self.env.company.currency_id.id
 
+    @api.depends("return_line_ids.price_total")
+    def _compute_amount(self):
+        ...
+
+    @api.depends("return_line_ids.price_total")
+    def _compute_amount(self):
+        ...
+
     name = fields.Char(
         states={"draft": [("readonly", False)]},
         index=True,
@@ -88,10 +96,6 @@ class Rma(models.Model):
         rma["return_line_ids"] = return_lines
         rec.update(rma)
         return rec
-
-    @api.depends("return_line_ids.price_total")
-    def _compute_amount(self):
-        ...
 
 
 class RmaReturnLine(models.Model):
