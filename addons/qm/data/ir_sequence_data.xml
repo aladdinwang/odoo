@@ -33,7 +33,7 @@
           <field name="code">payment.register.transfer</field>
           <field name="prefix">T</field>
           <field name="padding">8</field>
-          <field name="company_id" eval="False"/>          
+          <field name="company_id" eval="False"/>
         </record>
 
 
@@ -54,6 +54,14 @@
           <field name="padding">8</field>
           <field name="company_id" eval="False"/>
         </record>
+
+        <record id="seq_sale_rma" model="ir.sequence">
+            <field name="name">QM Sale RMA</field>
+            <field name="code">qm.sale.rma</field>
+            <field name="prefix">RMA</field>
+            <field name="padding">8</field>
+        </record>
+
 
     </data>
 </odoo>

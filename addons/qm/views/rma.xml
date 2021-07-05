@@ -61,6 +61,7 @@
                                         <field name="product_qty"/>
                                         <field name="product_uom"/>
                                         <field name="price_unit"/>
+                                        <field name="tax_id"/>
                                         <field name="price_subtotal"/>
                                     </tree>
                                 </field>
@@ -72,6 +73,7 @@
                                         <field name="product_qty"/>
                                         <field name="product_uom"/>
                                         <field name="price_unit"/>
+                                        <field name="tax_id"/>
                                         <field name="price_subtotal"/>
                                     </tree>
                                 </field>
