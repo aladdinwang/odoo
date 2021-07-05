@@ -12,9 +12,6 @@ class Rma(models.Model):
     def _get_default_currency_id(self):
         return self.env.company.currency_id.id
 
-    @api.depends("return_lines_ids", "exchange_line_ids")
-    def _compute_amount(self):
-        ...
 
     name = fields.Char(
         states={"draft": [("readonly", False)]},
@@ -57,7 +54,7 @@ class Rma(models.Model):
     @api.model
     def default_get(self, default_fields):
         rec = super().default_get(default_fields)
-        active_id = self._context("active_id")
+        active_id = self._context.get("active_id")
         active_model = self._context.get("active_model")
         if not active_id or active_model != "sale.order":
             return rec
