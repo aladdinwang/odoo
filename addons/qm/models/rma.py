@@ -15,8 +15,8 @@ class Rma(models.Model):
     @api.depends("return_line_ids.price_total", "exchange_line_ids.price_total")
     def _compute_amount(self):
         for rec in self:
-            rec.return_amount = 0
-            rec.exchange_amount = 0
+            rec.return_amount = sum(rec.return_line_ids.mapped("price_total"), 0)
+            rec.exchange_amount = sum(rec.exchange_line_ids.mapped("price_total"), 0)
 
             rec.exchange_diff = rec.return_amount - rec.exchange_amount
 
