@@ -26,7 +26,7 @@ class Rma(models.Model):
         default=lambda self: _("New"),
     )
     type = fields.Selection(
-        [("return", "Return"), ("exchange", "Exchange")], default="return"
+        [("return", "RMA Return"), ("exchange", "Exchange")], default="return"
     )
     sale_order_id = fields.Many2one(
         "sale.order", string="Sale Order", index=True, required=True, readonly=True
