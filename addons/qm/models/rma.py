@@ -12,13 +12,14 @@ class Rma(models.Model):
     def _get_default_currency_id(self):
         return self.env.company.currency_id.id
 
-
     name = fields.Char(
         states={"draft": [("readonly", False)]},
         index=True,
         default=lambda self: _("New"),
     )
-    type = fields.Selection([("return", "Return"), ("exchange", "Exchange")])
+    type = fields.Selection(
+        [("return", "Return"), ("exchange", "Exchange")], default="return"
+    )
     sale_order_id = fields.Many2one(
         "sale.order", string="Sale Order", index=True, required=True, readonly=True
     )
@@ -90,6 +91,10 @@ class Rma(models.Model):
         rma["return_line_ids"] = return_lines
         rec.update(rma)
         return rec
+
+    @api.depends("return_line_ids.price_total", "exchange_line_ids.price_total")
+    def _compute_amount(self):
+        ...
 
 
 class RmaReturnLine(models.Model):
