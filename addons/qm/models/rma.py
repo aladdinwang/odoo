@@ -19,7 +19,7 @@ class Rma(models.Model):
     )
     type = fields.Selection([("return", "Return"), ("exchange", "Exchange")])
     sale_order_id = fields.Many2one(
-        "sale.order", string="Sale Order", index=True, required=True
+        "sale.order", string="Sale Order", index=True, required=True, readonly=True
     )
     partner_id = fields.Many2one(
         "res.partner", related="sale_order_id.partner_id", index=True, store=True
@@ -48,6 +48,23 @@ class Rma(models.Model):
     currency_id = fields.Many2one(
         "res.currency", default=_get_default_currency_id, required=True
     )
+
+    @api.model
+    def default_get(self, default_fields):
+        rec = super().default_get(default_fields)
+        active_id = self._context('active_id')
+        active_model = self._context.get('active_model')
+        if not active_id or active_model != 'sale.order':
+            return rec
+
+        sale_order = self.env['sale.order'].browse(active_id).filtered(lambda x: x.state not in ['cancel', 'draft'])
+        if not sale_order:
+            raise UserError('Not Valid Order!')
+
+        rma = {
+            'sale_order_id': sale_order.id,
+
+        }
 
 
 class RmaReturnLine(models.Model):
