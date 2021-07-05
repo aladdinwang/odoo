@@ -65,7 +65,7 @@
                                         <field name="price_subtotal"/>
                                     </tree>
                                 </field>
-                                <h2><label for="exchange_line_ids" string="Exchange With"/></h2>
+                                <h2><label for="exchange_line_ids" string="Exchange With" attrs="{'invisible': [('state', '!=', 'exchange')]}"/></h2>
                                 <field name="exchange_line_ids" string="Exchange with"
                                        attrs="{'readonly': [('state', '!=', 'draft')], 'invisible': [('state', '!=', 'exchange')]}">
                                     <tree>
