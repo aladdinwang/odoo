@@ -149,13 +149,13 @@ class RmaReturnLine(models.Model):
     currency_id = fields.Many2one("res.currency", related="rma_id.currency_id")
     tax_id = fields.Many2many(related="sale_line_id.tax_id")
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        for values in vals_list:
-            if values.get("sale_line_id"):
-                print(values)
+    @api.onchange("sale_line_id")
+    def sale_line_id_change(self):
+        if not self.sale_line_id:
+            return
 
-        return super().create(vals_list)
+        self.product_uom = self.sale_line_id.product_uom
+        self.price_unit = self.sale_line_id.price_unit
 
 
 class RmaExchangeLine(models.Model):
