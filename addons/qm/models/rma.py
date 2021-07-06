@@ -150,10 +150,10 @@ class RmaReturnLine(models.Model):
     tax_id = fields.Many2many(related="sale_line_id.tax_id")
 
     @api.onchange("sale_line_id")
-    def sale_line_id_change(self):
+    def _onchange_sale_line_id(self):
         if not self.sale_line_id:
             return
-
+        print(self.sale_line_id)
         self.product_uom = self.sale_line_id.product_uom
         self.price_unit = self.sale_line_id.price_unit
 
