@@ -1,6 +1,6 @@
 # coding: utf-8
 from odoo import fields, models, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class Rma(models.Model):
@@ -11,6 +11,14 @@ class Rma(models.Model):
 
     def _get_default_currency_id(self):
         return self.env.company.currency_id.id
+
+    @api.constraints("return_line_ids")
+    def _check_duplicate_return_line_ids(self):
+        for rec in self:
+            sale_line_ids = set(x.sale_line_id.id for x in rec.return_line_ids)
+            for line in reversed(rec.return_line_ids):
+                if line.sale_line_id.id in sale_line_ids:
+                    raise ValidationError(f"订单项 {line.name} 重复了")
 
     @api.depends("return_line_ids.price_total", "exchange_line_ids.price_total")
     def _compute_amount(self):
@@ -91,6 +99,7 @@ class Rma(models.Model):
                         "tax_id": [(6, 0, line.tax_id.ids)],
                         "product_id": line.product_id.id,
                         "price_unit": line.price_unit,
+                        "price_subtotal": line.price_subtotal,
                     },
                 )
             )
