@@ -126,10 +126,9 @@ class RmaReturnLine(models.Model):
             )
 
     rma_id = fields.Many2one("sale.rma", index=True)
+    sale_order_id = fields.Many2one(related="rma_id.sale_order_id")
     sale_line_id = fields.Many2one(
-        "sale.order.line",
-        required=True,
-        domain="[('order_id', '=', rma_id.sale_order_id)]",
+        "sale.order.line", required=True, domain="[('order_id', '=', sale_order_id)]"
     )
     product_id = fields.Many2one(
         "product.product", related="sale_line_id.product_id", index=True, store=True
