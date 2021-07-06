@@ -132,12 +132,7 @@ class RmaReturnLine(models.Model):
     product_uom_category_id = fields.Many2one(
         related="sale_line_id.product_id.uom_id.category_id", readonly=True
     )
-    price_unit = fields.Float(
-        "Unit Price",
-        required=True,
-        digit="Product Price",
-        default=lambda self: self.sale_line_id.price_unit,
-    )
+    price_unit = fields.Float("Unit Price", required=True, digit="Product Price")
     price_subtotal = fields.Monetary(
         compute="_compute_amount", string="Subtotal", store=True
     )
@@ -153,6 +148,14 @@ class RmaReturnLine(models.Model):
     )
     currency_id = fields.Many2one("res.currency", related="rma_id.currency_id")
     tax_id = fields.Many2many(related="sale_line_id.tax_id")
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for values in vals_list:
+            if values.get("sale_line_id"):
+                print(values)
+
+        return super().create(vals_list)
 
 
 class RmaExchangeLine(models.Model):
