@@ -127,7 +127,6 @@ class RmaReturnLine(models.Model):
             )
 
     rma_id = fields.Many2one("sale.rma", index=True)
-    sale_order_id = fields.Many2one(related="rma_id.sale_order_id")
     sale_line_id = fields.Many2one("sale.order.line", required=True)
     product_id = fields.Many2one(
         "product.product", related="sale_line_id.product_id", index=True, store=True
@@ -136,7 +135,10 @@ class RmaReturnLine(models.Model):
         related="sale_line_id.product_id.uom_id.category_id", readonly=True
     )
     price_unit = fields.Float(
-        "Unit Price", required=True, digit="Product Price", default=0.0
+        "Unit Price",
+        required=True,
+        digit="Product Price",
+        default=lambda self: self.sale_line_id.price_unit,
     )
     price_subtotal = fields.Monetary(
         compute="_compute_amount", string="Subtotal", store=True
