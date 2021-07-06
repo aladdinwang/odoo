@@ -85,7 +85,6 @@ class Rma(models.Model):
                     0,
                     0,
                     {
-                        "sale_order_id": sale_order.id,
                         "sale_line_id": line.id,
                         "price_unit": line.price_unit,
                         "product_uom": line.product_uom.id,
