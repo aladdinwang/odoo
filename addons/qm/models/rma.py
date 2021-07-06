@@ -106,7 +106,7 @@ class RmaReturnLine(models.Model):
     _description = "Sale Rma Return Line"
     _order = "id desc"
 
-    @api.depends("product_qty", "price_unit", "tax_id")
+    @api.depends("sale_line_id", "product_qty", "price_unit", "tax_id")
     def _compute_amount(self):
         for line in self:
             taxes = line.tax_id.compute_all(
