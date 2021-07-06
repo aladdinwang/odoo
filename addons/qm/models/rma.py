@@ -17,7 +17,7 @@ class Rma(models.Model):
         sale_line_ids = set(x.sale_line_id.id for x in self.return_line_ids)
         for line in reversed(self.return_line_ids):
             if line.sale_line_id.id in sale_line_ids:
-                raise ValidationError(f"订单项 {line.name} 重复了")
+                raise ValidationError(f"订单项 {line.sale_line_id.name} 重复了")
 
     @api.depends("return_line_ids.price_total", "exchange_line_ids.price_total")
     def _compute_amount(self):
