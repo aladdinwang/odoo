@@ -55,7 +55,7 @@
                                 <h2><label for="return_line_ids" string="Return Lines"/></h2>
                                 <field name="return_line_ids" string="Return Lines"
                                        attrs="{'readonly': [('state', '!=', 'draft')]}">
-                                    <tree>
+                                    <tree editable="bottom">
                                         <field name="sale_line_id"/>
                                         <field name="product_id"/>
                                         <field name="product_qty"/>
@@ -68,7 +68,7 @@
                                 <h2><label for="exchange_line_ids" string="Exchange With" attrs="{'invisible': [('type', '!=', 'exchange')]}"/></h2>
                                 <field name="exchange_line_ids" string="Exchange with"
                                        attrs="{'readonly': [('state', '!=', 'draft')], 'invisible': [('type', '!=', 'exchange')]}">
-                                    <tree>
+                                    <tree editable="bottom">
                                         <field name="product_id"/>
                                         <field name="product_qty"/>
                                         <field name="product_uom"/>
