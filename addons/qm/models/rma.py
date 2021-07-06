@@ -90,6 +90,7 @@ class Rma(models.Model):
                         "product_qty": line.product_uom_qty,
                         "tax_id": [(6, 0, line.tax_id.ids)],
                         "product_id": line.product_id.id,
+                        "price_unit": line.price_unit,
                     },
                 )
             )
@@ -153,7 +154,6 @@ class RmaReturnLine(models.Model):
     def _onchange_sale_line_id(self):
         if not self.sale_line_id:
             return
-        print(self.sale_line_id)
         self.product_uom = self.sale_line_id.product_uom
         self.price_unit = self.sale_line_id.price_unit
 
