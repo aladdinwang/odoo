@@ -89,6 +89,8 @@ class Rma(models.Model):
                         "price_unit": line.price_unit,
                         "product_uom": line.product_uom.id,
                         "product_qty": line.product_uom_qty,
+                        "tax_id": [(6, 0, line.tax_id.ids)],
+                        "product_id": line.product_id.id,
                     },
                 )
             )
@@ -137,9 +139,7 @@ class RmaReturnLine(models.Model):
     price_subtotal = fields.Monetary(
         compute="_compute_amount", string="Subtotal", store=True
     )
-    price_tax = fields.Monetary(
-        compute='_compute_amount', string='Taxes', store=True
-    )
+    price_tax = fields.Monetary(compute="_compute_amount", string="Taxes", store=True)
     price_total = fields.Monetary(compute="_compute_amount", string="Total", store=True)
     product_qty = fields.Float(
         string="Quantity", digits="Product Unit Of Measure", required=True, default=1.0
@@ -196,9 +196,7 @@ class RmaExchangeLine(models.Model):
     price_subtotal = fields.Monetary(
         compute="_compute_amount", string="Subtotal", store=True
     )
-    price_tax = fields.Monetary(
-        compute='_compute_amount', string='Taxes', store=True
-    )
+    price_tax = fields.Monetary(compute="_compute_amount", string="Taxes", store=True)
 
     price_total = fields.Monetary(compute="_compute_amount", string="Total", store=True)
     currency_id = fields.Many2one("res.currency", related="rma_id.currency_id")
