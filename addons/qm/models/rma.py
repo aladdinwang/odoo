@@ -86,7 +86,6 @@ class Rma(models.Model):
                     0,
                     {
                         "sale_line_id": line.id,
-                        "price_unit": line.price_unit,
                         "product_uom": line.product_uom.id,
                         "product_qty": line.product_uom_qty,
                         "tax_id": [(6, 0, line.tax_id.ids)],
