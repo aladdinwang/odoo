@@ -126,7 +126,11 @@ class RmaReturnLine(models.Model):
             )
 
     rma_id = fields.Many2one("sale.rma", index=True)
-    sale_line_id = fields.Many2one("sale.order.line", required=True)
+    sale_line_id = fields.Many2one(
+        "sale.order.line",
+        required=True,
+        domain="[('order_id', '=', rma_id.sale_order_id)]",
+    )
     product_id = fields.Many2one(
         "product.product", related="sale_line_id.product_id", index=True, store=True
     )
@@ -210,7 +214,7 @@ class RmaExchangeLine(models.Model):
         for line in self:
             fpos = (
                 line.rma_id.sale_order_id.fiscal_position_id
-                or line.sale_order_id.partner_id.property_account_position_id
+                or line.rma_id.sale_order_id.partner_id.property_account_position_id
             )
             taxes = line.product_id.taxes_id.filtered(
                 lambda r: not line.company_id or r.company_id == line.company_id
