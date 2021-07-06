@@ -12,13 +12,12 @@ class Rma(models.Model):
     def _get_default_currency_id(self):
         return self.env.company.currency_id.id
 
-    @api.constraints("return_line_ids")
+    @api.constrains("return_line_ids")
     def _check_duplicate_return_line_ids(self):
-        for rec in self:
-            sale_line_ids = set(x.sale_line_id.id for x in rec.return_line_ids)
-            for line in reversed(rec.return_line_ids):
-                if line.sale_line_id.id in sale_line_ids:
-                    raise ValidationError(f"订单项 {line.name} 重复了")
+        sale_line_ids = set(x.sale_line_id.id for x in self.return_line_ids)
+        for line in reversed(self.return_line_ids):
+            if line.sale_line_id.id in sale_line_ids:
+                raise ValidationError(f"订单项 {line.name} 重复了")
 
     @api.depends("return_line_ids.price_total", "exchange_line_ids.price_total")
     def _compute_amount(self):
