@@ -248,10 +248,49 @@ class RmaExchangeLine(models.Model):
                 else taxes
             )
 
+    def _get_display_price(self, product):
+        sale_order = self.rma_id.sale_order_id
+        if sale_order.pricelist_id.discount_policy == "with_discount":
+            return product.with_context(pricelist=sale_order.pricelist_id.id).price
+
+        final_price, rule_id = sale_order.pricelist_id.with_context(
+            product_context
+        ).get_product_price_rule(
+            self.product_id, self.product_qty or 1.0, self.rma_id.partner_id
+        )
+        base_price, currency = self.with_context(
+            product_context
+        )._get_real_price_currency(
+            product,
+            rule_id,
+            self.product_qty,
+            self.product_uom,
+            sale_order.pricelist_id.id,
+        )
+
+        if currency != sale_order.pricelist_id.currency_id:
+            base_price = currency._convert(
+                base_price,
+                sale_order.pricelist_id.currency_id,
+                sale_order.company_id or self.env.company,
+                sale_order.date_order or fields.Date.today(),
+            )
+        return max(base_price, final_price)
+
     @api.onchange("product_id")
     def _onchange_product_id_change(self):
         if not self.product_id:
             return
 
         self._compute_tax_id()
+
+        # uom & price_unit
+        self.product_uom = self.product_id.uom_id
+        self.price_unit = self.env["account.tax"]._fix_tax_included_price_company(
+            self._get_display_price(self._product_id),
+            self.product_id.taxes_id,
+            self.tax_id,
+            self.company_id,
+        )
+
         return {}
