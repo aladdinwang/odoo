@@ -175,6 +175,7 @@ class RmaReturnLine(models.Model):
             return
         self.product_uom = self.sale_line_id.product_uom
         self.price_unit = self.sale_line_id.price_unit
+        self.product_qty = self.sale_line_id.product_uom_qty
 
 
 class RmaExchangeLine(models.Model):
