@@ -287,7 +287,7 @@ class RmaExchangeLine(models.Model):
         # uom & price_unit
         self.product_uom = self.product_id.uom_id
         self.price_unit = self.env["account.tax"]._fix_tax_included_price_company(
-            self._get_display_price(self._product_id),
+            self._get_display_price(self.product_id),
             self.product_id.taxes_id,
             self.tax_id,
             self.company_id,
