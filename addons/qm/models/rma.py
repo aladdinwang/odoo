@@ -1,4 +1,6 @@
 # coding: utf-8
+import collections
+
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError, ValidationError
 
@@ -14,9 +16,9 @@ class Rma(models.Model):
 
     @api.constrains("return_line_ids")
     def _check_duplicate_return_line_ids(self):
-        sale_line_ids = set(x.sale_line_id.id for x in self.return_line_ids)
+        c = collections.Counter(x.sale_line_id.id for x in self.return_line_ids)
         for line in reversed(self.return_line_ids):
-            if line.sale_line_id.id in sale_line_ids:
+            if c[line.sale_line_id.id]:
                 raise ValidationError(f"订单项 {line.sale_line_id.name} 重复了")
 
     @api.depends("return_line_ids.price_total", "exchange_line_ids.price_total")
