@@ -117,6 +117,18 @@ class Rma(models.Model):
         rec.update(rma)
         return rec
 
+    def post(self):
+        ...
+
+    def action_cancel(self):
+        ...
+
+    def action_done(self):
+        ...
+
+    def action_draft(self):
+        ...
+
 
 class RmaReturnLine(models.Model):
     _name = "sale.rma.return_line"
