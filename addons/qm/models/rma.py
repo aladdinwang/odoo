@@ -18,7 +18,7 @@ class Rma(models.Model):
     def _check_duplicate_return_line_ids(self):
         c = collections.Counter(x.sale_line_id.id for x in self.return_line_ids)
         for line in reversed(self.return_line_ids):
-            if c[line.sale_line_id.id]:
+            if c[line.sale_line_id.id] > 1:
                 raise ValidationError(f"订单项 {line.sale_line_id.name} 重复了")
 
     @api.depends("return_line_ids.price_total", "exchange_line_ids.price_total")
