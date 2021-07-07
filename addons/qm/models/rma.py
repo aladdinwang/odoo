@@ -165,7 +165,7 @@ class RmaReturnLine(models.Model):
     )
     currency_id = fields.Many2one("res.currency", related="rma_id.currency_id")
     tax_id = fields.Many2many(related="sale_line_id.tax_id")
-    company_id = fields.Many2one(related="order_id.company_id")
+    company_id = fields.Many2one(related="rma_id.company_id")
 
     @api.onchange("sale_line_id")
     def _onchange_sale_line_id(self):
@@ -227,7 +227,7 @@ class RmaExchangeLine(models.Model):
         string="Taxes",
         domain=["|", ("active", "=", False), ("active", "=", True)],
     )
-    company_id = fields.Many2one(related="order_id.company_id")
+    company_id = fields.Many2one(related="rma_id.company_id")
 
     def _compute_tax_id(self):
         for line in self:
