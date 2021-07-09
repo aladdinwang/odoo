@@ -4,12 +4,31 @@ import collections
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError, ValidationError
 
+from odoo.addons.purchase.models.purchase import PurchaseOrder as Purchase
+
 
 class Rma(models.Model):
     _name = "sale.rma"
     _inherit = ["portal.mixin", "mail.thread", "mail.activity.mixin"]
     _description = "Sale Rma"
     _order = "create_date desc, name desc, id desc"
+
+    @api.model
+    def _default_picking_type(self):
+        return self._get_picking_type(
+            self.env.context.get("company_id") or self.env.company.id
+        )
+
+    @api.model
+    def _get_picking_type(self, company_id):
+        picking_type = self.env["stock.picking.type"].search(
+            [("code", "=", "incoming"), ("warehouse_id.company_id", "=", company_id.id)]
+        )
+        if not picking_type:
+            picking_type = self.env["stock.picking.type"].search(
+                [("code", "=", "incoming"), ("warehouse_id", "=", False)]
+            )
+        return picking_type[:1]
 
     def _get_default_currency_id(self):
         return self.env.company.currency_id.id
@@ -76,6 +95,36 @@ class Rma(models.Model):
         index=True,
         default=lambda self: self.env.company,
     )
+
+    return_picking_ids = fields.Many2many(
+        "stock.picking",
+        compute="_compute_return_picking",
+        string="Return Pickings",
+        copy=False,
+        store=True,
+    )
+    return_picking_count = fields.Integer(
+        compute="_compute_return_picking",
+        string="Return Picking Count",
+        default=0,
+        store=True,
+    )
+    return_picking_type_type = fields.Many2one(
+        "stock.picking.type",
+        "Return To",
+        states=Purchase.READONLY_STATES,
+        required=True,
+        default=_default_picking_type,
+        domain="['|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]",
+    )
+
+    @api.depends(
+        "return_line_ids.move_id.picking_id",
+        "return_line_ids.move_ids.state",
+        "return_line_ids.move_ids.returned_move_ids",
+    )
+    def _compute_return_picking(self):
+        ...
 
     @api.model
     def default_get(self, default_fields):
@@ -180,6 +229,14 @@ class RmaReturnLine(models.Model):
     currency_id = fields.Many2one("res.currency", related="rma_id.currency_id")
     tax_id = fields.Many2many(related="sale_line_id.tax_id")
     company_id = fields.Many2one(related="rma_id.company_id")
+    move_ids = fields.One2many(
+        "stock.move",
+        "sale_rma_return_line_id",
+        string="Reservation",
+        readonly=True,
+        ondelete="set null",
+        copy=False,
+    )
 
     @api.onchange("sale_line_id")
     def _onchange_sale_line_id(self):
