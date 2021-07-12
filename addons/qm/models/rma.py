@@ -109,10 +109,14 @@ class Rma(models.Model):
         default=0,
         store=True,
     )
-    return_picking_type_type = fields.Many2one(
+    return_picking_type_id = fields.Many2one(
         "stock.picking.type",
         "Return To",
-        states=Purchase.READONLY_STATES,
+        states={
+            "posted": [("readonly", True)],
+            "done": [("readonly", True)],
+            "cancel": [("readonly", True)],
+        },
         required=True,
         default=_default_picking_type,
         domain="['|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]",
@@ -124,7 +128,16 @@ class Rma(models.Model):
         "return_line_ids.move_ids.returned_move_ids",
     )
     def _compute_return_picking(self):
-        ...
+        for rma in self:
+            pickings = self.env["stock.picking"]
+            for return_line in rma.return_line_ids:
+                moves = return_line.move_ids | return_line.move_ids.mapped(
+                    "returned_move_ids"
+                )
+                pickings |= moves.mapped("picking_id")
+
+            order.return_picking_ids = pickings
+            order.picking_count = len(pickings)
 
     @api.model
     def default_get(self, default_fields):
@@ -177,6 +190,57 @@ class Rma(models.Model):
 
     def action_draft(self):
         ...
+
+    @api.model
+    def _prepare_return_picking(self):
+        if not self.partner_id.property_stock_supplier.id:
+            raise UserError(
+                _("You must set a Vendor Location for this partner %s")
+                % self.partner_id.name
+            )
+
+        return {
+            "picking_type_id": self.return_picking_type_id.id,
+            "partner_id": self.partner_id.id,
+            "user_id": False,
+            "date": self.create_date,
+            "origin": self.name,
+            "location_dest_id": self.return_picking_type_id.id,
+            "company_id": self.company_id.id,
+        }
+
+    def _create_picking(self):
+        StockPicking = self.env["stock.picking"]
+        for rma in self:
+            if any(
+                [
+                    ptype in ["product", "consu"]
+                    for ptype in rma.return_line_ids.mapped("product_id.type")
+                ]
+            ):
+                pickings = rma.return_picking_ids.filtered(
+                    lambda x: x.state not in ("done", "cancel")
+                )
+                if not pickings:
+                    res = rma._prepare_picking()
+                    picking = StockPicking.create(res)
+                else:
+                    picking = pickings[0]
+                moves = rma.return_line_ids._create_stock_moves(picking)
+                moves = moves.filtered(
+                    lambda x: x.state not in ("done", "cancel")
+                )._action_confirm()
+                seq = 0
+                for move in sorted(moves, key=lambda move: move.date_expected):
+                    seq += 5
+                    move.sequence = seq
+                moves._action_assign()
+                picking.message_post_with_view(
+                    "mail.message_origin_link",
+                    values={"self": picking, "origin": order},
+                    subtype_id=self.env.ref("mail.mt_note").id,
+                )
+        return True
 
 
 class RmaReturnLine(models.Model):
@@ -231,7 +295,7 @@ class RmaReturnLine(models.Model):
     company_id = fields.Many2one(related="rma_id.company_id")
     move_ids = fields.One2many(
         "stock.move",
-        "sale_rma_return_line_id",
+        "sale_return_line_id",
         string="Reservation",
         readonly=True,
         ondelete="set null",
@@ -245,6 +309,90 @@ class RmaReturnLine(models.Model):
         self.product_uom = self.sale_line_id.product_uom
         self.price_unit = self.sale_line_id.price_unit
         self.product_qty = self.sale_line_id.product_uom_qty
+
+    def _get_stock_move_price_unit(self):
+        self.ensure_one()
+        line = self[0]
+        rma = line.rma_id
+        price_unit = line.price_unit
+        if line.taxes_id:
+            price_unit = line.taxes_id.with_context(round=False).compute_all(
+                price_unit,
+                currency=line.rma_id.currency_id,
+                quantity=1.0,
+                product=line.product_id,
+                partner=line.rma_id.partner_id,
+            )["total_void"]
+        if line.product_uom.id != line.product_id.uom_id.id:
+            price_unit *= line.product_uom.factor / line.product_id.uom_id.factor
+        if rma.currency_id != rma.company_id.currency_id:
+            price_unit = rma.currency_id._convert(
+                price_unit,
+                rma.company_id.currency_id,
+                self.company_id,
+                self.create_date or fields.Date.today(),
+                round=False,
+            )
+        return price_unit
+
+    def _prepare_stock_moves(self, picking):
+        self.ensure_one()
+        res = []
+
+        if self.product_id.type not in ["product", "consu"]:
+            return res
+
+        qty = 0.0
+        price_unit = self._get_stock_move_price_unit()
+        for move in self.move_ids.filtered(
+            lambda x: x.state != "cancel" and not x.location_dest_id.usage == "supplier"
+        ):
+            qty += move.product_uom._compute_quantity(
+                move.product_uom_qty, self.product_uom, rounding_method="HALF-UP"
+            )
+
+        template = {
+            "name": (self.name or "")[:2000],
+            "product_id": self.product_id.id,
+            "date": self.rma_id.create_date,
+            "date_expected": False,
+            "location_id": ...,
+            "location_dest_id": self.return_picking_type_id.default_location_dest_id.id,
+            "picking_id": picking.id,
+            "partner_id": self.rma_id.partner_id.id,
+            "move_dest_ids": [(4, x) for x in self.move_dest_ids.ids],
+            "state": "draft",
+            "rma_return_line_id": self.id,
+            "company_id": self.rma_id.company_id.id,
+            "price_unit": price_unit,
+            "picking_type_id": self.rma_id.return_picking_type_id.id,
+            "group_id": False,
+            "origin": self.rma_id.name,
+            "route_ids": ...,
+            "warehouse_id": self.rma_id.return_picking_type_id.warehouse_id.id,
+        }
+
+        diff_quantity = self.product_qty - qty
+        if float_compare(
+            diff_quantity, 0.0, precision_rounding=self.product_uom.rounding
+        ):
+            line_uom = self.product_uom
+            quant_uom = self.product_id.uom_id
+            product_uom_qty, product_uom = line_uom._adjust_uom_quantities(
+                diff_quantity, quant_uom
+            )
+            template["product_uom_qty"] = product_uom_qty
+            template["product_uom"] = product_uom.id
+            res.append(template)
+        return res
+
+    def _create_stock_moves(self, picking):
+        values = []
+        for line in self:
+            for val in line._prepare_stock_moves(picking):
+                values.append(val)
+            values.append(val)
+        return self.env["stock.move"].create(values)
 
 
 class RmaExchangeLine(models.Model):
@@ -299,7 +447,16 @@ class RmaExchangeLine(models.Model):
         string="Taxes",
         domain=["|", ("active", "=", False), ("active", "=", True)],
     )
+
     company_id = fields.Many2one(related="rma_id.company_id")
+    move_ids = fields.One2many(
+        "stock.move",
+        "sale_exchange_line_id",
+        string="Reservation",
+        readonly=True,
+        ondelete="set null",
+        copy=False,
+    )
 
     def _compute_tax_id(self):
         for line in self:
