@@ -212,15 +212,16 @@ class Rma(models.Model):
         return rec
 
     def post(self):
-        self._create_picking()
-
-        # Todo: 根据rma生成新的销售订单
         self.write(
             {
                 "state": "posted",
                 "name": self.env["ir.sequence"].next_by_code("qm.sale.rma"),
             }
         )
+
+        self._create_picking()
+
+        # Todo: 根据rma生成新的销售订单
 
     def action_cancel(self):
         ...
@@ -393,7 +394,7 @@ class RmaReturnLine(models.Model):
             )
 
         template = {
-            "name": (self.name or "")[:2000],
+            "name": (self.rma_id.name or "")[:2000],
             "product_id": self.product_id.id,
             "date": self.rma_id.create_date,
             "date_expected": False,
