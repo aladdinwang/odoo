@@ -399,7 +399,7 @@ class RmaReturnLine(models.Model):
             "date": self.rma_id.create_date,
             "date_expected": False,
             "location_id": self.env.ref("stock.stock_location_customers").id,
-            "location_dest_id": self.return_picking_type_id.default_location_dest_id.id,
+            "location_dest_id": self.rma_id.return_picking_type_id.default_location_dest_id.id,
             "picking_id": picking.id,
             "partner_id": self.rma_id.partner_id.id,
             "move_dest_ids": [(4, x) for x in self.move_dest_ids.ids],
