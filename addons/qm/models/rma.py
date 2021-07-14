@@ -262,7 +262,7 @@ class Rma(models.Model):
                     lambda x: x.state not in ("done", "cancel")
                 )
                 if not pickings:
-                    res = rma._prepare_picking()
+                    res = rma._prepare_return_picking()
                     picking = StockPicking.create(res)
                 else:
                     picking = pickings[0]
