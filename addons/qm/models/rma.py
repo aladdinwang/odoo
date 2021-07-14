@@ -2,6 +2,7 @@
 import collections
 
 from odoo import fields, models, api, _
+from odoo.tools.float_utils import float_compare
 from odoo.exceptions import UserError, ValidationError
 
 from odoo.addons.purchase.models.purchase import PurchaseOrder as Purchase
