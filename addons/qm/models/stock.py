@@ -17,10 +17,12 @@ class StockMove(models.Model):
         index=True,
         readonly=True,
     )
-    sale_rma_exchange_line_id = fields.Many2one(
-        "sale.rma.exchange_line",
-        "Sale RMA Exchange Line",
-        ondelete="set null",
-        index=True,
-        readonly=True,
-    )
+
+
+#    sale_rma_exchange_line_id = fields.Many2one(
+#        "sale.rma.exchange_line",
+#        "Sale RMA Exchange Line",
+#        ondelete="set null",
+#        index=True,
+#        readonly=True,
+#    )

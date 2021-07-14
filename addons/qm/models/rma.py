@@ -13,23 +13,6 @@ class Rma(models.Model):
     _description = "Sale Rma"
     _order = "create_date desc, name desc, id desc"
 
-    @api.model
-    def _default_picking_type(self):
-        return self._get_picking_type(
-            self.env.context.get("company_id") or self.env.company.id
-        )
-
-    @api.model
-    def _get_picking_type(self, company_id):
-        picking_type = self.env["stock.picking.type"].search(
-            [("code", "=", "incoming"), ("warehouse_id.company_id", "=", company_id.id)]
-        )
-        if not picking_type:
-            picking_type = self.env["stock.picking.type"].search(
-                [("code", "=", "incoming"), ("warehouse_id", "=", False)]
-            )
-        return picking_type[:1]
-
     def _get_default_currency_id(self):
         return self.env.company.currency_id.id
 
@@ -110,17 +93,33 @@ class Rma(models.Model):
         store=True,
     )
     return_picking_type_id = fields.Many2one(
-        "stock.picking.type",
-        "Return To",
-        states={
-            "posted": [("readonly", True)],
-            "done": [("readonly", True)],
-            "cancel": [("readonly", True)],
-        },
-        required=True,
-        default=_default_picking_type,
-        domain="['|', ('warehouse_id', '=', False), ('warehouse_id.company_id', '=', company_id)]",
+        "stock.picking.type", compute="_compute_return_picking_type"
     )
+
+    # return_shipping_id 退货地址
+    # exchange_shipping_id 发货地址
+    # 添加help
+    return_shipping_id = fields.Many2one(
+        "res.partner",
+        string="Return Address",
+        required=True,
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+        help="接收退货商品的地址",
+    )
+
+    #    exchange_shipping_id = fields.Many2one(
+    #        'res.partner',
+    #        string='Exchange Address',
+    #        required=True,
+    #        readonly=True,
+    #        states={
+    #            'draft': [('readonly', False)]
+    #        },
+    #        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+    #        help='发出换货产品的地址'
+    #    )
 
     @api.depends(
         "return_line_ids.move_id.picking_id",
@@ -138,6 +137,39 @@ class Rma(models.Model):
 
             order.return_picking_ids = pickings
             order.picking_count = len(pickings)
+
+    @api.model
+    def _get_incoming_picking_type(self):
+        picking_type = self.env["stock.picking.type"].search(
+            [
+                ("code", "=", "incoming"),
+                ("warehouse_id.company_id", "=", company_id.id),
+            ],
+            limit=1,
+        )
+        return picking_type
+
+    @api.model
+    def _get_dropship_return_picking_type(self):
+        picking_type = self.env["stock.picking.type"].search(
+            [("sequence_code", "=", "DSR"), ("company_id", "=", self.env.company.id)],
+            limit=1,
+        )
+        return picking_type
+
+    @api.depends("return_shipping_id")
+    def _compute_return_picking_type(self):
+        for rma in self:
+            if not rma.return_shipping_id:
+                continue
+
+            if (
+                self.env.company_id.partner_id
+                and self.env.company_id.partner_id == rma.return_shipping_id
+            ):
+                self.return_picking_type = self._get_incoming_picking_type()
+            else:
+                self.return_picking_type = self._get_dropship_return_picking_type()
 
     @api.model
     def default_get(self, default_fields):
@@ -180,7 +212,10 @@ class Rma(models.Model):
         return rec
 
     def post(self):
-        ...
+        self._create_picking()
+
+        # Todo: 根据rma生成新的销售订单
+        self.write({"state": "posted"})
 
     def action_cancel(self):
         ...
@@ -205,7 +240,7 @@ class Rma(models.Model):
             "user_id": False,
             "date": self.create_date,
             "origin": self.name,
-            "location_dest_id": self.return_picking_type_id.id,
+            "location_dest_id": self.return_picking_type_id.default_location_dest_id.id,
             "company_id": self.company_id.id,
         }
 
@@ -356,7 +391,7 @@ class RmaReturnLine(models.Model):
             "product_id": self.product_id.id,
             "date": self.rma_id.create_date,
             "date_expected": False,
-            "location_id": ...,
+            "location_id": self.env.ref("stock.stock_location_customers").id,
             "location_dest_id": self.return_picking_type_id.default_location_dest_id.id,
             "picking_id": picking.id,
             "partner_id": self.rma_id.partner_id.id,
@@ -368,7 +403,7 @@ class RmaReturnLine(models.Model):
             "picking_type_id": self.rma_id.return_picking_type_id.id,
             "group_id": False,
             "origin": self.rma_id.name,
-            "route_ids": ...,
+            # "route_ids": [],
             "warehouse_id": self.rma_id.return_picking_type_id.warehouse_id.id,
         }
 
@@ -449,14 +484,14 @@ class RmaExchangeLine(models.Model):
     )
 
     company_id = fields.Many2one(related="rma_id.company_id")
-    move_ids = fields.One2many(
-        "stock.move",
-        "sale_exchange_line_id",
-        string="Reservation",
-        readonly=True,
-        ondelete="set null",
-        copy=False,
-    )
+    #    move_ids = fields.One2many(
+    #        "stock.move",
+    #        "sale_exchange_line_id",
+    #        string="Reservation",
+    #        readonly=True,
+    #        ondelete="set null",
+    #        copy=False,
+    #    )
 
     def _compute_tax_id(self):
         for line in self:

@@ -64,6 +64,9 @@ class SaleOrder(models.Model):
     payment_register_lines = fields.One2many(
         "sale.payment.register.line", "sale_order_id", readonly=True, copy=False
     )
+    parent_id = fields.Many2one(
+        "sale.order", ondelete="cascade", help="退换货订单，用此字段关联原订单"
+    )
 
     # @api.depends("invoice_ids.state")
     # def _compute_invoice_state(self):
