@@ -215,7 +215,12 @@ class Rma(models.Model):
         self._create_picking()
 
         # Todo: 根据rma生成新的销售订单
-        self.write({"state": "posted"})
+        self.write(
+            {
+                "state": "posted",
+                "name": self.env["ir.sequence"].next_by_code("qm.sale.rma"),
+            }
+        )
 
     def action_cancel(self):
         ...
