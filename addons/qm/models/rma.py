@@ -398,7 +398,7 @@ class RmaReturnLine(models.Model):
             "name": (self.rma_id.name or "")[:2000],
             "product_id": self.product_id.id,
             "date": self.rma_id.create_date,
-            "date_expected": False,
+            "date_expected": self.rma_id.sale_order_id.expected_date,
             "location_id": self.env.ref("stock.stock_location_customers").id,
             "location_dest_id": self.rma_id.return_picking_type_id.default_location_dest_id.id,
             "picking_id": picking.id,
