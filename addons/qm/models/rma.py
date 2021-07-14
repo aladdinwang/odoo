@@ -356,8 +356,8 @@ class RmaReturnLine(models.Model):
         line = self[0]
         rma = line.rma_id
         price_unit = line.price_unit
-        if line.taxes_id:
-            price_unit = line.taxes_id.with_context(round=False).compute_all(
+        if line.tax_id:
+            price_unit = line.tax_id.with_context(round=False).compute_all(
                 price_unit,
                 currency=line.rma_id.currency_id,
                 quantity=1.0,
