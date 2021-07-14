@@ -245,6 +245,7 @@ class Rma(models.Model):
             "user_id": False,
             "date": self.create_date,
             "origin": self.name,
+            "location_id": self.env.ref("stock.stock_location_customers").id,
             "location_dest_id": self.return_picking_type_id.default_location_dest_id.id,
             "company_id": self.company_id.id,
         }
