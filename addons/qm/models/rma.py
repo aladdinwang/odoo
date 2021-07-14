@@ -402,7 +402,7 @@ class RmaReturnLine(models.Model):
             "location_dest_id": self.rma_id.return_picking_type_id.default_location_dest_id.id,
             "picking_id": picking.id,
             "partner_id": self.rma_id.partner_id.id,
-            "move_dest_ids": [(4, x) for x in self.move_dest_ids.ids],
+            # "move_dest_ids": [(4, x) for x in self.move_dest_ids.ids],
             "state": "draft",
             "rma_return_line_id": self.id,
             "company_id": self.rma_id.company_id.id,
