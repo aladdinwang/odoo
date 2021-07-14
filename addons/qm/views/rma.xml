@@ -41,6 +41,7 @@
                                 <field name="type"/>
                             </group>
                             <group>
+                                <field name="company_id" invisible="1"/>
                                 <field name="create_date"/>
                                 <field name="create_uid"/>
                                 <field name="return_shipping_id"/>
