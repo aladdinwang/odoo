@@ -167,9 +167,9 @@ class Rma(models.Model):
                 self.env.company.partner_id
                 and self.env.company.partner_id == rma.return_shipping_id
             ):
-                self.return_picking_type = self._get_incoming_picking_type()
+                self.return_picking_type_id = self._get_incoming_picking_type()
             else:
-                self.return_picking_type = self._get_dropship_return_picking_type()
+                self.return_picking_type_id = self._get_dropship_return_picking_type()
 
     @api.model
     def default_get(self, default_fields):
