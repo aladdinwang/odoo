@@ -10,9 +10,9 @@ class StockPickingType(models.Model):
 class StockMove(models.Model):
     _inherit = "stock.move"
 
-    sale_rma_return_line_id = fields.Many2one(
+    sale_return_line_id = fields.Many2one(
         "sale.rma.return_line",
-        "Sale RMA Return Line",
+        "Sale Return Line",
         ondelete="set null",
         index=True,
         readonly=True,
