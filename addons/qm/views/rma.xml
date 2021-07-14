@@ -23,6 +23,8 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
+
+                        <button name="post" class="oe_highlight" states="draft" string="Confirm" type="object"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
