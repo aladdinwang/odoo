@@ -164,8 +164,8 @@ class Rma(models.Model):
                 continue
 
             if (
-                self.env.company_id.partner_id
-                and self.env.company_id.partner_id == rma.return_shipping_id
+                self.env.company.partner_id
+                and self.env.company.partner_id == rma.return_shipping_id
             ):
                 self.return_picking_type = self._get_incoming_picking_type()
             else:
