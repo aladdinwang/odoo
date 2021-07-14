@@ -405,7 +405,7 @@ class RmaReturnLine(models.Model):
             "partner_id": self.rma_id.partner_id.id,
             # "move_dest_ids": [(4, x) for x in self.move_dest_ids.ids],
             "state": "draft",
-            "rma_return_line_id": self.id,
+            "sale_return_line_id": self.id,
             "company_id": self.rma_id.company_id.id,
             "price_unit": price_unit,
             "picking_type_id": self.rma_id.return_picking_type_id.id,
