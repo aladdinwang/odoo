@@ -122,7 +122,7 @@ class Rma(models.Model):
     #    )
 
     @api.depends(
-        "return_line_ids.move_id.picking_id",
+        "return_line_ids.move_ids.picking_id",
         "return_line_ids.move_ids.state",
         "return_line_ids.move_ids.returned_move_ids",
     )
