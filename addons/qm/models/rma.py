@@ -143,7 +143,7 @@ class Rma(models.Model):
         picking_type = self.env["stock.picking.type"].search(
             [
                 ("code", "=", "incoming"),
-                ("warehouse_id.company_id", "=", company_id.id),
+                ("warehouse_id.company_id", "=", self.env.company.id),
             ],
             limit=1,
         )
