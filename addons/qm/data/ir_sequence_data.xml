@@ -60,6 +60,7 @@
             <field name="code">qm.sale.rma</field>
             <field name="prefix">RMA</field>
             <field name="padding">8</field>
+            <field name="company_id" eval="False"/>
         </record>
 
 

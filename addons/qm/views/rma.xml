@@ -28,6 +28,13 @@
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_return_pickings" type="object"
+                                class="oe_stat_button" icon="fa-trunk"
+                                attrs="{'invisible': [('return_picking_count', '=', 0)]}" groups="base.group_user">
+                                <field name="return_picking_count" widget="statinfo" string="Incoming Shipments"/>
+                            </button>
+                        </div>
                         <div class="oe_title">
                             <h1>
                                 <field name="name" readonly="1"/>

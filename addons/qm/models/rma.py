@@ -283,6 +283,30 @@ class Rma(models.Model):
                 )
         return True
 
+    def action_view_return_pickings(self):
+        action = self.env.ref("stock.action_picking_tree_all")
+        result = action.read()[0]
+
+        result["context"] = {
+            "default_partner_id": self.partner_id.id,
+            "default_origin": self.name,
+            "default_picking_type_id": self.return_picking_type_id.id,
+        }
+        picking_ids = self.mapped("return_picking_ids")
+        if not picking_ids or len(picking_ids) > 1:
+            result["domain"] = "[('id','in',%s)]" % (picking_ids.ids)
+        elif len(picking_ids) == 1:
+            res = self.env.ref("stock.view_picking_form", False)
+            form_view = [(res and res.id or False, "form")]
+            if "views" in result:
+                result["views"] = form_view + [
+                    (state, view) for state, view in result["views"] if view != "form"
+                ]
+            else:
+                result["views"] = form_view
+            result["res_id"] = picking_ids.id
+        return result
+
 
 class RmaReturnLine(models.Model):
     _name = "sale.rma.return_line"
