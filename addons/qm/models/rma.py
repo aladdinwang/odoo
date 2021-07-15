@@ -213,14 +213,12 @@ class Rma(models.Model):
         return rec
 
     def post(self):
-        self.write(
-            {
-                "state": "posted",
-                "name": self.env["ir.sequence"].next_by_code("qm.sale.rma"),
-            }
-        )
+        for rma in self:
+            if not rma.name:
+                rma.name = self.env["ir.sequence"].next_by_code("qm.sale.rma")
 
         self._create_picking()
+        self.write({"state": "posted"})
 
         # Todo: 根据rma生成新的销售订单
 
