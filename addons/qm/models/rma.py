@@ -214,7 +214,7 @@ class Rma(models.Model):
 
     def post(self):
         for rma in self:
-            if not rma.name:
+            if not rma.name or rma.name == _("NEW"):
                 rma.name = self.env["ir.sequence"].next_by_code("qm.sale.rma")
 
         self._create_picking()
