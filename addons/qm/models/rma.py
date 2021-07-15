@@ -432,7 +432,6 @@ class RmaReturnLine(models.Model):
         for line in self:
             for val in line._prepare_stock_moves(picking):
                 values.append(val)
-            values.append(val)
         return self.env["stock.move"].create(values)
 
 
