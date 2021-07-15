@@ -137,7 +137,7 @@ class Rma(models.Model):
                 pickings |= moves.mapped("picking_id")
 
             rma.return_picking_ids = pickings
-            rma.picking_count = len(pickings)
+            rma.return_picking_count = len(pickings)
 
     @api.model
     def _get_incoming_picking_type(self):
