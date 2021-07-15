@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-05 10:12+0000\n"
-"PO-Revision-Date: 2021-07-05 10:12+0000\n"
+"POT-Creation-Date: 2021-07-15 04:04+0000\n"
+"PO-Revision-Date: 2021-07-15 04:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -316,6 +316,9 @@ msgstr "公司"
 #: model:ir.model.fields,field_description:qm.field_payment_register__company_id
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__company_id
 #: model:ir.model.fields,field_description:qm.field_sale_payment_register__company_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma__company_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__company_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__company_id
 msgid "Company"
 msgstr "公司"
 
@@ -333,6 +336,7 @@ msgid "Complete Code"
 msgstr "完整编号"
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.sale_rma_form
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_form
 msgid "Confirm"
@@ -399,6 +403,17 @@ msgstr "申请采购"
 #, python-format
 msgid "Create Purchase Payment Register"
 msgstr "创建请款单"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_order_form_qm
+msgid "Create RMA"
+msgstr "退换货"
+
+#. module: qm
+#: code:addons/qm/models/sale.py:0
+#, python-format
+msgid "Create Sale RMA"
+msgstr "退换货"
 
 #. module: qm
 #: code:addons/qm/models/account_move.py:0
@@ -598,6 +613,11 @@ msgstr "草稿"
 #, python-format
 msgid "Draft Payment Register"
 msgstr "新建"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__stock_picking_type__code__dropship
+msgid "DropShip"
+msgstr "代发货"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__procurement_group__move_type__dropship
@@ -1022,6 +1042,12 @@ msgid "Missing partner"
 msgstr "某行需求池缺少供应商, 请至对应产品详情页配置供应商以及采购价"
 
 #. module: qm
+#: code:addons/qm/models/rma.py:0
+#, python-format
+msgid "NEW"
+msgstr "新建"
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_payment_register__name
 #: model:ir.model.fields,field_description:qm.field_purchase_payment_register__name
 #: model:ir.model.fields,field_description:qm.field_purchase_request__name
@@ -1243,6 +1269,11 @@ msgid "Paid"
 msgstr "已支付"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_order__parent_id
+msgid "Parent"
+msgstr "原订单"
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__partner_id
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__partner_id
 #: model:ir.model.fields,field_description:qm.field_payment_register__partner_id
@@ -1323,6 +1354,11 @@ msgstr "待申请"
 #: model:ir.model.fields.selection,name:qm.selection__res_partner__customer_type__person
 msgid "Person"
 msgstr "个体户"
+
+#. module: qm
+#: model:ir.model,name:qm.model_stock_picking_type
+msgid "Picking Type"
+msgstr "分拣类型"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__res_partner__customer_type__platform
@@ -1622,6 +1658,11 @@ msgid "Rejected"
 msgstr "已驳回"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__move_ids
+msgid "Reservation"
+msgstr ""
+
+#. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
@@ -1651,6 +1692,11 @@ msgid "Return"
 msgstr "已退回"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__return_shipping_id
+msgid "Return Address"
+msgstr "退货地址"
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_rma__return_amount
 msgid "Return Amount"
 msgstr "退货金额"
@@ -1674,6 +1720,21 @@ msgstr "退货明细"
 #: model_terms:ir.ui.view,arch_db:qm.sale_rma_form
 msgid "Return Lines"
 msgstr "退货明细"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__return_picking_count
+msgid "Return Picking Count"
+msgstr ""
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__return_picking_type_id
+msgid "Return Picking Type"
+msgstr ""
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__return_picking_ids
+msgid "Return Pickings"
+msgstr ""
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__return_by
@@ -1781,6 +1842,11 @@ msgstr "开票申请"
 #: model:ir.model.fields,field_description:qm.field_account_payment__sale_register_id
 msgid "Sale Register"
 msgstr "到款单"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_stock_move__sale_return_line_id
+msgid "Sale Return Line"
+msgstr ""
 
 #. module: qm
 #: model:ir.actions.act_window,name:qm.sale_rma_action
@@ -1947,6 +2013,11 @@ msgstr ""
 " 计划：未来活动。"
 
 #. module: qm
+#: model:ir.model,name:qm.model_stock_move
+msgid "Stock Move"
+msgstr "库存转移"
+
+#. module: qm
 #: model:ir.model,name:qm.model_stock_rule
 msgid "Stock Rule"
 msgstr "库存规则"
@@ -2021,7 +2092,9 @@ msgstr "税率"
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__amount_tax
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__taxes_id
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__amount_tax
+#: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__price_tax
 #: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__tax_id
+#: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__price_tax
 #: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__tax_id
 msgid "Taxes"
 msgstr "税"
@@ -2073,6 +2146,11 @@ msgstr "数量总计"
 #: model:ir.model.fields,field_description:qm.field_sale_rma__type
 msgid "Type"
 msgstr "类型"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_stock_picking_type__code
+msgid "Type of Operation"
+msgstr "作业类型"
 
 #. module: qm
 #: model:ir.model.fields,help:qm.field_account_purchase_invoice__activity_exception_decoration
@@ -2259,6 +2337,12 @@ msgid ""
 msgstr ""
 
 #. module: qm
+#: code:addons/qm/models/rma.py:0
+#, python-format
+msgid "You must set a Vendor Location for this partner %s"
+msgstr "你必须为此合作伙伴设置一个供应商的位置%s"
+
+#. module: qm
 #: model:ir.model,name:qm.model_payment_register
 msgid "payment.register"
 msgstr ""
@@ -2311,6 +2395,11 @@ msgstr ""
 #: model:account.account,name:qm.5_account_1124
 #: model:account.account.template,name:qm.account_1124
 msgid "应收账款 (PoS)"
+msgstr ""
+
+#. module: qm
+#: model:ir.model.fields,help:qm.field_sale_rma__return_shipping_id
+msgid "接收退货商品的地址"
 msgstr ""
 
 #. module: qm
@@ -2367,6 +2456,11 @@ msgstr ""
 #: model:account.tax.template,name:qm.l10n_cn_latest_purchase_excluded_6
 #: model:account.tax.template,name:qm.l10n_cn_latest_sales_excluded_6
 msgid "税收6％ - 中国会计科目表-企业会计准则"
+msgstr ""
+
+#. module: qm
+#: model:ir.model.fields,help:qm.field_sale_order__parent_id
+msgid "退换货订单，用此字段关联原订单"
 msgstr ""
 
 #. module: qm
