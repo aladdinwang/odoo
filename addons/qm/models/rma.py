@@ -278,7 +278,7 @@ class Rma(models.Model):
                 moves._action_assign()
                 picking.message_post_with_view(
                     "mail.message_origin_link",
-                    values={"self": picking, "origin": rma.name},
+                    values={"self": picking, "origin": rma},
                     subtype_id=self.env.ref("mail.mt_note").id,
                 )
         return True
