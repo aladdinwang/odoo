@@ -27,6 +27,7 @@
                         <button name="post" class="oe_highlight" states="draft" string="Confirm" type="object"/>
                         <button name="button_approve" class="oe_highlight" states="posted" string="Approve" type="object"/>
                         <button name="button_cancel" states="posted,approved" string="Cancel" type="object"/>
+                        <button name="button_draft" states="posted" string="Reset to Draft" type="object"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
