@@ -43,6 +43,8 @@ class Rma(models.Model):
     sale_order_id = fields.Many2one(
         "sale.order", string="Sale Order", index=True, required=True, readonly=True
     )
+
+    rma_order_id = fields.Many2one()
     partner_id = fields.Many2one(
         "res.partner", related="sale_order_id.partner_id", index=True, store=True
     )
@@ -295,6 +297,49 @@ class Rma(models.Model):
                     subtype_id=self.env.ref("mail.mt_note").id,
                 )
         return True
+
+    @api.model
+    def _prepare_sale_order(self):
+        order = {
+            'partner_id': self.sale_order_id.partner_id.id,
+            'partner_invoice_id': self.sale_order.partner_invoice_id.id,
+            'partner_shipping_id': self.sale_order.partner_shipping_id.id,
+            'pricelist_id': self.sale_order.pricelist_id
+        }
+        lines = []
+        # 添加desc
+        for return_line in self.return_line_ids:
+            lines.append((0, 0, {
+                'name': return_line.product_id.name,
+                'product_id': return_line.product_id.id,
+                'product_uom_qty': -return_line.product_qty,
+                'product_uom': return_line.product_uom.id,
+                'price_unit': return_line.price_unit,
+                'tax_id': [(6, 0, return_line.tax_id.ids)]
+            }))
+
+        for exchange_line in self.exchange_line_ids:
+            lines.append((0, 0, {
+                'name': exchange_line.product_id.name,
+                'product_id': exchange_line.product_id.id,
+                'product_uom_qty': exchange_line.product_qty,
+                'product_uom': exchange_line.product_uom,
+                'price_unit': exchange_line.price_unit,
+                'tax_id': [(6, 0, exchange_line.tax_id.ids)]
+            }))
+        order['order_line'] = lines
+        return order
+
+
+
+
+    def _create_sale_order(self):
+        for rma in self:
+            res = self._prepare_sale_order()
+            # 先搜索下是否已经存在销售订单
+            sale_order = self.env['sale.order'].create(res)
+
+
 
     def action_view_return_pickings(self):
         action = self.env.ref("stock.action_picking_tree_all")
