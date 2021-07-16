@@ -60,7 +60,7 @@ class Rma(models.Model):
         [
             ("draft", "Draft"),
             ("posted", "Posted"),
-            ("done", "Done"),
+            ("approved", "Approved"),
             ("cancel", "Cancel"),
         ],
         string="Status",
@@ -217,19 +217,32 @@ class Rma(models.Model):
             if not rma.name or rma.name == _("NEW"):
                 rma.name = self.env["ir.sequence"].next_by_code("qm.sale.rma")
 
-        self._create_picking()
         self.write({"state": "posted"})
 
         # Todo: 根据rma生成新的销售订单
 
-    def action_cancel(self):
-        ...
+    def button_cancel(self):
+        for rma in self:
+            for move in rma.return_line_ids.mapped("move_ids"):
+                if move.state == "done":
+                    raise UserError("入库单已经完成，无法取消")
 
-    def action_done(self):
-        ...
+            if rma.state not in ("cancel"):
+                for line in rma.return_line_ids:
+                    line.move_ids._action_cancel()
 
-    def action_draft(self):
-        ...
+            for picking in rma.return_picking_ids.filtered(
+                lambda r: r.state != "cancel"
+            ):
+                picking.action_cancel()
+        self.write({"state": "cancel"})
+
+    def button_approve(self):
+        self._create_picking()
+        self.write({"state": "approved"})
+
+    def button_draft(self):
+        self.filtered(lambda r: r.state == "posted").write({"state": "draft"})
 
     @api.model
     def _prepare_return_picking(self):
