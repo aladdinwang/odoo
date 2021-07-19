@@ -304,4 +304,4 @@ class SaleOrderLine(models.Model):
                 continue
             move["line_ids"].append((0, 0, line._prepare_receipt_line()))
 
-    return move
+        return move
