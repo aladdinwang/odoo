@@ -406,7 +406,7 @@ class Rma(models.Model):
     def action_view_rma_orders(self):
         action = self.env.ref("sale.action_orders").read()[0]
         action["context"] = {
-            "search_default_partner_id": self.parnter_id.id,
+            "search_default_partner_id": self.partner_id.id,
             "default_partner_id": self.partner_id.id,
         }
         rma_orders = self.mapped("rma_order_ids")
