@@ -46,7 +46,7 @@ class Rma(models.Model):
 
     rma_order_ids = fields.One2many("sale.order", "rma_id")
     rma_order_count = fields.Integer(
-        compute="_compute_rma_count", copy=False, store=True
+        compute="_compute_rma_order_count", copy=False, store=True
     )
     partner_id = fields.Many2one(
         "res.partner", related="sale_order_id.partner_id", index=True, store=True
