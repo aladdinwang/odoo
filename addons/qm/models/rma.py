@@ -403,7 +403,7 @@ class Rma(models.Model):
             result["res_id"] = picking_ids.id
         return result
 
-    def action_view_rma_order(self):
+    def action_view_rma_orders(self):
         action = self.env.ref("sale.action_orders").read()[0]
         action["context"] = {
             "search_default_partner_id": self.parnter_id.id,
