@@ -1779,7 +1779,7 @@ msgstr "退换货"
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_rma__rma_order_count
 msgid "Rma Order Count"
-msgstr ""
+msgstr "退换货"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_product_product__route_ids
