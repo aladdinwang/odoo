@@ -44,7 +44,10 @@ class Rma(models.Model):
         "sale.order", string="Sale Order", index=True, required=True, readonly=True
     )
 
-    rma_order_id = fields.Many2one()
+    rma_order_ids = fields.One2many("sale.order", "rma_id")
+    rma_order_count = fields.Integer(
+        compute="_compute_rma_count", copy=False, store=True
+    )
     partner_id = fields.Many2one(
         "res.partner", related="sale_order_id.partner_id", index=True, store=True
     )
@@ -140,6 +143,12 @@ class Rma(models.Model):
 
             rma.return_picking_ids = pickings
             rma.return_picking_count = len(pickings)
+
+    @api.depends("rma_order_ids", "rma_order_ids.state")
+    def _compute_rma_order_count(self):
+        for rma in self:
+            rma_orders = rma.rma_order_ids.filtered(lambda x: x.state != "cancel")
+            rma.rma_order_count = len(rma_orders)
 
     @api.model
     def _get_incoming_picking_type(self):
@@ -241,6 +250,7 @@ class Rma(models.Model):
 
     def button_approve(self):
         self._create_picking()
+        self._create_sale_order()
         self.write({"state": "approved"})
 
     def button_draft(self):
@@ -301,45 +311,73 @@ class Rma(models.Model):
     @api.model
     def _prepare_sale_order(self):
         order = {
-            'partner_id': self.sale_order_id.partner_id.id,
-            'partner_invoice_id': self.sale_order.partner_invoice_id.id,
-            'partner_shipping_id': self.sale_order.partner_shipping_id.id,
-            'pricelist_id': self.sale_order.pricelist_id
+            "partner_id": self.sale_order_id.partner_id.id,
+            "partner_invoice_id": self.sale_order.partner_invoice_id.id,
+            "partner_shipping_id": self.sale_order.partner_shipping_id.id,
+            "pricelist_id": self.sale_order.pricelist_id,
+            "parent_id": self.sale_order.id,
+            "rma_id": self.id,
         }
         lines = []
         # 添加desc
         for return_line in self.return_line_ids:
-            lines.append((0, 0, {
-                'name': return_line.product_id.name,
-                'product_id': return_line.product_id.id,
-                'product_uom_qty': -return_line.product_qty,
-                'product_uom': return_line.product_uom.id,
-                'price_unit': return_line.price_unit,
-                'tax_id': [(6, 0, return_line.tax_id.ids)]
-            }))
+            lines.append(
+                (
+                    0,
+                    0,
+                    {
+                        "name": return_line.product_id.name,
+                        "product_id": return_line.product_id.id,
+                        "product_uom_qty": -return_line.product_qty,
+                        "product_uom": return_line.product_uom.id,
+                        "price_unit": return_line.price_unit,
+                        "tax_id": [(6, 0, return_line.tax_id.ids)],
+                    },
+                )
+            )
 
         for exchange_line in self.exchange_line_ids:
-            lines.append((0, 0, {
-                'name': exchange_line.product_id.name,
-                'product_id': exchange_line.product_id.id,
-                'product_uom_qty': exchange_line.product_qty,
-                'product_uom': exchange_line.product_uom,
-                'price_unit': exchange_line.price_unit,
-                'tax_id': [(6, 0, exchange_line.tax_id.ids)]
-            }))
-        order['order_line'] = lines
+            lines.append(
+                (
+                    0,
+                    0,
+                    {
+                        "name": exchange_line.product_id.name,
+                        "product_id": exchange_line.product_id.id,
+                        "product_uom_qty": exchange_line.product_qty,
+                        "product_uom": exchange_line.product_uom,
+                        "price_unit": exchange_line.price_unit,
+                        "tax_id": [(6, 0, exchange_line.tax_id.ids)],
+                    },
+                )
+            )
+        order["order_line"] = lines
         return order
-
-
-
 
     def _create_sale_order(self):
         for rma in self:
+            if not (
+                any(
+                    ptype in ["product", "consu"]
+                    for ptype in rma.exchange_line_ids.mapped("product_id.type")
+                )
+                or any(
+                    ptype in ["product", "consu"]
+                    for ptype in rma.return_line_ids.mapped("product_id.type")
+                )
+            ):
+                continue
+
+            sale_orders = rma.rma_order_ids.filtered(
+                lambda x: x.state not in ("cancel",)
+            )
+            if sale_orders:
+                raise UserError("存在未取消的销售订单，请取消之后重新审核")
+
             res = self._prepare_sale_order()
             # 先搜索下是否已经存在销售订单
-            sale_order = self.env['sale.order'].create(res)
-
-
+            sale_order = self.env["sale.order"].create(res)
+        return True
 
     def action_view_return_pickings(self):
         action = self.env.ref("stock.action_picking_tree_all")
@@ -364,6 +402,21 @@ class Rma(models.Model):
                 result["views"] = form_view
             result["res_id"] = picking_ids.id
         return result
+
+    def action_view_rma_order(self):
+        action = self.env.ref("sale.action_orders").read()[0]
+        action["context"] = {
+            "search_default_partner_id": self.parnter_id.id,
+            "default_partner_id": self.partner_id.id,
+        }
+        rma_orders = self.mapped("rma_order_ids")
+        if not rma_orders or len(rma_orders) > 1:
+            action["domain"] = "[('id','in',%s)]" % (rma_orders.ids)
+        elif len(rma_orders) == 1:
+            action["views"] = [(self.env.ref("sale.view_order_form").id, "form")]
+            action["res_id"] = rma_orders.id
+
+        return action
 
 
 class RmaReturnLine(models.Model):

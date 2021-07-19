@@ -67,6 +67,7 @@ class SaleOrder(models.Model):
     parent_id = fields.Many2one(
         "sale.order", ondelete="cascade", help="退换货订单，用此字段关联原订单"
     )
+    rma_id = fields.Many2one("sale.rma", ondelete="cascade", help="退换货申请", index=True)
 
     # @api.depends("invoice_ids.state")
     # def _compute_invoice_state(self):

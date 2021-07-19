@@ -37,6 +37,11 @@
                                 attrs="{'invisible': [('return_picking_count', '=', 0)]}" groups="base.group_user">
                                 <field name="return_picking_count" widget="statinfo" string="Incoming Shipments"/>
                             </button>
+                            <button name="action_view_rma_orders" type="object"
+                                class="oe_stat_button" icon="fa-shopping-cart"
+                                attrs="{'invisible': [('rma_order_count', '=', 0)]}" groups="base.group_user">
+                                <field name="rma_order_count" widget="statinfo" groups="base.group_user"/>
+                            </button>
                         </div>
                         <div class="oe_title">
                             <h1>
