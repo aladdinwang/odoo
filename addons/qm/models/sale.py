@@ -225,6 +225,17 @@ class SaleOrderLine(models.Model):
             else:
                 line.qty_to_receipt = 0
 
+    @api.depends("order_id")
+    def _compute_parent_id(self):
+        ...
+
+    parent_id = fields.Many2one(
+        "sale.order",
+        compute="_compute_parent_id",
+        string="Original Sale Order",
+        store=True,
+    )
+
     # 已开票数量
     qty_receipt = fields.Float(
         compute="_get_receipt_qty",
