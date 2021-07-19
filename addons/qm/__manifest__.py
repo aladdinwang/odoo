@@ -42,6 +42,7 @@
         "views/account_payment_views.xml",
         "views/product_attribute_views.xml",
         "views/rma.xml",
+        "views/stock_views.xml"
     ],
     "demo": [],
     "installable": True,
