@@ -312,10 +312,10 @@ class Rma(models.Model):
     def _prepare_sale_order(self):
         order = {
             "partner_id": self.sale_order_id.partner_id.id,
-            "partner_invoice_id": self.sale_order.partner_invoice_id.id,
-            "partner_shipping_id": self.sale_order.partner_shipping_id.id,
-            "pricelist_id": self.sale_order.pricelist_id,
-            "parent_id": self.sale_order.id,
+            "partner_invoice_id": self.sale_order_id.partner_invoice_id.id,
+            "partner_shipping_id": self.sale_order_id.partner_shipping_id.id,
+            "pricelist_id": self.sale_order_id.pricelist_id,
+            "parent_id": self.sale_order_id.id,
             "rma_id": self.id,
         }
         lines = []
