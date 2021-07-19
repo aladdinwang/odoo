@@ -26,3 +26,9 @@ class StockMove(models.Model):
 #        index=True,
 #        readonly=True,
 #    )
+
+
+class Picking(models.Model):
+    _inherit = "stock.picking"
+
+    express_code = fields.Char(string="Express Reference", index=True)
