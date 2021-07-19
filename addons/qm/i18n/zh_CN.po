@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-16 08:07+0000\n"
-"PO-Revision-Date: 2021-07-16 08:07+0000\n"
+"POT-Creation-Date: 2021-07-19 06:50+0000\n"
+"PO-Revision-Date: 2021-07-19 06:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1250,6 +1250,11 @@ msgid "Orders to Receipt"
 msgstr "待开票明细"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_order_line__parent_id
+msgid "Original Sale Order"
+msgstr "原始订单"
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__purchase_line_id
 msgid "Original purchase order line"
 msgstr ""
@@ -1760,10 +1765,21 @@ msgid "Return date"
 msgstr "退回日期"
 
 #. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_order__rma_id
 #: model:ir.model.fields,field_description:qm.field_sale_rma_exchange_line__rma_id
 #: model:ir.model.fields,field_description:qm.field_sale_rma_return_line__rma_id
 msgid "Rma"
 msgstr "退换货"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__rma_order_ids
+msgid "Rma Order"
+msgstr "退换货"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_sale_rma__rma_order_count
+msgid "Rma Order Count"
+msgstr ""
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_product_product__route_ids
@@ -2468,6 +2484,11 @@ msgstr ""
 #: model:account.tax.template,name:qm.l10n_cn_latest_purchase_excluded_6
 #: model:account.tax.template,name:qm.l10n_cn_latest_sales_excluded_6
 msgid "税收6％ - 中国会计科目表-企业会计准则"
+msgstr ""
+
+#. module: qm
+#: model:ir.model.fields,help:qm.field_sale_order__rma_id
+msgid "退换货申请"
 msgstr ""
 
 #. module: qm
