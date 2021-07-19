@@ -345,7 +345,7 @@ class Rma(models.Model):
                         "name": exchange_line.product_id.name,
                         "product_id": exchange_line.product_id.id,
                         "product_uom_qty": exchange_line.product_qty,
-                        "product_uom": exchange_line.product_uom,
+                        "product_uom": exchange_line.product_uom.id,
                         "price_unit": exchange_line.price_unit,
                         "tax_id": [(6, 0, exchange_line.tax_id.ids)],
                     },
