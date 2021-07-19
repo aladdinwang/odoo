@@ -227,7 +227,12 @@ class SaleOrderLine(models.Model):
 
     @api.depends("order_id")
     def _compute_parent_id(self):
-        ...
+        for line in self:
+            parent_id = line.order_id
+            while parent_id and parent_id.parent_id:
+                parent_id = parent_id.parent_id
+            line.parent_id = parent_id
+        return True
 
     parent_id = fields.Many2one(
         "sale.order",
@@ -298,4 +303,5 @@ class SaleOrderLine(models.Model):
             if float_is_zero(line.qty_to_receipt, precision_digits=precision):
                 continue
             move["line_ids"].append((0, 0, line._prepare_receipt_line()))
-        return move
+
+    return move
