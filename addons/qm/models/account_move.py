@@ -1,4 +1,5 @@
 from odoo import fields, models, api, _
+from odoo.tools import float_compare
 
 
 # Todo: 最后整理的时候，去掉冗余
@@ -135,7 +136,8 @@ class AccountMove(models.Model):
             self.env["sale.order.line"]
             .browse(active_ids)
             .filtered(
-                lambda x: x.state not in ("draft", "cancel") and x.qty_to_receipt > 0
+                lambda x: x.state not in ("draft", "cancel")
+                and float_compare(x.qty_to_receipt, 0, precision_rounding=0.01) != 0
             )
         )
 
