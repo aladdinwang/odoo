@@ -177,6 +177,7 @@ class SaleOrder(models.Model):
 
         receipt_vals = {
             "type": "out_receipt",
+            "invoice_origin": self.name,
             "currency_id": self.pricelist_id.currency_id.id,
             "campaign_id": self.campaign_id.id,
             "invoice_user_id": self.env.user.id or self.user_id.id,
