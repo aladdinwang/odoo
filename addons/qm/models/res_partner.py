@@ -22,3 +22,13 @@ class Partner(models.Model):
             ("endpoint", "Endpoint"),
         ],
     )
+
+    @api.model
+    def default_get(self, default_fields):
+        values = super().default_get(default_fields)
+        print(default_fields)
+        if "country_id" in default_fields:
+            values["country_id"] = (
+                self.env["res.country"].search([("code", "=", "CN")], limit=1).id
+            )
+        return values

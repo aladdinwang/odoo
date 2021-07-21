@@ -20,7 +20,7 @@
                 <field name="invoice_partner_display_name" invisible="context.get('default_type') not in ('in_invoice', 'in_refund','in_receipt')" groups="base.group_user" string="Vendor" />
                 <field name="invoice_partner_display_name" invisible="context.get('default_type') not in ('out_invoice', 'out_refund','out_receipt')" groups="base.group_user" string="Customer" />
                 <field name="create_date" optional="show" string="Create Date"/>
-                
+
                 <field name="invoice_origin" optional="show" string="Source Document"/>
                 <field name="invoice_payment_ref" optional="hide" invisible="context.get('default_type') in ('out_invoice', 'out_refund','out_receipt')"/>
                 <field name="ref" optional="hide"/>
@@ -153,7 +153,7 @@
       <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
     </record>
 
-    
+
     <record id="account.menu_action_move_out_invoice_type" model="ir.ui.menu">
       <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
     </record>
@@ -163,6 +163,17 @@
     </record>
 
 
+    <record id="account.action_move_switch_invoice_to_credit_note" model="ir.actions.act_window">
+      <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
+    </record>
+
+    <record id="account.action_validate_account_move" model="ir.actions.act_window">
+      <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
+    </record>
+
+    <record id="account.invoice_send" model="ir.actions.act_window">
+      <field name="groups_id" eval="[(6,0,[ref('qm.group_hidden_menu')])]"/>
+    </record>
     <!-- 应该是隐藏掉 -->
     <!-- <data noupdate="1"> -->
     <!--     <delete model="ir.ui.menu" search="[('id','=',ref('account.menu_action_move_out_invoice_type'))]"/> -->
