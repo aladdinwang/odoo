@@ -147,7 +147,7 @@
             <button name="action_return" string="Return" states="waiting,reconciled,reject" type="object"/>
             <button name="action_reconcile" string="Reconcile" states="waiting" type="object"/>
             <button name="action_reject" string="Reject" states="waiting,return" type="object"/>
-            <field name="state" widget="statusbar" statusbar_visible="draft,waiting,reconciled,reject,return,cancelled"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,posted,waiting,reconciled,reject,return,cancelled"/>
           </header>
           <sheet>
             <div class="oe_title" attrs="{'invisible': [('state', '=', 'draft')]}">
@@ -159,6 +159,7 @@
                 <field name="partner_id"/>
                 <field name="company_id"/>
                 <field name="purchase_order_id"/>
+                <field name="export_times"/>
               </group>
               <group>
                 <field name="journal_id" widget="selection"/>
@@ -270,6 +271,6 @@
     <menuitem
         id="menu_action_purchase_payment_register" action="action_purchase_payment_register"
         parent="account.menu_finance_payables" sequence="2"/>
-    
+
 
 </odoo>
