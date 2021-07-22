@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-19 09:20+0000\n"
-"PO-Revision-Date: 2021-07-19 09:20+0000\n"
+"POT-Creation-Date: 2021-07-22 07:00+0000\n"
+"PO-Revision-Date: 2021-07-22 07:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -288,6 +288,11 @@ msgid "Category"
 msgstr "类别"
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_partner_form_qm
+msgid "City"
+msgstr ""
+
+#. module: qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_order_form_qm
 msgid "Click to review detail"
 msgstr "点击查看详情"
@@ -373,6 +378,11 @@ msgstr "联系人"
 msgid ""
 "Conversion between Units of Measure can only occur if they belong to the "
 "same category. The conversion will be made based on the ratios."
+msgstr ""
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_partner_form_qm
+msgid "Country"
 msgstr ""
 
 #. module: qm
@@ -665,6 +675,16 @@ msgstr "换货差异金额"
 #: model_terms:ir.ui.view,arch_db:qm.sale_rma_form
 msgid "Exchange with"
 msgstr "换货为"
+
+#. module: qm
+#: model:ir.model.fields,field_description:qm.field_purchase_payment_register__export_times
+msgid "Export Times"
+msgstr "导出次数"
+
+#. module: qm
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__waiting
+msgid "Exported"
+msgstr "已导出"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__sent_type__express
@@ -1277,6 +1297,7 @@ msgstr "溢缴金额"
 
 #. module: qm
 #: model:ir.model.fields.selection,name:qm.selection__purchase_order__payment_state__paid
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__reconciled
 #: model:ir.model.fields.selection,name:qm.selection__sale_order__payment_state__paid
 msgid "Paid"
 msgstr "已支付"
@@ -1401,6 +1422,7 @@ msgstr "发布"
 #: model:ir.model.fields.selection,name:qm.selection__account_move__receipt_state__posted
 #: model:ir.model.fields.selection,name:qm.selection__account_purchase_invoice__state__posted
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__posted
+#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__posted
 #: model:ir.model.fields.selection,name:qm.selection__sale_rma__state__posted
 #: model_terms:ir.ui.view,arch_db:qm.view_account_purchase_invoice_filter_qm
 msgid "Posted"
@@ -1591,7 +1613,6 @@ msgid "Reconcile"
 msgstr "财务确认"
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__reconciled
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__reconciled
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
@@ -2009,6 +2030,11 @@ msgid "Special"
 msgstr "专用"
 
 #. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_partner_form_qm
+msgid "State"
+msgstr ""
+
+#. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_move__receipt_state
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice__state
 #: model:ir.model.fields,field_description:qm.field_account_sale_invoice__state
@@ -2050,6 +2076,16 @@ msgstr "库存转移"
 #: model:ir.model,name:qm.model_stock_rule
 msgid "Stock Rule"
 msgstr "库存规则"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_partner_form_qm
+msgid "Street 2..."
+msgstr ""
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_partner_form_qm
+msgid "Street..."
+msgstr ""
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_account_purchase_invoice_line__price_subtotal
@@ -2292,7 +2328,6 @@ msgid "Verify"
 msgstr "认证"
 
 #. module: qm
-#: model:ir.model.fields.selection,name:qm.selection__purchase_payment_register__state__waiting
 #: model:ir.model.fields.selection,name:qm.selection__sale_payment_register__state__waiting
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
 #: model_terms:ir.ui.view,arch_db:qm.view_sale_payment_register_filter
@@ -2375,6 +2410,11 @@ msgstr ""
 #, python-format
 msgid "You must set a Vendor Location for this partner %s"
 msgstr "你必须为此合作伙伴设置一个供应商的位置%s"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_partner_form_qm
+msgid "ZIP"
+msgstr ""
 
 #. module: qm
 #: model:ir.model,name:qm.model_payment_register
