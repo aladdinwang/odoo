@@ -287,7 +287,7 @@ class PurchasePaymentRegister(models.Model):
         [
             ("draft", "Draft"),  # 草稿
             ("posted", "Posted"),
-            ("waiting", "Waiting"),  # 待财务付款,已导出
+            ("waiting", "Exported"),  # 待财务付款,已导出
             ("reconciled", "Reconciled"),  # 已付款
             ("reject", "Reject"),  # 已驳回
             ("return", "return"),  # 已退票
