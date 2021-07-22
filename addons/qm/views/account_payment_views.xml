@@ -256,6 +256,24 @@
       </field>
     </record>
 
+    <record id="model_purchase_payment_register_download_xlsx" model="ir.actions.server">
+        <field name="name">Download Xlsx</field>
+        <field name="model_id" ref="qm.model_purchase_payment_register"/>
+        <field name="binding_model_id" ref="qm.model_purchase_payment_register"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_download_xlsx()</field>
+    </record>
+
+
+    <record id="model_purchase_payment_register_reconcile" model="ir.actions.server">
+        <field name="name">Mark Paid</field>
+        <field name="model_id" ref="qm.model_purchase_payment_register"/>
+        <field name="binding_model_id" ref="qm.model_purchase_payment_register"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_reconcile()</field>
+    </record>
 
     <menuitem id="menu_action_sale_payment_register" action="action_sale_payment_register"
               parent="sale.menu_sale_invoicing"

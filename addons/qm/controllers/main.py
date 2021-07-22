@@ -37,6 +37,12 @@ class ExcelExport(http.Controller):
     @http.route("/qm/export/xlsx", type="http", auth="user")
     @serialize_exception
     def index(self, model, ids):
+        if model == "account.move":
+            return self._download_account_moves(model, ids)
+        elif model == "purchase.payment.register":
+            return self._download_purchase_payment_register(model, ids)
+
+    def _download_account_moves(self, model, ids):
         headers = {
             "invoice_name": "单据号",
             "sale_order_name": "销售合同号",
@@ -127,6 +133,9 @@ class ExcelExport(http.Controller):
                 ("Content-Type", self.content_type),
             ],
         )
+
+    def _download_purchase_payment_registr(self, model, ids):
+        ...
 
     @property
     def content_type(self):

@@ -404,3 +404,10 @@ class PurchasePaymentRegister(models.Model):
                 "reconciled_date": fields.Date.today(),
             }
         )
+
+    def action_download_xlsx(self):
+        return {
+            "type": "ir.actions.act_url",
+            "url": f'/qm/export/xlsx?model=purchase.payment.register&ids={",".join([str(rec.id) for rec in self])}',
+            "target": "self",
+        }
