@@ -62,23 +62,6 @@ class ExcelExport(http.Controller):
             "tax_classification_name": "票面简称",
         }
 
-        def _writer_row_dict(worksheet, row_index_it, data):
-            row = [data.get(k) for k in headers]
-            row_index = next(row_index_it)
-            for i, value in enumerate(row):
-                if isinstance(value, (int, float)):
-                    worksheet.write_number(row_index, i, value)
-                else:
-                    worksheet.write_string(row_index, i, value or "")
-
-        def _get_acc_number(partner):
-            if not partner.bank_ids:
-                return ""
-
-            return " ".join(
-                (partner.bank_ids[0].bank_name, partner.bank_ids[0].acc_number)
-            )
-
         def _get_sku_variant(product):
             ret = []
             for v in product.product_template_attribute_value_ids:
@@ -90,7 +73,7 @@ class ExcelExport(http.Controller):
         workbook = xlsxwriter.Workbook(output, {"in_memory": True})
         worksheet = workbook.add_worksheet()
 
-        _writer_row_dict(worksheet, row_index_it, headers)
+        self._writer_row_dict(worksheet, row_index_it, headers)
         invoice_ids = list(map(int, ids.split(",")))
         for invoice in request.env["account.move"].browse(invoice_ids):
             for line in invoice.invoice_line_ids:
@@ -111,7 +94,7 @@ class ExcelExport(http.Controller):
                             ],
                         )
                     ),
-                    "acc_number": _get_acc_number(line.partner_id),
+                    "acc_number": " ".join(self._get_acc_number(line.partner_id)),
                     "sku_code": line.product_id.code,
                     "product_name": line.product_id.product_tmpl_id.name,
                     "sku_variant": _get_sku_variant(line.product_id),
@@ -123,7 +106,7 @@ class ExcelExport(http.Controller):
                     "tax_classification_code18": line.product_id.product_tmpl_id.categ_id.tax_classification_id.code18,
                     "tax_classification_name": line.product_id.product_tmpl_id.categ_id.tax_classification_id.name,
                 }
-                _writer_row_dict(worksheet, row_index_it, row)
+                self._writer_row_dict(worksheet, row_index_it, row)
 
         workbook.close()
         return request.make_response(
@@ -134,8 +117,60 @@ class ExcelExport(http.Controller):
             ],
         )
 
+    def _writer_row_dict(self, worksheet, row_index_it, data):
+        row = [data.get(k) for k in headers]
+        row_index = next(row_index_it)
+        for i, value in enumerate(row):
+            if isinstance(value, (int, float)):
+                worksheet.write_number(row_index, i, value)
+            else:
+                worksheet.write_string(row_index, i, value or "")
+
+    def _get_acc_info(self, partner):
+        if not partner.bank_ids:
+            return ""
+
+        return (partner.bank_ids[0].bank_name, partner.bank_ids[0].acc_number)
+
     def _download_purchase_payment_registr(self, model, ids):
-        ...
+        headers = {
+            "name": "单据号",
+            "purchase_order_name": "采购合同号",
+            "partner_name": "收款公司名称",
+            "our_company_name": "我方公司名称",
+            "amount": "本次请付",
+            "payment_type": "付款方式",
+            "rest_type": "尾款方式",
+            "acc_bank": "收款公司开户行",
+            "acc_name": "账号",
+            "our_contact": "我司联系人",
+            "comment": "备注",
+        }
+
+        row_index_it = count()
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {"in_memory": True})
+        worksheet = workbook.add_worksheet()
+
+        self._writer_row_dict(worksheet, row_index_it, headers)
+        ids = list(map(int, ids.split(",")))
+        for register in request.env["purchase.payment.register"].browse(ids):
+            acc_bank, acc_name = self._get_acc_info(register.partner_id)
+
+            row = {
+                "name": register.name,
+                "purchase_order_name": register.purchase_order_id.name,
+                "partner_name": register.partner_id.account_name,
+                "our_company_name": register.company_id.name,
+                "amount": register.amount,
+                "payment_type": "",
+                # rest_type
+                "acc_bank": acc_bank,
+                "acc_number": acc_name,
+                "our_contact": "JJ",
+                "comment": "communication",
+            }
+            self._write_row_dict(worksheet, row_index_it, row)
 
     @property
     def content_type(self):
