@@ -144,7 +144,7 @@
             <button name="post" class="oe_highlight" states="draft" string="Confirm" type="object"/>
             <button name="action_draft" class="btn btn-secondary" attrs="{'invisible': [('state', '=', 'draft')]}" string="Reset To Draft" type="object"/>
             <button name="action_cancel" string="Cancel"  attrs="{'invisible': [('state', '=', 'cancel')]}" type="object"/>
-            <button name="action_return" string="Return" states="waiting,reconciled,reject" type="object"/>
+            <button name="action_return" string="Return Invoice" states="posted,waiting,reconciled,reject" type="object"/>
             <button name="action_reconcile" string="Reconcile" states="waiting" type="object"/>
             <button name="action_reject" string="Reject" states="waiting,return" type="object"/>
             <field name="state" widget="statusbar" statusbar_visible="draft,posted,waiting,reconciled,reject,return,cancelled"/>
