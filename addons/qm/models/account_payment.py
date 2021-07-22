@@ -286,7 +286,8 @@ class PurchasePaymentRegister(models.Model):
     state = fields.Selection(
         [
             ("draft", "Draft"),  # 草稿
-            ("waiting", "Waiting"),  # 待财务付款
+            ("posted", "Posted"),
+            ("waiting", "Waiting"),  # 待财务付款,已导出
             ("reconciled", "Reconciled"),  # 已付款
             ("reject", "Reject"),  # 已驳回
             ("return", "return"),  # 已退票
@@ -318,6 +319,7 @@ class PurchasePaymentRegister(models.Model):
     return_date = fields.Date(
         string="Return Date", index=True, readonly=True, tracking=True
     )
+    export_times = fields.Integer(string="Export Times", tracking=True, default=0)
 
     def name_get(self):
         return [(x.id, x.name or _("Draft Payment Register")) for x in self]
@@ -368,7 +370,7 @@ class PurchasePaymentRegister(models.Model):
 
         self.filtered(lambda x: x.state == "draft").write(
             {
-                "state": "waiting",
+                "state": "posted",
                 "confirm_by": self.env.user.id,
                 "confirm_date": fields.Date.today(),
             }
