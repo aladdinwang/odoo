@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-22 08:51+0000\n"
-"PO-Revision-Date: 2021-07-22 08:51+0000\n"
+"POT-Creation-Date: 2021-07-22 09:03+0000\n"
+"PO-Revision-Date: 2021-07-22 09:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1732,7 +1732,6 @@ msgstr "责任用户"
 #: model:ir.model.fields.selection,name:qm.selection__account_sale_invoice__state__return
 #: model_terms:ir.ui.view,arch_db:qm.view_account_sale_invoice_form_qm
 #: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_filter
-#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
 msgid "Return"
 msgstr "已退回"
 
@@ -1755,6 +1754,11 @@ msgstr "退回日期"
 #: model_terms:ir.ui.view,arch_db:qm.sale_rma_form
 msgid "Return Exchange Lines"
 msgstr "换货明细"
+
+#. module: qm
+#: model_terms:ir.ui.view,arch_db:qm.view_purchase_payment_register_form
+msgid "Return Invoice"
+msgstr "退票"
 
 #. module: qm
 #: model:ir.model.fields,field_description:qm.field_sale_rma__return_line_ids
